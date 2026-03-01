@@ -1,216 +1,239 @@
 <!DOCTYPE html>
 <html lang="sr">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Исидора & Ђорђе | 19.09.2026.</title>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Montserrat:wght@300;400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Montserrat:wght@300;400&display=swap" rel="stylesheet" />
 <style>
-/* Општа тела и фон */
-body {
-  margin:0;
-  font-family: 'Montserrat', sans-serif;
-  color:#2b2b2b;
-  background: #f9f7f3;
-  background-image: radial-gradient(rgba(184,155,94,0.05) 1px, transparent 1px);
-  background-size: 20px 20px;
-  scroll-behavior: smooth;
-}
-
-/* Монограм */
-.monogram {
-  font-family:'Cormorant Garamond', serif;
-  font-size:64px;
-  color:#b89b5e;
-  text-align:center;
-  letter-spacing:12px;
-  opacity:0.9;
-  text-shadow:1px 1px 3px rgba(184,155,94,0.3);
-  margin:40px 0 10px 0;
-  user-select:none;
-}
-
-/* Наслов */
-.hero h1 {
-  font-family:'Cormorant Garamond', serif;
-  font-size:36px;
-  text-align:center;
-  margin:0;
-}
-
-.hero p {
-  text-align:center;
-  font-size:18px;
-  margin-top:10px;
-}
-
-/* Countdown - само дани */
-.countdown {
-  display:flex;
-  justify-content:center;
-  margin:20px 0;
-  font-size:20px;
-}
-.countdown div {margin:0 15px; text-align:center; font-weight:600; color:#b89b5e;}
-
-/* Timeline */
-.timeline {
-  max-width:600px;
-  margin:50px auto;
-  border-left:1px solid #b89b5e;
-  padding-left:40px;
-  position:relative;
-}
-.timeline::before {
-  content:'И Ђ';
-  position:absolute; left:0; top:50%;
-  transform:translateY(-50%) rotate(-90deg);
-  font-family:'Cormorant Garamond', serif;
-  font-size:48px;
-  color: rgba(184,155,94,0.1);
-  user-select:none;
-}
-.timeline-item {margin-bottom:30px; display:flex; align-items:center; gap:12px;}
-.timeline-icon {width:30px; height:30px; opacity:0.8;}
-
-/* Галерија */
-.gallery {
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-  gap:20px;
-  max-width:1000px;
-  margin:50px auto;
-}
-.gallery img {
-  width:100%;
-  height:300px;
-  object-fit:cover;
-  border-radius:8px;
-  transition: transform 0.6s ease, opacity 0.6s ease;
-}
-.gallery img:hover {
-  transform:scale(1.05);
-  opacity:0.85;
-}
-
-/* Google Forms iframe */
-.rsvp-container {
-  max-width:600px;
-  margin:50px auto;
-  padding:20px;
-  border-radius:10px;
-  background: rgba(184,155,94,0.05);
-  box-shadow:0 0 10px rgba(0,0,0,0.05);
-}
-
-/* Mobilna prilagodljivost */
-@media(max-width:600px){
-  .timeline {padding-left:20px;}
-  .timeline-icon {width:24px; height:24px;}
-  .monogram {font-size:48px; letter-spacing:8px;}
-  .hero h1 {font-size:28px;}
-  .countdown {flex-direction:column;}
-  .countdown div {margin:10px 0;}
-}
-
-/* Naslovi sekcija */
-section h2 {
-  font-family:'Cormorant Garamond', serif;
-  text-align:center;
-  color:#b89b5e;
-  margin-bottom:30px;
-}
+  body {
+    margin: 0;
+    font-family: 'Montserrat', sans-serif;
+    color: #2b2b2b;
+    background: 
+      linear-gradient(rgba(249,247,243,0.85), rgba(249,247,243,0.85)),
+      url('https://i.imgur.com/bVITNX3.jpg') no-repeat center center fixed;
+    background-size: cover;
+    scroll-behavior: smooth;
+  }
+  .monogram {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 64px;
+    color: #b89b5e;
+    text-align: center;
+    letter-spacing: 12px;
+    opacity: 0.9;
+    text-shadow: 1px 1px 3px rgba(184,155,94,0.3);
+    margin: 40px 0 10px 0;
+    user-select: none;
+  }
+  .hero h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 36px;
+    text-align: center;
+    margin: 0;
+  }
+  .hero p {
+    text-align: center;
+    font-size: 18px;
+    margin-top: 10px;
+  }
+  .countdown {
+    display: flex;
+    justify-content: center;
+    margin: 20px 0;
+    font-size: 20px;
+  }
+  .countdown div {
+    margin: 0 15px;
+    text-align: center;
+    font-weight: 600;
+    color: #b89b5e;
+  }
+  .timeline {
+    max-width: 600px;
+    margin: 50px auto;
+    border-left: 1px solid #b89b5e;
+    padding-left: 40px;
+    position: relative;
+  }
+  .timeline::before {
+    content: 'И Ђ';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%) rotate(-90deg);
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 48px;
+    color: rgba(184, 155, 94, 0.1);
+    user-select: none;
+  }
+  .timeline-item {
+    margin-bottom: 30px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 18px;
+  }
+  .timeline-icon {
+    width: 30px;
+    height: 30px;
+    opacity: 0.8;
+    flex-shrink: 0;
+    stroke: #b89b5e;
+    stroke-width: 2;
+    fill: none;
+  }
+  .gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    max-width: 1000px;
+    margin: 50px auto;
+  }
+  .gallery img {
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+    border-radius: 8px;
+    transition: transform 0.6s ease, opacity 0.6s ease;
+  }
+  .gallery img:hover,
+  .gallery img:focus {
+    transform: scale(1.05);
+    opacity: 0.85;
+  }
+  .rsvp-container {
+    max-width: 600px;
+    margin: 50px auto 80px auto;
+    padding: 20px;
+    border-radius: 10px;
+    background: rgba(184, 155, 94, 0.05);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+  }
+  @media (max-width: 600px) {
+    .timeline {
+      padding-left: 20px;
+    }
+    .timeline-icon {
+      width: 24px;
+      height: 24px;
+    }
+    .monogram {
+      font-size: 48px;
+      letter-spacing: 8px;
+    }
+    .hero h1 {
+      font-size: 28px;
+    }
+    .countdown {
+      flex-direction: column;
+    }
+    .countdown div {
+      margin: 10px 0;
+    }
+  }
+  section h2 {
+    font-family: 'Cormorant Garamond', serif;
+    text-align: center;
+    color: #b89b5e;
+    margin-bottom: 30px;
+  }
 </style>
 </head>
 <body>
 
-<div class="monogram">И Ђ</div>
+  <div class="monogram">И Ђ</div>
 
-<section class="hero">
-  <h1>Исидора & Ђорђе</h1>
-  <p>19. септембар 2026. | Крагујевац</p>
-  <div class="countdown">
-    <div><span id="days"></span><br>ДАНА</div>
-  </div>
-</section>
-
-<section>
-  <h2>Сатница дана</h2>
-  <div class="timeline">
-    <!-- 10:00 Мirković -->
-    <div class="timeline-item">
-      <svg class="timeline-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
-        <path d="M32 12 L2 36 H14 V62 H26 V46 H38 V62 H50 V36 H62 Z" stroke="#b89b5e" stroke-width="2" fill="none"/>
-      </svg>
-      <strong>10:00ч</strong> – Скуп сватова у дому породице Мирковић
+  <section class="hero">
+    <h1>Исидора & Ђорђе</h1>
+    <p>19. септембар 2026. | Крагујевац</p>
+    <div class="countdown">
+      <div><span id="days"></span><br />ДАНА</div>
     </div>
-    <!-- 11:00 Topalović -->
-    <div class="timeline-item">
-      <svg class="timeline-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
-        <path d="M32 12 L2 36 H14 V62 H26 V46 H38 V62 H50 V36 H62 Z" stroke="#b89b5e" stroke-width="2" fill="none"/>
-      </svg>
-      <strong>11:00ч</strong> – Скуп сватова у дому породице Топаловић
+  </section>
+
+  <section>
+    <h2>Сатница дана</h2>
+    <div class="timeline">
+      <div class="timeline-item">
+        <svg class="timeline-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+          <path d="M32 12 L2 36 H14 V62 H26 V46 H38 V62 H50 V36 H62 Z" />
+        </svg>
+        10:00ч - Скуп сватова у дому породице Мирковић
+      </div>
+      <div class="timeline-item">
+        <svg class="timeline-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+          <path d="M32 12 L2 36 H14 V62 H26 V46 H38 V62 H50 V36 H62 Z" />
+        </svg>
+        11:00ч - Скуп сватова у дому породице Топаловић
+      </div>
+      <div class="timeline-item">
+        <svg class="timeline-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+          <path d="M32 2 L22 12 H26 V28 H38 V12 H42 L32 2 Z" />
+          <rect x="26" y="28" width="12" height="34" />
+        </svg>
+        13:30ч - Црквено венчање у храму Свете Тројице (Стара црква)
+      </div>
+      <div class="timeline-item">
+        <svg class="timeline-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+          <rect x="8" y="28" width="48" height="12" />
+          <line x1="16" y1="40" x2="16" y2="56" />
+          <line x1="48" y1="40" x2="48" y2="56" />
+        </svg>
+        16:00 - Woodland resort - свечани ручак
+      </div>
+      <div class="timeline-item">
+        <svg class="timeline-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+          <circle cx="24" cy="32" r="12" />
+          <circle cx="40" cy="32" r="12" />
+          <circle cx="40" cy="32" r="4" />
+        </svg>
+        17:30 - Грађанско венчање
+      </div>
     </div>
-    <!-- 13:30 Crkva -->
-    <div class="timeline-item">
-      <svg class="timeline-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
-        <path d="M32 2 L22 12 H26 V28 H38 V12 H42 L32 2 Z" stroke="#b89b5e" stroke-width="2" fill="none"/>
-        <rect x="26" y="28" width="12" height="34" stroke="#b89b5e" stroke-width="2" fill="none"/>
-      </svg>
-      <strong>13:30ч</strong> – Црквено венчање у храму Свете Тројице (Стара црква)
+  </section>
+
+  <section>
+    <h2>Локација</h2>
+    <iframe 
+      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2726.5296178262283!2d20.869362486083254!3d44.032578696535644!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47572155400bb7b9%3A0x720f0e82bab8e50d!2sWoodland%20Resort!5e1!3m2!1ssr!2srs!4v1772376813644!5m2!1ssr!2srs" 
+      width="100%" 
+      height="450" 
+      style="border:0; border-radius:8px;" 
+      allowfullscreen="" 
+      loading="lazy" 
+      referrerpolicy="no-referrer-when-downgrade">
+    </iframe>
+  </section>
+
+  <section class="alt-section">
+    <h2>Галерија</h2>
+    <div class="gallery">
+      <img src="image1.jpg" alt="Фотографија 1" />
+      <img src="image2.jpg" alt="Фотографија 2" />
+      <img src="image3.jpg" alt="Фотографија 3" />
+      <img src="image5.jpg" alt="Фотографија 5" />
     </div>
-    <!-- 16:00 Ručak -->
-    <div class="timeline-item">
-      <svg class="timeline-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
-        <rect x="8" y="28" width="48" height="12" stroke="#b89b5e" stroke-width="2" fill="none"/>
-        <line x1="16" y1="40" x2="16" y2="56" stroke="#b89b5e" stroke-width="2"/>
-        <line x1="48" y1="40" x2="48" y2="56" stroke="#b89b5e" stroke-width="2"/>
-      </svg>
-      <strong>16:00ч</strong> – Woodland Resort (мала сала) - свечани ручак
+  </section>
+
+  <section>
+    <h2>RSVP</h2>
+    <div class="rsvp-container">
+      <iframe src="https://forms.gle/59r3mXtWMeKZmCg29" width="100%" height="600" frameborder="0" marginheight="0" marginwidth="0" style="border:none;">Учитавање…</iframe>
     </div>
-    <!-- 17:30 Građansko -->
-    <div class="timeline-item">
-      <svg class="timeline-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
-        <circle cx="24" cy="32" r="12" stroke="#b89b5e" stroke-width="2" fill="none"/>
-        <circle cx="40" cy="32" r="12" stroke="#b89b5e" stroke-width="2" fill="none"/>
-        <circle cx="40" cy="32" r="4" stroke="#b89b5e" stroke-width="2" fill="none"/>
-      </svg>
-      <strong>17:30ч</strong> – Грађанско венчање
-    </div>
-  </div>
-</section>
+  </section>
 
-<section class="alt-section">
-  <h2>Галерија</h2>
-  <div class="gallery">
-    <img src="image1.jpg" alt="Фотографија 1">
-    <img src="image2.jpg" alt="Фотографија 2">
-    <img src="image3.jpg" alt="Фотографија 3">
-    <img src="image5.jpg" alt="Фотографија 5">
-  </div>
-</section>
-
-<section>
-  <h2>RSVP</h2>
-  <div class="rsvp-container">
-    <iframe src="https://forms.gle/59r3mXtWMeKZmCg29" width="100%" height="500" frameborder="0" marginheight="0" marginwidth="0">Учитавање…</iframe>
-  </div>
-</section>
-
-<script>
-// Countdown za dane
-const countDownDate = new Date('Sep 19, 2026 00:00:00').getTime();
-const daysSpan = document.getElementById('days');
-setInterval(() => {
-  const now = new Date().getTime();
-  const distance = countDownDate - now;
-  const days = Math.max(Math.floor(distance/(1000*60*60*24)),0);
-  daysSpan.innerText = days;
-},1000);
-</script>
-
-</body>
-</html>
-
+  <script>
+    // Countdown за дане
+    const countDownDate = new Date('Sep 19, 2026 00:00:00').getTime();
+    const daysSpan = document.getElementById('days');
+    setInterval(() => {
+      const now = new Date().getTime();
+      const distance = countDownDate - now;
+      const days = Math.max(Math.floor(distance / (1000 * 60 * 60 * 24)), 0);
+      daysSpan.innerText = days;
+    }, 1000);
+  </script>
 </body>
 </html>
