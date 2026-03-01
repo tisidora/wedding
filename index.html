@@ -6,159 +6,159 @@
 <title>Исидора & Ђорђе | 19.09.2026.</title>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Montserrat:wght@300;400&display=swap" rel="stylesheet">
 <style>
+/* Општа тела и фон */
 body {
-  margin: 0;
+  margin:0;
   font-family: 'Montserrat', sans-serif;
+  color:#2b2b2b;
   background: #f9f7f3;
-  color: #2b2b2b;
+  background-image: radial-gradient(rgba(184,155,94,0.05) 1px, transparent 1px);
+  background-size: 20px 20px;
   scroll-behavior: smooth;
 }
 
-/* Welcome animation */
-#welcomeScreen {
-  position: fixed;
-  top:0; left:0;
-  width:100%; height:100%;
-  background:#f3efe8;
-  display:flex; justify-content:center; align-items:center;
+/* Монограм */
+.monogram {
   font-family:'Cormorant Garamond', serif;
-  font-size:48px; color:#b89b5e;
-  z-index:1000; user-select:none;
-  animation:fadeOut 4s ease forwards;
-  animation-delay:2s;
-}
-@keyframes fadeOut {
-  to {opacity:0; visibility:hidden; pointer-events:none;}
+  font-size:64px;
+  color:#b89b5e;
+  text-align:center;
+  letter-spacing:12px;
+  opacity:0.9;
+  text-shadow:1px 1px 3px rgba(184,155,94,0.3);
+  margin:40px 0 10px 0;
+  user-select:none;
 }
 
-/* Sections */
-section {
-  padding:100px 20px;
-  opacity:0;
-  transform:translateY(40px);
-  transition: all 1s ease;
-  position:relative;
-}
-section.visible {opacity:1; transform:translateY(0);}
-.hero {
-  background: linear-gradient(rgba(243,239,232,0.6), rgba(243,239,232,0.6)), url('image1.jpg') center/cover no-repeat;
-  text-align:center;
-  color:#2b2b2b;
-}
-h1 {
+/* Наслов */
+.hero h1 {
   font-family:'Cormorant Garamond', serif;
-  font-size:52px;
-  letter-spacing:2px;
+  font-size:36px;
+  text-align:center;
   margin:0;
 }
-.gold {color:#b89b5e;}
-.divider {width:80px; height:1px; background:#b89b5e; margin:25px auto;}
 
-/* Countdown */
-.countdown {display:flex; justify-content:center; gap:40px; margin-top:30px; font-size:18px;}
-.countdown div{text-align:center;}
+.hero p {
+  text-align:center;
+  font-size:18px;
+  margin-top:10px;
+}
+
+/* Countdown - само дани */
+.countdown {
+  display:flex;
+  justify-content:center;
+  margin:20px 0;
+  font-size:20px;
+}
+.countdown div {margin:0 15px; text-align:center; font-weight:600; color:#b89b5e;}
 
 /* Timeline */
 .timeline {
   max-width:600px;
-  margin:0 auto;
+  margin:50px auto;
   border-left:1px solid #b89b5e;
   padding-left:40px;
   position:relative;
-  font-size:18px;
-  line-height:1.6;
 }
 .timeline::before {
-  content: 'ИТ & ЂМ';
+  content:'И Ђ';
   position:absolute; left:0; top:50%;
   transform:translateY(-50%) rotate(-90deg);
   font-family:'Cormorant Garamond', serif;
   font-size:48px;
-  font-weight:600;
   color: rgba(184,155,94,0.1);
   user-select:none;
-  pointer-events:none;
 }
 .timeline-item {margin-bottom:30px; display:flex; align-items:center; gap:12px;}
-.timeline-icon {width:30px; height:30px; opacity:0.7;}
+.timeline-icon {width:30px; height:30px; opacity:0.8;}
 
-/* Gallery */
-.gallery {display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:20px; max-width:1000px; margin:50px auto 0;}
-.gallery img {width:100%; height:320px; object-fit:cover; transition: transform 0.6s ease, opacity 0.6s ease; border-radius:8px;}
-.gallery img:hover {transform:scale(1.05); opacity:0.85;}
-
-/* Alternate section background */
-.alt-section {background:#efeae2;}
-
-/* RSVP form */
-form {max-width:500px; margin:0 auto; text-align:left;}
-label {display:block; margin-bottom:6px; font-weight:600; color:#b89b5e;}
-input[type="text"], input[type="number"], select, textarea {
-  width:100%; padding:10px 12px; margin-bottom:20px;
-  border:1px solid #b89b5e; border-radius:6px; font-family:'Montserrat',sans-serif; font-size:16px;
-  resize:vertical;
+/* Галерија */
+.gallery {
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+  gap:20px;
+  max-width:1000px;
+  margin:50px auto;
 }
-textarea {min-height:80px;}
-button[type="submit"] {
-  background:#b89b5e; color:white; border:none; border-radius:30px; padding:12px 32px;
-  cursor:pointer; font-weight:700; font-size:16px; transition:background 0.3s;
+.gallery img {
+  width:100%;
+  height:300px;
+  object-fit:cover;
+  border-radius:8px;
+  transition: transform 0.6s ease, opacity 0.6s ease;
 }
-button[type="submit"]:hover {background:#9c7c3d;}
-#successMessage {display:none; max-width:500px; margin:20px auto 0; padding:15px 20px; background:#dff0d8; border:1px solid #a2c38b; color:#3c763d; border-radius:6px; font-weight:600;}
+.gallery img:hover {
+  transform:scale(1.05);
+  opacity:0.85;
+}
 
-/* Music button */
-.music-btn {position:fixed; bottom:25px; right:25px; background:#b89b5e; color:white; border:none; border-radius:50px; padding:12px 20px; cursor:pointer; z-index:999; font-weight:600;}
+/* Google Forms iframe */
+.rsvp-container {
+  max-width:600px;
+  margin:50px auto;
+  padding:20px;
+  border-radius:10px;
+  background: rgba(184,155,94,0.05);
+  box-shadow:0 0 10px rgba(0,0,0,0.05);
+}
 
-/* Footer */
-footer {padding:60px 20px; font-size:14px; background:#f3efe8; text-align:center;}
+/* Mobilna prilagodljivost */
+@media(max-width:600px){
+  .timeline {padding-left:20px;}
+  .timeline-icon {width:24px; height:24px;}
+  .monogram {font-size:48px; letter-spacing:8px;}
+  .hero h1 {font-size:28px;}
+  .countdown {flex-direction:column;}
+  .countdown div {margin:10px 0;}
+}
+
+/* Naslovi sekcija */
+section h2 {
+  font-family:'Cormorant Garamond', serif;
+  text-align:center;
+  color:#b89b5e;
+  margin-bottom:30px;
+}
 </style>
 </head>
 <body>
 
-<div id="welcomeScreen">Добро дошли на наше венчање 🤍</div>
+<div class="monogram">И Ђ</div>
 
 <section class="hero">
-  <h1>Исидора Топаловић<br>&<br>Ђорђе Мирковић</h1>
-  <div class="divider"></div>
+  <h1>Исидора & Ђорђе</h1>
   <p>19. септембар 2026. | Крагујевац</p>
-
   <div class="countdown">
     <div><span id="days"></span><br>ДАНА</div>
-    <div><span id="hours"></span><br>САТИ</div>
-    <div><span id="minutes"></span><br>МИНУТА</div>
-    <div><span id="seconds"></span><br>СЕКУНДИ</div>
   </div>
 </section>
 
 <section>
-  <h2 class="gold" style="text-align:center;">Сатница дана</h2>
+  <h2>Сатница дана</h2>
   <div class="timeline">
-
     <!-- 10:00 Мirković -->
     <div class="timeline-item">
       <svg class="timeline-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
         <path d="M32 12 L2 36 H14 V62 H26 V46 H38 V62 H50 V36 H62 Z" stroke="#b89b5e" stroke-width="2" fill="none"/>
       </svg>
-      <strong>10:00ч</strong> – Скуп сватова у дому породице Мирковић
+      <strong>10:00ч</strong> – Дом породице Мирковић
     </div>
-
     <!-- 11:00 Topalović -->
     <div class="timeline-item">
       <svg class="timeline-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
         <path d="M32 12 L2 36 H14 V62 H26 V46 H38 V62 H50 V36 H62 Z" stroke="#b89b5e" stroke-width="2" fill="none"/>
       </svg>
-      <strong>11:00ч</strong> – Скуп сватова у дому породице Топаловић
+      <strong>11:00ч</strong> – Дом породице Топаловић
     </div>
-
     <!-- 13:30 Crkva -->
     <div class="timeline-item">
       <svg class="timeline-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
         <path d="M32 2 L22 12 H26 V28 H38 V12 H42 L32 2 Z" stroke="#b89b5e" stroke-width="2" fill="none"/>
         <rect x="26" y="28" width="12" height="34" stroke="#b89b5e" stroke-width="2" fill="none"/>
       </svg>
-      <strong>13:30ч</strong> – Црквено Венчање у храму Свете Тројице (Стара црква)
+      <strong>13:30ч</strong> – Храм Свете Тројице (Стара црква)
     </div>
-
     <!-- 16:00 Ručak -->
     <div class="timeline-item">
       <svg class="timeline-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
@@ -166,9 +166,8 @@ footer {padding:60px 20px; font-size:14px; background:#f3efe8; text-align:center
         <line x1="16" y1="40" x2="16" y2="56" stroke="#b89b5e" stroke-width="2"/>
         <line x1="48" y1="40" x2="48" y2="56" stroke="#b89b5e" stroke-width="2"/>
       </svg>
-      <strong>16:00ч</strong> – Woodland Resort (мала сала) - свечани ручак
+      <strong>16:00ч</strong> – Woodland Resort (мала сала)
     </div>
-
     <!-- 17:30 Građansko -->
     <div class="timeline-item">
       <svg class="timeline-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
@@ -178,12 +177,11 @@ footer {padding:60px 20px; font-size:14px; background:#f3efe8; text-align:center
       </svg>
       <strong>17:30ч</strong> – Грађанско венчање
     </div>
-
   </div>
 </section>
 
 <section class="alt-section">
-  <h2 class="gold" style="text-align:center;">Галерија</h2>
+  <h2>Галерија</h2>
   <div class="gallery">
     <img src="image1.jpg" alt="Фотографија 1">
     <img src="image2.jpg" alt="Фотографија 2">
@@ -193,87 +191,26 @@ footer {padding:60px 20px; font-size:14px; background:#f3efe8; text-align:center
 </section>
 
 <section>
-  <h2 class="gold" style="text-align:center;">Локација</h2>
-  <iframe src="https://www.google.com/maps?q=Woodland+Resort+Kragujevac&output=embed" allowfullscreen="" loading="lazy"></iframe>
+  <h2>RSVP</h2>
+  <div class="rsvp-container">
+    <iframe src="https://forms.gle/59r3mXtWMeKZmCg29" width="100%" height="500" frameborder="0" marginheight="0" marginwidth="0">Учитавање…</iframe>
+  </div>
 </section>
-
-<section>
-  <h2 class="gold" style="text-align:center;">RSVP</h2>
-  <form id="rsvpForm">
-    <label for="name">Име и презиме *</label>
-    <input type="text" id="name" name="name" required placeholder="Унесите име и презиме">
-
-    <label for="attending">Да ли долазите? *</label>
-    <select id="attending" name="attending" required>
-      <option value="">Изаберите</option>
-      <option value="Да">Да</option>
-      <option value="Не">Не</option>
-    </select>
-
-    <label for="guests">Број особа *</label>
-    <input type="number" id="guests" name="guests" min="1" required placeholder="Унесите укупан број особа">
-
-    <label for="notes">Напомена (опционо)</label>
-    <textarea id="notes" name="notes" placeholder="Нпр. посебне исхране, жеље..."></textarea>
-
-    <button type="submit">Пошаљи</button>
-  </form>
-  <div id="successMessage">Хвала што сте нам потврдили долазак! Радујемо се што ћемо вас видети.</div>
-</section>
-
-<footer>
-  Са љубављу 🤍<br>
-  Исидора & Ђорђе
-</footer>
-
-<audio id="bgMusic" loop playsinline>
-  <source src="https://cdn.pixabay.com/audio/2022/03/15/audio_5c2e6e0c2b.mp3" type="audio/mpeg">
-</audio>
-<button class="music-btn" onclick="toggleMusic()">♫ Музика</button>
 
 <script>
-// Welcome fadeout
-window.addEventListener('load', () => {
-  const welcome = document.getElementById('welcomeScreen');
-  setTimeout(() => { welcome.style.opacity='0'; setTimeout(()=>{welcome.style.display='none';},1000);},3000);
-});
-
-// Music toggle
-function toggleMusic(){
-  const music = document.getElementById('bgMusic');
-  music.play().catch(()=>alert("Притисните дугме поново да бисте укључили музику на мобилном."));
-}
-
-// Countdown
+// Countdown za dane
 const countDownDate = new Date('Sep 19, 2026 00:00:00').getTime();
-setInterval(()=>{
+const daysSpan = document.getElementById('days');
+setInterval(() => {
   const now = new Date().getTime();
   const distance = countDownDate - now;
-  document.getElementById('days').innerText=Math.floor(distance/(1000*60*60*24));
-  document.getElementById('hours').innerText=Math.floor((distance%(1000*60*60*24))/(1000*60*60));
-  document.getElementById('minutes').innerText=Math.floor((distance%(1000*60*60))/(1000*60));
-  document.getElementById('seconds').innerText=Math.floor((distance%(1000*60))/1000);
+  const days = Math.max(Math.floor(distance/(1000*60*60*24)),0);
+  daysSpan.innerText = days;
 },1000);
-
-// Scroll animations
-const sections = document.querySelectorAll('section');
-window.addEventListener('scroll', ()=>{
-  sections.forEach(sec=>{
-    const top=window.scrollY, offset=sec.offsetTop-500;
-    if(top>offset) sec.classList.add('visible');
-  });
-});
-
-// RSVP form
-const form = document.getElementById('rsvpForm');
-const successMessage = document.getElementById('successMessage');
-form.addEventListener('submit', (e)=>{
-  e.preventDefault();
-  successMessage.style.display='block';
-  form.reset();
-  successMessage.scrollIntoView({behavior:'smooth'});
-});
 </script>
+
+</body>
+</html>
 
 </body>
 </html>
