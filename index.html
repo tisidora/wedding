@@ -3,46 +3,42 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Исидора & Ђорђе | 19.09.2026.</title>
+<title>Исидора & Ђорђе</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600&family=Montserrat:wght@300;400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
 
 <style>
 
-/* ====== ОСНОВА ====== */
+/* ================= GLOBAL ================= */
 
 body{
   margin:0;
   font-family:'Montserrat', sans-serif;
   color:#2b2b2b;
   background:
-    radial-gradient(circle at 20% 20%, rgba(184,155,94,0.07) 0%, transparent 40%),
-    radial-gradient(circle at 80% 80%, rgba(184,155,94,0.07) 0%, transparent 40%),
-    #f9f7f3;
-  line-height:1.6;
+    radial-gradient(circle at 10% 20%, rgba(184,155,94,0.15), transparent 40%),
+    radial-gradient(circle at 90% 80%, rgba(184,155,94,0.1), transparent 40%),
+    linear-gradient(to bottom, #f8f5ef, #f2ece3);
+  overflow-x:hidden;
 }
 
 section{
-  padding:80px 20px;
+  padding:100px 20px;
+  position:relative;
+}
+
+.container{
   max-width:1100px;
   margin:auto;
 }
 
-h2{
-  font-family:'Cormorant Garamond', serif;
-  text-align:center;
-  color:#b89b5e;
-  font-size:34px;
-  margin-bottom:50px;
-}
-
-/* ====== HERO BANER ====== */
+/* ================= HERO ================= */
 
 .hero{
-  height:90vh;
+  height:100vh;
   background:
-    linear-gradient(rgba(0,0,0,0.35), rgba(0,0,0,0.35)),
-    url('hero.jpg') center/cover no-repeat;
+    linear-gradient(rgba(0,0,0,0.55),rgba(0,0,0,0.55)),
+    url('images/hero.jpg') center/cover no-repeat;
   display:flex;
   flex-direction:column;
   justify-content:center;
@@ -52,107 +48,149 @@ h2{
 }
 
 .monogram{
-  font-family:'Cormorant Garamond', serif;
-  font-size:72px;
-  letter-spacing:12px;
+  font-family:'Playfair Display', serif;
+  font-size:90px;
+  letter-spacing:18px;
   margin-bottom:20px;
+  color:#e6c98d;
 }
 
 .hero h1{
-  font-family:'Cormorant Garamond', serif;
-  font-size:42px;
+  font-family:'Playfair Display', serif;
+  font-size:48px;
   margin:0;
 }
 
 .hero p{
+  letter-spacing:3px;
   margin-top:10px;
   font-size:18px;
-  letter-spacing:2px;
 }
-
-/* ====== COUNTDOWN ====== */
 
 .countdown{
-  margin-top:30px;
+  margin-top:40px;
   font-size:22px;
-  font-weight:600;
-  color:#b89b5e;
+  color:#e6c98d;
 }
 
-/* ====== TIMELINE ====== */
+/* ================= HEADINGS ================= */
+
+h2{
+  text-align:center;
+  font-family:'Playfair Display', serif;
+  font-size:40px;
+  color:#b89b5e;
+  margin-bottom:70px;
+  position:relative;
+}
+
+h2:after{
+  content:"";
+  width:120px;
+  height:2px;
+  background:linear-gradient(to right, transparent, #b89b5e, transparent);
+  display:block;
+  margin:20px auto 0;
+}
+
+/* ================= GLASS CARD ================= */
+
+.glass{
+  background:rgba(255,255,255,0.7);
+  backdrop-filter:blur(10px);
+  border-radius:20px;
+  padding:60px;
+  box-shadow:0 15px 50px rgba(0,0,0,0.07);
+}
+
+/* ================= TIMELINE ================= */
 
 .timeline{
-  border-left:1px solid #b89b5e;
-  padding-left:40px;
+  position:relative;
+  padding-left:50px;
+}
+
+.timeline:before{
+  content:"";
+  position:absolute;
+  left:20px;
+  top:0;
+  bottom:0;
+  width:2px;
+  background:#d6b77a;
 }
 
 .timeline-item{
   display:flex;
   align-items:center;
-  margin-bottom:35px;
+  margin-bottom:45px;
   font-size:18px;
 }
 
 .timeline-item img{
-  width:28px;
-  margin-right:15px;
+  width:34px;
+  margin-right:18px;
 }
 
-/* ====== GALERIJA ====== */
+/* ================= GALLERY ================= */
 
 .gallery{
   display:grid;
   grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-  gap:25px;
+  gap:30px;
 }
 
 .gallery img{
   width:100%;
-  height:320px;
+  height:340px;
   object-fit:cover;
-  border-radius:10px;
-  transition:0.5s;
+  border-radius:18px;
+  transition:0.6s ease;
+  box-shadow:0 10px 30px rgba(0,0,0,0.1);
 }
 
 .gallery img:hover{
-  transform:scale(1.05);
+  transform:scale(1.08);
 }
 
-/* ====== MAPA ====== */
+/* ================= MAP ================= */
 
 .map iframe{
   width:100%;
-  height:450px;
+  height:500px;
   border:0;
-  border-radius:10px;
+  border-radius:20px;
+  box-shadow:0 10px 30px rgba(0,0,0,0.1);
 }
 
-/* ====== RSVP ====== */
-
-.rsvp{
-  background:rgba(184,155,94,0.07);
-  padding:40px;
-  border-radius:12px;
-}
+/* ================= RSVP ================= */
 
 .rsvp iframe{
   width:100%;
-  height:600px;
+  height:650px;
   border:none;
+  border-radius:15px;
 }
 
-/* ====== MOBILNI ====== */
+/* ================= FOOTER ================= */
+
+footer{
+  text-align:center;
+  padding:50px 20px;
+  background:#efe7db;
+  font-family:'Playfair Display', serif;
+  font-size:20px;
+  color:#b89b5e;
+}
+
+/* ================= MOBILE ================= */
 
 @media(max-width:768px){
-  .hero{
-    height:80vh;
-  }
-  .monogram{
-    font-size:48px;
-  }
-  .hero h1{
-    font-size:30px;
-  }
+
+  .hero h1{font-size:32px;}
+  .monogram{font-size:60px;}
+  .glass{padding:30px;}
+  .gallery img{height:260px;}
 }
 
 </style>
@@ -171,7 +209,9 @@ h2{
 
 <!-- SATNICA -->
 <section>
+<div class="container glass">
 <h2>Сатница дана</h2>
+
 <div class="timeline">
 
 <div class="timeline-item">
@@ -190,7 +230,7 @@ h2{
 </div>
 
 <div class="timeline-item">
-<img src="icons/lunch.png">
+<img src="icons/wedding-cake.png">
 16:00 - Woodland resort - свечани ручак
 </div>
 
@@ -200,36 +240,45 @@ h2{
 </div>
 
 </div>
+</div>
 </section>
 
-<!-- MAPA -->
-<section class="map">
+<!-- MAP -->
+<section>
+<div class="container glass">
 <h2>Локација</h2>
-<iframe 
-src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2726.5296178262283!2d20.869362486083254!3d44.032578696535644!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47572155400bb7b9%3A0x720f0e82bab8e50d!2sWoodland%20Resort!5e1!3m2!1ssr!2srs!4v1772376813644!5m2!1ssr!2srs"
-allowfullscreen=""
-loading="lazy">
-</iframe>
+<div class="map">
+<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2726.5296178262283!2d20.869362486083254!3d44.032578696535644!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47572155400bb7b9%3A0x720f0e82bab8e50d!2sWoodland%20Resort!5e1!3m2!1ssr!2srs!4v1772376813644!5m2!1ssr!2srs"></iframe>
+</div>
+</div>
 </section>
 
 <!-- GALERIJA -->
 <section>
+<div class="container">
 <h2>Галерија</h2>
 <div class="gallery">
-<img src="image1.jpg">
-<img src="image2.jpg">
-<img src="image3.jpg">
-<img src="image5.jpg">
+<img src="images/image1.jpg">
+<img src="images/image2.jpg">
+<img src="images/image3.jpg">
+<img src="images/image5.jpg">
+</div>
 </div>
 </section>
 
 <!-- RSVP -->
 <section>
-<h2>RSVP</h2>
+<div class="container glass">
+<h2>Потврда доласка</h2>
 <div class="rsvp">
 <iframe src="https://forms.gle/59r3mXtWMeKZmCg29"></iframe>
 </div>
+</div>
 </section>
+
+<footer>
+И & Ђ • 2026
+</footer>
 
 <script>
 const countDownDate = new Date("Sep 19, 2026 00:00:00").getTime();
