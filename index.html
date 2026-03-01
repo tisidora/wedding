@@ -1,224 +1,412 @@
 <!DOCTYPE html>
 <html lang="sr">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Исидора & Ђорђе | 19.09.2026.</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Montserrat:wght@300;400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Montserrat:wght@300;400&display=swap" rel="stylesheet" />
 
 <style>
-body{
-margin:0;
-font-family:'Montserrat',sans-serif;
-background:#f9f7f3;
-color:#2b2b2b;
-scroll-behavior:smooth;
-}
-
-section{
-padding:100px 20px;
-opacity:0;
-transform:translateY(40px);
-transition:all 1s ease;
-}
-
-section.visible{
-opacity:1;
-transform:translateY(0);
-}
-
-.hero{
-background:#f3efe8;
-text-align:center;
-}
-
-h1{
-font-family:'Cormorant Garamond',serif;
-font-size:52px;
-letter-spacing:2px;
-margin:0;
-}
-
-.gold{color:#b89b5e;}
-
-.divider{
-width:80px;
-height:1px;
-background:#b89b5e;
-margin:25px auto;
-}
-
-.countdown{
-display:flex;
-justify-content:center;
-gap:40px;
-margin-top:30px;
-font-size:18px;
-}
-
-.countdown div{
-text-align:center;
-}
-
-.timeline{
-max-width:600px;
-margin:0 auto;
-border-left:1px solid #b89b5e;
-padding-left:25px;
-}
-
-.timeline-item{
-margin-bottom:30px;
-}
-
-.gallery{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-gap:20px;
-max-width:1000px;
-margin:50px auto 0;
-}
-
-.gallery img{
-width:100%;
-height:320px;
-object-fit:cover;
-transition:transform .6s ease, opacity .6s ease;
-}
-
-.gallery img:hover{
-transform:scale(1.05);
-opacity:.85;
-}
-
-.alt-section{
-background:#efeae2;
-}
-
-iframe{
-width:100%;
-height:350px;
-border:0;
-margin-top:30px;
-}
-
-.btn{
-display:inline-block;
-margin-top:30px;
-padding:12px 32px;
-border:1px solid #b89b5e;
-color:#b89b5e;
-text-decoration:none;
-border-radius:30px;
-background:none;
-cursor:pointer;
-transition:.3s;
-}
-
-.btn:hover{
-background:#b89b5e;
-color:white;
-}
-
-.music-btn{
-position:fixed;
-bottom:25px;
-right:25px;
-background:#b89b5e;
-color:white;
-border:none;
-border-radius:50px;
-padding:12px 20px;
-cursor:pointer;
-z-index:999;
-}
-
-footer{
-padding:60px 20px;
-font-size:14px;
-background:#f3efe8;
-}
-
+  body {
+    margin: 0;
+    font-family: 'Montserrat', sans-serif;
+    background: #f9f7f3;
+    color: #2b2b2b;
+    scroll-behavior: smooth;
+  }
+  section {
+    padding: 100px 20px;
+    opacity: 0;
+    transform: translateY(40px);
+    transition: all 1s ease;
+    position: relative;
+  }
+  section.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .hero {
+    background: #f3efe8;
+    text-align: center;
+  }
+  h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 52px;
+    letter-spacing: 2px;
+    margin: 0;
+  }
+  .gold {
+    color: #b89b5e;
+  }
+  .divider {
+    width: 80px;
+    height: 1px;
+    background: #b89b5e;
+    margin: 25px auto;
+  }
+  .countdown {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    margin-top: 30px;
+    font-size: 18px;
+  }
+  .countdown div {
+    text-align: center;
+  }
+  .timeline {
+    max-width: 600px;
+    margin: 0 auto;
+    border-left: 1px solid #b89b5e;
+    padding-left: 40px;
+    position: relative;
+    font-size: 18px;
+    line-height: 1.6;
+  }
+  .timeline::before {
+    content: 'ИТ & ЂМ';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%) rotate(-90deg);
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 48px;
+    font-weight: 600;
+    color: rgba(184, 155, 94, 0.1);
+    user-select: none;
+    pointer-events: none;
+  }
+  .timeline-item {
+    margin-bottom: 30px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .timeline-icon {
+    width: 26px;
+    height: 26px;
+    opacity: 0.4;
+  }
+  .gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    max-width: 1000px;
+    margin: 50px auto 0;
+  }
+  .gallery img {
+    width: 100%;
+    height: 320px;
+    object-fit: cover;
+    transition: transform 0.6s ease, opacity 0.6s ease;
+    border-radius: 8px;
+  }
+  .gallery img:hover {
+    transform: scale(1.05);
+    opacity: 0.85;
+  }
+  .alt-section {
+    background: #efeae2;
+  }
+  iframe {
+    width: 100%;
+    height: 350px;
+    border: 0;
+    margin-top: 30px;
+    border-radius: 8px;
+  }
+  .btn {
+    display: inline-block;
+    margin-top: 30px;
+    padding: 12px 32px;
+    border: 1px solid #b89b5e;
+    color: #b89b5e;
+    text-decoration: none;
+    border-radius: 30px;
+    background: none;
+    cursor: pointer;
+    transition: 0.3s;
+    font-weight: 600;
+  }
+  .btn:hover,
+  .btn:focus {
+    background: #b89b5e;
+    color: white;
+  }
+  .music-btn {
+    position: fixed;
+    bottom: 25px;
+    right: 25px;
+    background: #b89b5e;
+    color: white;
+    border: none;
+    border-radius: 50px;
+    padding: 12px 20px;
+    cursor: pointer;
+    z-index: 999;
+    font-weight: 600;
+  }
+  footer {
+    padding: 60px 20px;
+    font-size: 14px;
+    background: #f3efe8;
+    text-align: center;
+  }
+  /* Welcome animation */
+  #welcomeScreen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #f3efe8;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 48px;
+    color: #b89b5e;
+    z-index: 1000;
+    user-select: none;
+    animation: fadeOut 4s ease forwards;
+    animation-delay: 2s;
+  }
+  @keyframes fadeOut {
+    to {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+  }
+  /* RSVP form */
+  form {
+    max-width: 500px;
+    margin: 0 auto;
+    text-align: left;
+  }
+  label {
+    display: block;
+    margin-bottom: 6px;
+    font-weight: 600;
+    color: #b89b5e;
+  }
+  input[type="text"],
+  input[type="number"],
+  select,
+  textarea {
+    width: 100%;
+    padding: 10px 12px;
+    margin-bottom: 20px;
+    border: 1px solid #b89b5e;
+    border-radius: 6px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 16px;
+    resize: vertical;
+  }
+  textarea {
+    min-height: 80px;
+  }
+  button[type="submit"] {
+    background: #b89b5e;
+    color: white;
+    border: none;
+    border-radius: 30px;
+    padding: 12px 32px;
+    cursor: pointer;
+    font-weight: 700;
+    font-size: 16px;
+    transition: background 0.3s;
+  }
+  button[type="submit"]:hover {
+    background: #9c7c3d;
+  }
+  /* Success message */
+  #successMessage {
+    display: none;
+    max-width: 500px;
+    margin: 20px auto 0;
+    padding: 15px 20px;
+    background: #dff0d8;
+    border: 1px solid #a2c38b;
+    color: #3c763d;
+    border-radius: 6px;
+    font-weight: 600;
+  }
 </style>
+
 </head>
 <body>
 
-<section class="hero">
-<h1>Исидора Топаловић<br>&<br>Ђорђе Мирковић</h1>
-<div class="divider"></div>
-<p>19. септембар 2026. | Крагујевац</p>
+<div id="welcomeScreen">Добро дошли на наше венчање 🤍</div>
 
-<div class="countdown">
-<div><span id="days"></span><br>ДАНА</div>
-</div>
+<section class="hero">
+  <h1>Исидора Топаловић<br />&<br />Ђорђе Мирковић</h1>
+  <div class="divider"></div>
+  <p>19. септембар 2026. | Крагујевац</p>
+
+  <div class="countdown">
+    <div><span id="days"></span><br />ДАНА</div>
+    <div><span id="hours"></span><br />САТИ</div>
+    <div><span id="minutes"></span><br />МИНУТА</div>
+    <div><span id="seconds"></span><br />СЕКУНДИ</div>
+  </div>
 </section>
 
 <section>
-<h2 class="gold" style="text-align:center;">Сатница дана</h2>
-<div class="timeline">
-<div class="timeline-item"><strong>10:00ч</strong> – Дом породице Мирковић</div>
-<div class="timeline-item"><strong>11:00ч</strong> – Дом породице Топаловић</div>
-<div class="timeline-item"><strong>13:30ч</strong> – Храм Свете Тројице (Стара црква)</div>
-<div class="timeline-item"><strong>16:00ч</strong> – Woodland Resort (мала сала)</div>
-<div class="timeline-item"><strong>17:30ч</strong> – Грађанско венчање</div>
-</div>
+  <h2 class="gold" style="text-align:center;">Сатница дана</h2>
+  <div class="timeline">
+    <div class="timeline-item">
+      <img class="timeline-icon" src="icons/house.svg" alt="Кућа" />
+      <strong>10:00ч</strong> – Скуп сватова у дому породице Мирковић
+    </div>
+    <div class="timeline-item">
+      <img class="timeline-icon" src="icons/house.svg" alt="Кућа" />
+      <strong>11:00ч</strong> – Скуп сватова у дому породице Топаловић
+    </div>
+    <div class="timeline-item">
+      <img class="timeline-icon" src="icons/church.svg" alt="Црква" />
+      <strong>13:30ч</strong> – Црквено венчање у храму Свете Тројице (Стара црква)
+    </div>
+    <div class="timeline-item">
+      <img class="timeline-icon" src="icons/table.svg" alt="Сто" />
+      <strong>16:00ч</strong> – Woodland Resort (мала сала)
+    </div>
+    <div class="timeline-item">
+      <img class="timeline-icon" src="icons/rings.svg" alt="Венчане бурме" />
+      <strong>17:30ч</strong> – Грађанско венчање
+    </div>
+  </div>
 </section>
 
 <section class="alt-section">
-<h2 class="gold" style="text-align:center;">Галерија</h2>
-<div class="gallery">
-<img src="images/slika1.jpg">
-<img src="images/slika2.jpg">
-<img src="images/slika3.jpg">
-<img src="images/slika4.jpg">
-</div>
+  <h2 class="gold" style="text-align:center;">Галерија</h2>
+  <div class="gallery">
+    <img src="image1.jpg" alt="Фотографија 1" />
+    <img src="image2.jpg" alt="Фотографија 2" />
+    <img src="image3.jpg" alt="Фотографија 3" />
+    <img src="image4.jpg" alt="Фотографија 4" />
+    <img src="image5.jpg" alt="Фотографија 5" />
+    <img src="image6.jpg" alt="Фотографија 6" />
+  </div>
 </section>
 
 <section>
-<h2 class="gold" style="text-align:center;">Локација</h2>
-<iframe src="https://www.google.com/maps?q=Woodland+Resort+Kragujevac&output=embed"></iframe>
+  <h2 class="gold" style="text-align:center;">Локација</h2>
+  <iframe src="https://www.google.com/maps?q=Woodland+Resort+Kragujevac&output=embed" allowfullscreen="" loading="lazy"></iframe>
+</section>
+
+<section>
+  <h2 class="gold" style="text-align:center;">RSVP</h2>
+  <form id="rsvpForm">
+    <label for="name">Име и презиме *</label>
+    <input type="text" id="name" name="name" required placeholder="Унесите име и презиме" />
+
+    <label for="attending">Да ли долазите? *</label>
+    <select id="attending" name="attending" required>
+      <option value="">Изаберите</option>
+      <option value="Да">Да</option>
+      <option value="Не">Не</option>
+    </select>
+
+    <label for="guests">Број особа *</label>
+    <input
+      type="number"
+      id="guests"
+      name="guests"
+      min="1"
+      required
+      placeholder="Унесите укупан број особа"
+    />
+
+    <label for="notes">Напомена (опционо)</label>
+    <textarea id="notes" name="notes" placeholder="Нпр. посебне исхране, жеље..."></textarea>
+
+    <button type="submit">Пошаљи</button>
+  </form>
+  <div id="successMessage">Хвала што сте нам потврдили долазак! Радујемо се што ћемо вас видети.</div>
 </section>
 
 <footer>
-Са љубављу 🤍<br>
-Исидора & Ђорђе
+  Са љубављу 🤍<br />
+  Исидора & Ђорђе
 </footer>
 
 <audio id="bgMusic" loop>
-<source src="https://cdn.pixabay.com/audio/2022/03/15/audio_5c2e6e0c2b.mp3" type="audio/mpeg">
+  <source
+    src="https://cdn.pixabay.com/audio/2022/03/15/audio_5c2e6e0c2b.mp3"
+    type="audio/mpeg"
+  />
 </audio>
 
 <button class="music-btn" onclick="toggleMusic()">♫ Музика</button>
 
 <script>
-function toggleMusic(){
-var music=document.getElementById("bgMusic");
-if(music.paused){
-music.play();
-}else{
-music.pause();
-}
-}
+  // Welcome screen fadeout
+  window.addEventListener('load', () => {
+    const welcome = document.getElementById('welcomeScreen');
+    setTimeout(() => {
+      welcome.style.opacity = '0';
+      setTimeout(() => {
+        welcome.style.display = 'none';
+      }, 1000);
+    }, 3000);
+  });
 
-var countDownDate=new Date("Sep 19, 2026 00:00:00").getTime();
-setInterval(function(){
-var now=new Date().getTime();
-var distance=countDownDate-now;
-document.getElementById("days").innerHTML=Math.floor(distance/(1000*60*60*24));
-document.getElementById("hours").innerHTML=Math.floor((distance%(1000*60*60*24))/(1000*60*60));
-document.getElementById("minutes").innerHTML=Math.floor((distance%(1000*60*60))/(1000*60));
-document.getElementById("seconds").innerHTML=Math.floor((distance%(1000*60))/1000);
-},1000);
+  // Music toggle
+  function toggleMusic() {
+    const music = document.getElementById('bgMusic');
+    if (music.paused) {
+      music.play();
+    } else {
+      music.pause();
+    }
+  }
 
-const sections=document.querySelectorAll("section");
-window.addEventListener("scroll",()=>{
-sections.forEach(sec=>{
-const top=window.scrollY;
-const offset=sec.offsetTop-500;
-if(top>offset){sec.classList.add("visible");}
-});
-});
+  // Countdown timer
+  const countDownDate = new Date('Sep 19, 2026 00:00:00').getTime();
+  setInterval(() => {
+    const now = new Date().getTime();
+    const distance = countDownDate - now;
+
+    document.getElementById('days').innerText = Math.floor(distance / (1000 * 60 * 60 * 24));
+    document.getElementById('hours').innerText = Math.floor(
+      (distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+    );
+    document.getElementById('minutes').innerText = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    document.getElementById('seconds').innerText = Math.floor((distance % (1000 * 60)) / 1000);
+  }, 1000);
+
+  // Scroll animations
+  const sections = document.querySelectorAll('section');
+  window.addEventListener('scroll', () => {
+    sections.forEach((sec) => {
+      const top = window.scrollY;
+      const offset = sec.offsetTop - 500;
+      if (top > offset) {
+        sec.classList.add('visible');
+      }
+    });
+  });
+
+  // RSVP form submission (basic front-end validation + "fake" submit)
+  const form = document.getElementById('rsvpForm');
+  const successMessage = document.getElementById('successMessage');
+
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+
+    // Simple validation (required fields are HTML required, so mostly safe)
+
+    // Here you would add real submit code, e.g. send to server or Google Sheets API
+
+    // Show success message and reset form
+    successMessage.style.display = 'block';
+    form.reset();
+
+    // Optionally scroll to success message
+    successMessage.scrollIntoView({ behavior: 'smooth' });
+  });
 </script>
 
 </body>
