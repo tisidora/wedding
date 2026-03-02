@@ -22,17 +22,15 @@
 * { margin:0; padding:0; box-sizing:border-box; }
 html { scroll-behavior:smooth; }
 
-/* ── BODY with subtle all-over texture ── */
+/* ── BODY with geometric diamond tile background ── */
 body {
   font-family:'Jost', sans-serif;
   font-weight:300;
   color:var(--text);
   overflow-x:hidden;
-  background-color:var(--ivory);
+  background-color: var(--ivory);
   background-image:
-    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.72' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='400' height='400' filter='url(%23n)' opacity='0.032'/%3E%3C/svg%3E"),
-    repeating-linear-gradient(0deg, transparent, transparent 39px, rgba(180,150,100,0.04) 39px, rgba(180,150,100,0.04) 40px),
-    repeating-linear-gradient(90deg, transparent, transparent 39px, rgba(180,150,100,0.025) 39px, rgba(180,150,100,0.025) 40px),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80'%3E%3Crect width='80' height='80' fill='none'/%3E%3Cpolygon points='40,3 77,40 40,77 3,40' fill='none' stroke='%23c8a97a' stroke-width='0.8' stroke-opacity='0.2'/%3E%3Cpolygon points='40,17 63,40 40,63 17,40' fill='none' stroke='%23c8a97a' stroke-width='0.5' stroke-opacity='0.13'/%3E%3Ccircle cx='40' cy='3'  r='1.5' fill='%23c8a97a' fill-opacity='0.25'/%3E%3Ccircle cx='77' cy='40' r='1.5' fill='%23c8a97a' fill-opacity='0.25'/%3E%3Ccircle cx='40' cy='77' r='1.5' fill='%23c8a97a' fill-opacity='0.25'/%3E%3Ccircle cx='3'  cy='40' r='1.5' fill='%23c8a97a' fill-opacity='0.25'/%3E%3Ccircle cx='40' cy='40' r='2' fill='%23c8a97a' fill-opacity='0.13'/%3E%3C/svg%3E"),
     linear-gradient(160deg, var(--ivory) 0%, var(--champagne) 52%, var(--ivory-deep) 100%);
 }
 
@@ -141,14 +139,14 @@ section { padding:110px 24px; position:relative; }
 }
 .cd-num {
   font-family:'Cormorant Garamond', serif;
-  font-size:54px; font-weight:300;
+  font-size:80px; font-weight:300;
   line-height:1; color:#f0ddb8;
 }
 .cd-label {
   font-family:'Cinzel', serif;
-  font-size:8px; letter-spacing:3px;
+  font-size:10px; letter-spacing:4px;
   text-transform:uppercase;
-  color:rgba(255,255,255,0.38);
+  color:rgba(255,255,255,0.5);
 }
 .cd-sep {
   font-family:'Cormorant Garamond', serif;
@@ -355,9 +353,22 @@ footer {
   .tl-item { grid-template-columns:52px 14px 1fr; gap:12px; }
   .tl-time { font-size:15px; text-align:right; }
 
-  .gallery { grid-template-columns:1fr 1fr; grid-template-rows:auto; }
+  .gallery {
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    grid-template-rows:auto;
+    gap:10px;
+  }
   .gallery-item {
-    grid-column:auto !important; grid-row:auto !important; height:200px;
+    grid-column:auto !important;
+    grid-row:auto !important;
+    height:180px;
+  }
+  .gallery-item:nth-child(5) {
+    grid-column:1 / -1 !important;
+    max-width:calc(50% - 5px);
+    margin:0 auto;
+    width:100%;
   }
 }
 </style>
@@ -369,7 +380,7 @@ footer {
   <div class="hero-bg"></div>
   <div class="hero-overlay"></div>
   <div class="hero-content">
-    <p class="hero-eyebrow">19 · IX · MMXXVI &nbsp;·&nbsp; Крагујевац</p>
+    <p class="hero-eyebrow">1. септембар 2026. &nbsp;·&nbsp; Крагујевац</p>
     <div class="monogram">И &amp; Ђ</div>
     <h1>Исидора &amp; Ђорђе</h1>
     <div class="rule">
@@ -383,17 +394,7 @@ footer {
     <div class="countdown">
       <div class="cd-block">
         <span class="cd-num" id="cd-days">—</span>
-        <span class="cd-label">Дана</span>
-      </div>
-      <span class="cd-sep">·</span>
-      <div class="cd-block">
-        <span class="cd-num" id="cd-hours">—</span>
-        <span class="cd-label">Сати</span>
-      </div>
-      <span class="cd-sep">·</span>
-      <div class="cd-block">
-        <span class="cd-num" id="cd-mins">—</span>
-        <span class="cd-label">Минута</span>
+        <span class="cd-label">Дана до венчања</span>
       </div>
     </div>
   </div>
@@ -507,17 +508,11 @@ footer {
   const target = new Date("Sep 19, 2026 10:00:00").getTime();
   function tick() {
     const dist = target - Date.now();
-    if (dist < 0) {
-      ["cd-days","cd-hours","cd-mins"].forEach(id =>
-        document.getElementById(id).textContent = "00");
-      return;
-    }
-    document.getElementById("cd-days").textContent  = String(Math.floor(dist/86400000)).padStart(2,"0");
-    document.getElementById("cd-hours").textContent = String(Math.floor((dist%86400000)/3600000)).padStart(2,"0");
-    document.getElementById("cd-mins").textContent  = String(Math.floor((dist%3600000)/60000)).padStart(2,"0");
+    const days = dist < 0 ? 0 : Math.floor(dist/86400000);
+    document.getElementById("cd-days").textContent = String(days);
   }
   tick();
-  setInterval(tick, 1000);
+  setInterval(tick, 86400000);
 })();
 </script>
 </body>
