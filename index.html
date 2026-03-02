@@ -4,291 +4,521 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Исидора & Ђорђе</title>
-
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
-
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Cinzel:wght@400;600&family=Jost:wght@200;300;400&display=swap" rel="stylesheet">
 <style>
+:root {
+  --champagne:  #f5ede0;
+  --ivory:      #faf7f1;
+  --ivory-deep: #f0e9db;
+  --gold:       #c8a97a;
+  --gold-mid:   #b8935f;
+  --gold-dark:  #9a7545;
+  --text:       #3d3429;
+  --text-mid:   #6b5e4e;
+  --text-light: #9c8b79;
+  --white:      #fffdf9;
+}
 
-/* ================= GLOBAL ================= */
+* { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; }
 
-body{
-  margin:0;
-  font-family:'Montserrat', sans-serif;
-  color:#2b2b2b;
-  background:
-    radial-gradient(circle at 10% 20%, rgba(184,155,94,0.15), transparent 40%),
-    radial-gradient(circle at 90% 80%, rgba(184,155,94,0.1), transparent 40%),
-    linear-gradient(to bottom, #f8f5ef, #f2ece3);
+/* ── BODY with subtle all-over texture ── */
+body {
+  font-family:'Jost', sans-serif;
+  font-weight:300;
+  color:var(--text);
   overflow-x:hidden;
+  background-color:var(--ivory);
+  background-image:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.72' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='400' height='400' filter='url(%23n)' opacity='0.032'/%3E%3C/svg%3E"),
+    repeating-linear-gradient(0deg, transparent, transparent 39px, rgba(180,150,100,0.04) 39px, rgba(180,150,100,0.04) 40px),
+    repeating-linear-gradient(90deg, transparent, transparent 39px, rgba(180,150,100,0.025) 39px, rgba(180,150,100,0.025) 40px),
+    linear-gradient(160deg, var(--ivory) 0%, var(--champagne) 52%, var(--ivory-deep) 100%);
 }
 
-section{
-  padding:100px 20px;
-  position:relative;
-}
+section { padding:110px 24px; position:relative; }
+.container { max-width:1100px; margin:0 auto; }
 
-.container{
-  max-width:1100px;
-  margin:auto;
-}
-
-/* ================= HERO ================= */
-
-.hero{
+/* ── HERO ── */
+.hero {
   height:100vh;
-  background:
-    linear-gradient(rgba(0,0,0,0.55),rgba(0,0,0,0.55)),
-    url('images/hero.jpg') center/cover no-repeat;
+  min-height:620px;
+  position:relative;
   display:flex;
   flex-direction:column;
+  align-items:center;
   justify-content:center;
-  align-items:center;
   text-align:center;
-  color:white;
+  overflow:hidden;
 }
-
-.monogram{
-  font-family:'Playfair Display', serif;
-  font-size:90px;
-  letter-spacing:18px;
-  margin-bottom:20px;
-  color:#e6c98d;
-}
-
-.hero h1{
-  font-family:'Playfair Display', serif;
-  font-size:48px;
-  margin:0;
-}
-
-.hero p{
-  letter-spacing:3px;
-  margin-top:10px;
-  font-size:18px;
-}
-
-.countdown{
-  margin-top:40px;
-  font-size:22px;
-  color:#e6c98d;
-}
-
-/* ================= HEADINGS ================= */
-
-h2{
-  text-align:center;
-  font-family:'Playfair Display', serif;
-  font-size:40px;
-  color:#b89b5e;
-  margin-bottom:70px;
-  position:relative;
-}
-
-h2:after{
-  content:"";
-  width:120px;
-  height:2px;
-  background:linear-gradient(to right, transparent, #b89b5e, transparent);
-  display:block;
-  margin:20px auto 0;
-}
-
-/* ================= GLASS CARD ================= */
-
-.glass{
-  background:rgba(255,255,255,0.7);
-  backdrop-filter:blur(10px);
-  border-radius:20px;
-  padding:60px;
-  box-shadow:0 15px 50px rgba(0,0,0,0.07);
-}
-
-/* ================= TIMELINE ================= */
-
-.timeline{
-  position:relative;
-  padding-left:50px;
-}
-
-.timeline:before{
-  content:"";
+.hero-bg {
   position:absolute;
-  left:20px;
-  top:0;
-  bottom:0;
-  width:2px;
-  background:#d6b77a;
-}
-
-.timeline-item{
-  display:flex;
-  align-items:center;
-  margin-bottom:45px;
-  font-size:18px;
-}
-
-.timeline-item img{
-  width:34px;
-  margin-right:18px;
-}
-
-/* ================= GALLERY ================= */
-
-.gallery{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-  gap:30px;
-}
-
-.gallery img{
-  width:100%;
-  height:340px;
-  object-fit:cover;
-  border-radius:18px;
-  transition:0.6s ease;
-  box-shadow:0 10px 30px rgba(0,0,0,0.1);
-}
-
-.gallery img:hover{
+  inset:-24px;
+  background:url('images/hero.jpg') center/cover no-repeat;
+  filter:blur(7px) brightness(0.58) saturate(0.8);
   transform:scale(1.08);
+  animation:slowZoom 22s ease-in-out infinite alternate;
+}
+@keyframes slowZoom {
+  from { transform:scale(1.08); }
+  to   { transform:scale(1.14); }
+}
+.hero-overlay {
+  position:absolute; inset:0;
+  background:linear-gradient(to bottom,
+    rgba(20,14,8,0.30) 0%,
+    rgba(20,14,8,0.15) 45%,
+    rgba(20,14,8,0.48) 100%);
+}
+.hero-content {
+  position:relative; z-index:2;
+  animation:fadeUp 1.4s ease both;
+}
+@keyframes fadeUp {
+  from { opacity:0; transform:translateY(28px); }
+  to   { opacity:1; transform:translateY(0); }
+}
+.hero-eyebrow {
+  font-family:'Cinzel', serif;
+  font-size:10px;
+  letter-spacing:7px;
+  text-transform:uppercase;
+  color:rgba(245,228,196,0.72);
+  margin-bottom:34px;
+}
+.monogram {
+  font-family:'Cormorant Garamond', serif;
+  font-size:108px;
+  font-weight:300;
+  font-style:italic;
+  line-height:1;
+  letter-spacing:22px;
+  color:#f0ddb8;
+  text-shadow:0 2px 60px rgba(200,169,122,0.45);
+  margin-bottom:18px;
+}
+.hero h1 {
+  font-family:'Cinzel', serif;
+  font-size:25px;
+  font-weight:400;
+  color:#fff;
+  letter-spacing:9px;
+  text-transform:uppercase;
+  margin-bottom:28px;
+}
+.rule {
+  display:flex; align-items:center; justify-content:center;
+  gap:13px; margin-bottom:26px;
+}
+.rule-line {
+  width:66px; height:1px;
+  background:linear-gradient(to right, transparent, rgba(240,221,184,0.6));
+}
+.rule-line:last-child {
+  background:linear-gradient(to left, transparent, rgba(240,221,184,0.6));
+}
+.rule-diamond {
+  width:6px; height:6px;
+  background:rgba(240,221,184,0.7);
+  transform:rotate(45deg);
+}
+.hero-sub {
+  font-family:'Jost', sans-serif;
+  font-weight:200;
+  font-size:12px;
+  letter-spacing:5px;
+  text-transform:uppercase;
+  color:rgba(255,255,255,0.52);
+  margin-bottom:52px;
+}
+.countdown {
+  display:flex; align-items:flex-start;
+  gap:10px; justify-content:center;
+}
+.cd-block {
+  display:flex; flex-direction:column;
+  align-items:center; gap:5px; min-width:68px;
+}
+.cd-num {
+  font-family:'Cormorant Garamond', serif;
+  font-size:54px; font-weight:300;
+  line-height:1; color:#f0ddb8;
+}
+.cd-label {
+  font-family:'Cinzel', serif;
+  font-size:8px; letter-spacing:3px;
+  text-transform:uppercase;
+  color:rgba(255,255,255,0.38);
+}
+.cd-sep {
+  font-family:'Cormorant Garamond', serif;
+  font-size:44px; font-weight:300;
+  color:rgba(240,221,184,0.32);
+  margin-top:3px; line-height:1;
+}
+.scroll-cue {
+  position:absolute; bottom:30px;
+  left:50%; transform:translateX(-50%);
+  z-index:2; display:flex; flex-direction:column;
+  align-items:center; gap:7px;
+  animation:bob 2.6s ease-in-out infinite; opacity:0.38;
+}
+.scroll-cue span {
+  font-family:'Cinzel', serif; font-size:7px;
+  letter-spacing:4px; color:rgba(240,221,184,1); text-transform:uppercase;
+}
+.scroll-cue svg { stroke:rgba(240,221,184,1); fill:none; width:16px; }
+@keyframes bob {
+  0%,100% { transform:translateX(-50%) translateY(0); }
+  50%     { transform:translateX(-50%) translateY(7px); }
 }
 
-/* ================= MAP ================= */
-
-.map iframe{
-  width:100%;
-  height:500px;
-  border:0;
-  border-radius:20px;
-  box-shadow:0 10px 30px rgba(0,0,0,0.1);
+/* ── SECTION LABELS & HEADINGS ── */
+.sec-label {
+  font-family:'Cinzel', serif;
+  font-size:10px; letter-spacing:5px;
+  text-transform:uppercase;
+  color:var(--gold-mid); text-align:center;
+  margin-bottom:14px; opacity:0.8;
+}
+h2 {
+  font-family:'Cormorant Garamond', serif;
+  font-size:50px; font-weight:300; font-style:italic;
+  text-align:center; color:var(--text);
+  margin-bottom:12px; line-height:1.1;
+}
+.sep {
+  display:flex; align-items:center; justify-content:center;
+  gap:18px; margin:0 auto 68px; max-width:440px;
+}
+.sep-line {
+  flex:1; height:1px;
+  background:linear-gradient(to right, transparent, var(--gold));
+}
+.sep-line:last-child {
+  background:linear-gradient(to left, transparent, var(--gold));
+}
+.sep-lozenge {
+  width:6px; height:6px;
+  background:var(--gold); transform:rotate(45deg); opacity:0.65;
 }
 
-/* ================= RSVP ================= */
-
-.rsvp iframe{
-  width:100%;
-  height:650px;
-  border:none;
-  border-radius:15px;
+/* ── TIMELINE ── */
+.timeline-section {
+  background:linear-gradient(158deg, #fdf8f0 0%, #f5ede0 55%, #ede4d2 100%);
+  border-top:1px solid rgba(200,169,122,0.16);
+  border-bottom:1px solid rgba(200,169,122,0.16);
+}
+.timeline {
+  max-width:660px; margin:0 auto; position:relative;
+}
+.timeline::before {
+  content:''; position:absolute;
+  left:50%; transform:translateX(-50%);
+  top:0; bottom:0; width:1px;
+  background:linear-gradient(to bottom,
+    transparent, var(--gold) 8%, var(--gold) 92%, transparent);
+  opacity:0.35;
+}
+.tl-item {
+  display:grid;
+  grid-template-columns:1fr 28px 1fr;
+  gap:24px; align-items:center;
+  margin-bottom:48px;
+}
+.tl-time {
+  text-align:right;
+  font-family:'Cormorant Garamond', serif;
+  font-size:21px; font-weight:400; font-style:italic;
+  color:var(--gold-mid); line-height:1.2;
+}
+.tl-dot {
+  width:14px; height:14px; border-radius:50%;
+  border:1.5px solid var(--gold); background:var(--ivory);
+  position:relative; justify-self:center;
+}
+.tl-dot::after {
+  content:''; position:absolute; inset:3px;
+  border-radius:50%; background:var(--gold); opacity:0.65;
+}
+.tl-desc {
+  display:flex; align-items:center;
+  gap:13px; color:var(--text-mid);
+  font-size:13.5px; line-height:1.65; font-weight:300;
+}
+.tl-desc img {
+  width:30px; height:30px;
+  object-fit:contain; opacity:0.72; flex-shrink:0;
+}
+.tl-desc-text strong {
+  display:block; font-weight:400;
+  font-size:14.5px; color:var(--text);
+  font-family:'Jost', sans-serif; margin-bottom:1px;
 }
 
-/* ================= FOOTER ================= */
+/* ── GALLERY ── */
+.gallery-section { background:var(--ivory); }
+.gallery {
+  display:grid;
+  grid-template-columns:repeat(12,1fr);
+  grid-template-rows:270px 270px;
+  gap:13px; max-width:1060px; margin:0 auto;
+}
+.gallery-item {
+  overflow:hidden; border-radius:6px; position:relative;
+  box-shadow:0 6px 28px rgba(100,75,40,0.09);
+}
+.gallery-item::after {
+  content:''; position:absolute; inset:0;
+  background:linear-gradient(to top, rgba(50,35,15,0.32) 0%, transparent 55%);
+  opacity:0; transition:opacity 0.45s ease;
+}
+.gallery-item:hover::after { opacity:1; }
+.gallery-item img {
+  width:100%; height:100%; object-fit:cover;
+  display:block; transition:transform 0.85s ease;
+}
+.gallery-item:hover img { transform:scale(1.07); }
+.gallery-item:nth-child(1) { grid-column:1/7;  grid-row:1; }
+.gallery-item:nth-child(2) { grid-column:7/10; grid-row:1; }
+.gallery-item:nth-child(3) { grid-column:10/13;grid-row:1/3; }
+.gallery-item:nth-child(4) { grid-column:1/5;  grid-row:2; }
+.gallery-item:nth-child(5) { grid-column:5/10; grid-row:2; }
 
-footer{
-  text-align:center;
-  padding:50px 20px;
-  background:#efe7db;
-  font-family:'Playfair Display', serif;
-  font-size:20px;
-  color:#b89b5e;
+/* ── MAP ── */
+.map-section {
+  background:linear-gradient(172deg, #f5ede0 0%, #fdf8f0 100%);
+  border-top:1px solid rgba(200,169,122,0.14);
+}
+.map-frame-wrap {
+  max-width:860px; margin:0 auto;
+  border-radius:10px; overflow:hidden;
+  box-shadow:0 20px 70px rgba(100,75,40,0.12);
+  border:1px solid rgba(200,169,122,0.22);
+}
+.map-frame-wrap iframe {
+  width:100%; height:470px; border:0; display:block;
+}
+.map-tag {
+  text-align:center; margin-top:26px;
+  font-family:'Cinzel', serif; font-size:10px;
+  letter-spacing:5px; text-transform:uppercase;
+  color:var(--gold-dark); opacity:0.72;
 }
 
-/* ================= MOBILE ================= */
+/* ── RSVP ── */
+.rsvp-section {
+  background:linear-gradient(155deg, #f0e8d8 0%, #f8f3ea 50%, #ede5d4 100%);
+  border-top:1px solid rgba(200,169,122,0.16);
+}
+.rsvp-inner { max-width:700px; margin:0 auto; text-align:center; }
+.rsvp-inner p {
+  color:var(--text-mid); font-size:14px;
+  font-weight:300; line-height:1.9; letter-spacing:0.3px;
+  margin-bottom:40px; max-width:460px;
+  margin-left:auto; margin-right:auto;
+}
+.rsvp-frame {
+  border-radius:10px; overflow:hidden;
+  border:1px solid rgba(200,169,122,0.26);
+  box-shadow:0 14px 55px rgba(100,75,40,0.09);
+  background:var(--white);
+}
+.rsvp-frame iframe { width:100%; height:640px; border:none; display:block; }
 
-@media(max-width:768px){
-
-  .hero h1{font-size:32px;}
-  .monogram{font-size:60px;}
-  .glass{padding:30px;}
-  .gallery img{height:260px;}
+/* ── FOOTER ── */
+footer {
+  background:linear-gradient(to bottom, var(--champagne), var(--ivory-deep));
+  border-top:1px solid rgba(200,169,122,0.18);
+  padding:70px 24px 50px; text-align:center;
+}
+.footer-mono {
+  font-family:'Cormorant Garamond', serif;
+  font-size:72px; font-weight:300; font-style:italic;
+  letter-spacing:18px; color:var(--gold-mid);
+  line-height:1; margin-bottom:22px; opacity:0.72;
+}
+.footer-date {
+  font-family:'Cinzel', serif;
+  font-size:10px; letter-spacing:5px;
+  text-transform:uppercase; color:var(--text-light);
 }
 
+/* ── MOBILE ── */
+@media(max-width:768px) {
+  .monogram { font-size:68px; letter-spacing:14px; }
+  .hero h1  { font-size:16px; letter-spacing:5px; }
+  h2        { font-size:36px; }
+  .cd-num   { font-size:36px; }
+
+  .timeline::before { left:14px; transform:none; }
+  .tl-item { grid-template-columns:52px 14px 1fr; gap:12px; }
+  .tl-time { font-size:15px; text-align:right; }
+
+  .gallery { grid-template-columns:1fr 1fr; grid-template-rows:auto; }
+  .gallery-item {
+    grid-column:auto !important; grid-row:auto !important; height:200px;
+  }
+}
 </style>
 </head>
 <body>
 
 <!-- HERO -->
 <div class="hero">
-  <div class="monogram">И Ђ</div>
-  <h1>Исидора & Ђорђе</h1>
-  <p>19. септембар 2026. | Крагујевац</p>
-  <div class="countdown">
-    <span id="days"></span> ДАНА ДО ВЕНЧАЊА
+  <div class="hero-bg"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <p class="hero-eyebrow">19 · IX · MMXXVI &nbsp;·&nbsp; Крагујевац</p>
+    <div class="monogram">И &amp; Ђ</div>
+    <h1>Исидора &amp; Ђорђе</h1>
+    <div class="rule">
+      <div class="rule-line"></div>
+      <div class="rule-diamond"></div>
+      <div class="rule-diamond" style="opacity:.38;width:4px;height:4px;"></div>
+      <div class="rule-diamond"></div>
+      <div class="rule-line"></div>
+    </div>
+    <p class="hero-sub">Крагујевац &nbsp;·&nbsp; Србија</p>
+    <div class="countdown">
+      <div class="cd-block">
+        <span class="cd-num" id="cd-days">—</span>
+        <span class="cd-label">Дана</span>
+      </div>
+      <span class="cd-sep">·</span>
+      <div class="cd-block">
+        <span class="cd-num" id="cd-hours">—</span>
+        <span class="cd-label">Сати</span>
+      </div>
+      <span class="cd-sep">·</span>
+      <div class="cd-block">
+        <span class="cd-num" id="cd-mins">—</span>
+        <span class="cd-label">Минута</span>
+      </div>
+    </div>
+  </div>
+  <div class="scroll-cue">
+    <span>Скролуј</span>
+    <svg viewBox="0 0 24 24" stroke-width="1.5"><polyline points="6 9 12 15 18 9"/></svg>
   </div>
 </div>
 
-<!-- SATNICA -->
-<section>
-<div class="container glass">
-<h2>Сатница дана</h2>
+<!-- TIMELINE -->
+<section class="timeline-section">
+  <p class="sec-label">Програм</p>
+  <h2>Сатница дана</h2>
+  <div class="sep"><div class="sep-line"></div><div class="sep-lozenge"></div><div class="sep-line"></div></div>
+  <div class="timeline">
 
-<div class="timeline">
+    <div class="tl-item">
+      <div class="tl-time">10:00</div>
+      <div class="tl-dot"></div>
+      <div class="tl-desc">
+        <img src="icons/house1.png" alt="">
+        <div class="tl-desc-text"><strong>Скуп сватова</strong>Дом породице Мирковић</div>
+      </div>
+    </div>
 
-<div class="timeline-item">
-<img src="icons/house1.png">
-10:00ч - Скуп сватова у дому породице Мирковић
-</div>
+    <div class="tl-item">
+      <div class="tl-time">11:00</div>
+      <div class="tl-dot"></div>
+      <div class="tl-desc">
+        <img src="icons/house2.png" alt="">
+        <div class="tl-desc-text"><strong>Скуп сватова</strong>Дом породице Топаловић</div>
+      </div>
+    </div>
 
-<div class="timeline-item">
-<img src="icons/house2.png">
-11:00ч - Скуп сватова у дому породице Топаловић
-</div>
+    <div class="tl-item">
+      <div class="tl-time">13:30</div>
+      <div class="tl-dot"></div>
+      <div class="tl-desc">
+        <img src="icons/church.png" alt="">
+        <div class="tl-desc-text"><strong>Црквено венчање</strong>Храм Свете Тројице (Стара Црква)</div>
+      </div>
+    </div>
 
-<div class="timeline-item">
-<img src="icons/church.png">
-13:30ч - Црквено венчање у храму Свете Тројице (Стара црква)
-</div>
+    <div class="tl-item">
+      <div class="tl-time">16:00</div>
+      <div class="tl-dot"></div>
+      <div class="tl-desc">
+        <img src="icons/wedding-cake.png" alt="">
+        <div class="tl-desc-text"><strong>Свечани ручак</strong>Woodland Resort</div>
+      </div>
+    </div>
 
-<div class="timeline-item">
-<img src="icons/wedding-cake.png">
-16:00 - Woodland resort - свечани ручак
-</div>
+    <div class="tl-item">
+      <div class="tl-time">17:30</div>
+      <div class="tl-dot"></div>
+      <div class="tl-desc">
+        <img src="icons/wedding-ring.png" alt="">
+        <div class="tl-desc-text"><strong>Грађанско венчање</strong>Woodland Resort</div>
+      </div>
+    </div>
 
-<div class="timeline-item">
-<img src="icons/wedding-ring.png">
-17:30 - Грађанско венчање
-</div>
+  </div>
+</section>
 
-</div>
-</div>
+<!-- GALLERY -->
+<section class="gallery-section">
+  <p class="sec-label">Успомене</p>
+  <h2>Галерија</h2>
+  <div class="sep"><div class="sep-line"></div><div class="sep-lozenge"></div><div class="sep-line"></div></div>
+  <div class="gallery">
+    <div class="gallery-item"><img src="images/image1.jpg" alt=""></div>
+    <div class="gallery-item"><img src="images/image2.jpg" alt=""></div>
+    <div class="gallery-item"><img src="images/image3.jpg" alt=""></div>
+    <div class="gallery-item"><img src="images/image4.jpg" alt=""></div>
+    <div class="gallery-item"><img src="images/image1.jpg" alt=""></div>
+  </div>
 </section>
 
 <!-- MAP -->
-<section>
-<div class="container glass">
-<h2>Локација</h2>
-<div class="map">
-<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2726.5296178262283!2d20.869362486083254!3d44.032578696535644!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47572155400bb7b9%3A0x720f0e82bab8e50d!2sWoodland%20Resort!5e1!3m2!1ssr!2srs!4v1772376813644!5m2!1ssr!2srs"></iframe>
-</div>
-</div>
-</section>
-
-<!-- GALERIJA -->
-<section>
-<div class="container">
-<h2>Галерија</h2>
-<div class="gallery">
-<img src="images/image1.jpg">
-<img src="images/image2.jpg">
-<img src="images/image3.jpg">
-<img src="images/image4.jpg">
-</div>
-</div>
+<section class="map-section">
+  <p class="sec-label">Место</p>
+  <h2>Локација</h2>
+  <div class="sep"><div class="sep-line"></div><div class="sep-lozenge"></div><div class="sep-line"></div></div>
+  <div class="map-frame-wrap">
+    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2726.5296178262283!2d20.869362486083254!3d44.032578696535644!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47572155400bb7b9%3A0x720f0e82bab8e50d!2sWoodland%20Resort!5e1!3m2!1ssr!2srs!4v1772376813644!5m2!1ssr!2srs" allowfullscreen="" loading="lazy"></iframe>
+  </div>
+  <p class="map-tag">Woodland Resort &nbsp;·&nbsp; Крагујевац</p>
 </section>
 
 <!-- RSVP -->
-<section>
-<div class="container glass">
-<h2>Потврда доласка</h2>
-<div class="rsvp">
-<iframe src="https://forms.gle/59r3mXtWMeKZmCg29"></iframe>
-</div>
-</div>
+<section class="rsvp-section">
+  <div class="rsvp-inner">
+    <p class="sec-label">Пријава</p>
+    <h2>Потврда доласка</h2>
+    <div class="sep"><div class="sep-line"></div><div class="sep-lozenge"></div><div class="sep-line"></div></div>
+    <p>Молимо вас да потврдите долазак најкасније до 1. септембра 2026.<br>Радујемо се да прославимо овај дан заједно са вама.</p>
+    <div class="rsvp-frame">
+      <iframe src="https://forms.gle/59r3mXtWMeKZmCg29"></iframe>
+    </div>
+  </div>
 </section>
 
+<!-- FOOTER -->
 <footer>
-И & Ђ • 2026
+  <div class="footer-mono">И &amp; Ђ</div>
+  <p class="footer-date">19 · Септембар · 2026 &nbsp;·&nbsp; Крагујевац</p>
 </footer>
 
 <script>
-const countDownDate = new Date("Sep 19, 2026 00:00:00").getTime();
-setInterval(function(){
-  const now = new Date().getTime();
-  const distance = countDownDate - now;
-  const days = Math.floor(distance/(1000*60*60*24));
-  document.getElementById("days").innerHTML = days;
-},1000);
+(function() {
+  const target = new Date("Sep 19, 2026 10:00:00").getTime();
+  function tick() {
+    const dist = target - Date.now();
+    if (dist < 0) {
+      ["cd-days","cd-hours","cd-mins"].forEach(id =>
+        document.getElementById(id).textContent = "00");
+      return;
+    }
+    document.getElementById("cd-days").textContent  = String(Math.floor(dist/86400000)).padStart(2,"0");
+    document.getElementById("cd-hours").textContent = String(Math.floor((dist%86400000)/3600000)).padStart(2,"0");
+    document.getElementById("cd-mins").textContent  = String(Math.floor((dist%3600000)/60000)).padStart(2,"0");
+  }
+  tick();
+  setInterval(tick, 1000);
+})();
 </script>
-
 </body>
 </html>
