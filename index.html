@@ -9,7 +9,7 @@
 
 <style>
 
-/* ===================== VARIABLES ===================== */
+/* ================= VARIABLES ================= */
 :root{
   --gold:#c8a97a;
   --dark-gold:#b8935f;
@@ -25,7 +25,7 @@ body{
   overflow-x:hidden;
 }
 
-/* ===================== CURTAIN ===================== */
+/* ================= CURTAIN ================= */
 #curtain-wrapper{
   position:fixed;
   inset:0;
@@ -44,27 +44,18 @@ body{
       #7a141a 40px,
       #5b0f14 80px
     );
-  box-shadow:inset -30px 0 60px rgba(0,0,0,.7);
   transition:transform 1.8s cubic-bezier(.77,0,.18,1);
   position:relative;
 }
 
-.curtain.right{
-  box-shadow:inset 30px 0 60px rgba(0,0,0,.7);
+#curtain-wrapper.open .left{
+  transform:translateX(-100%) rotate(-6deg);
+}
+#curtain-wrapper.open .right{
+  transform:translateX(100%) rotate(6deg);
 }
 
-#curtain-wrapper.open .left{transform:translateX(-100%)}
-#curtain-wrapper.open .right{transform:translateX(100%)}
-
-/* ===================== PARTICLES ===================== */
-#particles{
-  position:fixed;
-  inset:0;
-  pointer-events:none;
-  z-index:5000;
-}
-
-/* ===================== HERO ===================== */
+/* ================= HERO ================= */
 .hero{
   height:100vh;
   display:flex;
@@ -104,20 +95,7 @@ body{
   color:#f5d9a4;
 }
 
-.hero h1{
-  font-family:'Cinzel',serif;
-  font-size:26px;
-  letter-spacing:8px;
-  margin:20px 0;
-}
-
-.hero-sub{
-  letter-spacing:4px;
-  font-size:12px;
-  opacity:.8;
-}
-
-/* ===================== SCRATCH SECTION ===================== */
+/* ================= SECTIONS ================= */
 section{
   padding:120px 20px;
   text-align:center;
@@ -130,6 +108,7 @@ h2{
   margin-bottom:60px;
 }
 
+/* ================= SCRATCH ================= */
 .scratch-grid{
   display:flex;
   flex-wrap:wrap;
@@ -159,10 +138,15 @@ h2{
   z-index:1;
 }
 
+.scratch-content img{
+  width:40px;
+  margin-bottom:10px;
+}
+
 .scratch-time{
   font-family:'Cormorant Garamond',serif;
-  font-size:30px;
-  margin-bottom:10px;
+  font-size:28px;
+  margin-bottom:8px;
 }
 
 .scratch-card canvas{
@@ -172,126 +156,162 @@ h2{
   z-index:2;
 }
 
+/* ================= GALLERY ================= */
+.gallery{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+  gap:20px;
+  max-width:1100px;
+  margin:0 auto;
+}
+
+.gallery img{
+  width:100%;
+  height:320px;
+  object-fit:cover;
+  border-radius:12px;
+  transition:.4s;
+}
+
+.gallery img:hover{
+  transform:scale(1.05);
+}
+
+/* ================= LOCATION ================= */
+.map{
+  max-width:1000px;
+  margin:0 auto;
+}
+
+iframe{
+  width:100%;
+  height:400px;
+  border:0;
+  border-radius:12px;
+}
+
+/* ================= RSVP ================= */
+.rsvp-btn{
+  display:inline-block;
+  padding:15px 40px;
+  background:var(--gold);
+  color:white;
+  text-decoration:none;
+  border-radius:40px;
+  font-size:16px;
+  transition:.3s;
+}
+
+.rsvp-btn:hover{
+  background:var(--dark-gold);
+}
+
 </style>
 </head>
 <body>
 
-<!-- ================= CURTAINS ================= -->
 <div id="curtain-wrapper">
   <div class="curtain left"></div>
   <div class="curtain right"></div>
 </div>
 
-<canvas id="particles"></canvas>
-
-<!-- ================= HERO ================= -->
 <div class="hero">
   <div class="hero-content">
     <div class="monogram">И & Ђ</div>
     <h1>Исидора & Ђорђе</h1>
-    <div class="hero-sub">19. септембар 2026 · Крагујевац</div>
+    <div>19. септембар 2026 · Крагујевац</div>
   </div>
 </div>
 
-<!-- ================= SCRATCH TIMELINE ================= -->
 <section>
-  <h2>Детаљи и сатница</h2>
+<h2>Детаљи и сатница</h2>
+<div class="scratch-grid">
 
-  <div class="scratch-grid">
+<div class="scratch-card">
+<div class="scratch-content">
+<img src="icons/house1.png">
+<div class="scratch-time">10:00</div>
+Скуп сватова<br>Дом породице Мирковић
+</div>
+<canvas></canvas>
+</div>
 
-    <div class="scratch-card">
-      <div class="scratch-content">
-        <div class="scratch-time">10:00</div>
-        Скуп сватова<br>Дом породице Мирковић
-      </div>
-      <canvas></canvas>
-    </div>
-    
-   <div class="scratch-card">
-     <div class="scratch-content">
-       <div class="scratch-time">11:00</div>
-        Скуп сватова<br>Дом породице Топаловић
-      </div>
-      <canvas></canvas>
-    </div>
-    
-    <div class="scratch-card">
-      <div class="scratch-content">
-        <div class="scratch-time">13:30</div>
-        Црквено венчање<br>Стара Црква
-      </div>
-      <canvas></canvas>
-    </div>
+<div class="scratch-card">
+<div class="scratch-content">
+<img src="icons/house2.png">
+<div class="scratch-time">11:00</div>
+Скуп сватова<br>Дом породице Топаловић
+</div>
+<canvas></canvas>
+</div>
 
-    <div class="scratch-card">
-     <div class="scratch-content">
-        <div class="scratch-time">16:00</div>
-        Свечани ручак<br>Woodland Resort
-      </div>
-      <canvas></canvas>
-    </div>
-    
-    <div class="scratch-card">
-     <div class="scratch-content">
-        <div class="scratch-time">17:30</div>
-        Грађанско венчање<br>Woodland Resort
-      </div>
-      <canvas></canvas>
-    </div>
-    
-  </div>
+<div class="scratch-card">
+<div class="scratch-content">
+<img src="icons/church.png">
+<div class="scratch-time">13:30</div>
+Црквено венчање<br>Стара Црква
+</div>
+<canvas></canvas>
+</div>
+
+<div class="scratch-card">
+<div class="scratch-content">
+<img src="icons/wedding-cake.png">
+<div class="scratch-time">16:00</div>
+Свечани ручак<br>Woodland Resort
+</div>
+<canvas></canvas>
+</div>
+
+<div class="scratch-card">
+<div class="scratch-content">
+<img src="icons/wedding-ring.png">
+<div class="scratch-time">17:30</div>
+Грађанско венчање<br>Woodland Resort
+</div>
+<canvas></canvas>
+</div>
+
+</div>
+</section>
+
+<section>
+<h2>Галерија</h2>
+<div class="gallery">
+<img src="images/image1.jpg">
+<img src="images/image2.jpg">
+<img src="images/image3.jpg">
+<img src="images/image4.jpg">
+</div>
+</section>
+
+<section>
+<h2>Локација</h2>
+<div class="map">
+<iframe src="<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2726.5296944884544!2d20.87165847602345!3d44.0325787710867!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47572155400bb7b9%3A0x720f0e82bab8e50d!2sWoodland%20Resort!5e1!3m2!1ssr!2srs!4v1772571853354!5m2!1ssr!2srs" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>"></iframe>
+</div>
+</section>
+
+<section>
+<h2>RSVP</h2>
+<a href="https://forms.gle/SSfdibRpUms3zxQ3A" target="_blank" class="rsvp-btn">
+Потврдите долазак
+</a>
 </section>
 
 <script>
 
-/* ================= CURTAIN OPEN ================= */
+/* Curtain */
 const curtain=document.getElementById("curtain-wrapper");
 const heroContent=document.querySelector(".hero-content");
 
 curtain.addEventListener("click",()=>{
   curtain.classList.add("open");
   heroContent.classList.add("reveal");
-  launchParticles();
   setTimeout(()=>curtain.style.display="none",2000);
 });
 
-/* ================= PARTICLES ================= */
-const canvas=document.getElementById("particles");
-const ctx=canvas.getContext("2d");
-canvas.width=window.innerWidth;
-canvas.height=window.innerHeight;
-
-function launchParticles(){
-  let particles=[];
-  for(let i=0;i<120;i++){
-    particles.push({
-      x:canvas.width/2,
-      y:canvas.height/2,
-      dx:(Math.random()-0.5)*8,
-      dy:(Math.random()-0.5)*8,
-      size:Math.random()*4+2,
-      life:100
-    });
-  }
-
-  function animate(){
-    ctx.clearRect(0,0,canvas.width,canvas.height);
-    particles.forEach(p=>{
-      p.x+=p.dx;
-      p.y+=p.dy;
-      p.life--;
-      ctx.fillStyle="rgba(212,175,122,"+(p.life/100)+")";
-      ctx.beginPath();
-      ctx.arc(p.x,p.y,p.size,0,Math.PI*2);
-      ctx.fill();
-    });
-    particles=particles.filter(p=>p.life>0);
-    if(particles.length>0)requestAnimationFrame(animate);
-  }
-  animate();
-}
-
-/* ================= SCRATCH EFFECT ================= */
+/* Scratch with scroll lock */
 document.querySelectorAll(".scratch-card").forEach(card=>{
   const canvas=card.querySelector("canvas");
   const ctx=canvas.getContext("2d");
@@ -301,13 +321,13 @@ document.querySelectorAll(".scratch-card").forEach(card=>{
 
   ctx.fillStyle="#c8a97a";
   ctx.fillRect(0,0,canvas.width,canvas.height);
-
   ctx.globalCompositeOperation="destination-out";
 
   let isDown=false;
 
   function scratch(e){
     if(!isDown)return;
+    e.preventDefault();
     const rect=canvas.getBoundingClientRect();
     const x=(e.touches?e.touches[0].clientX:e.clientX)-rect.left;
     const y=(e.touches?e.touches[0].clientY:e.clientY)-rect.top;
@@ -320,9 +340,9 @@ document.querySelectorAll(".scratch-card").forEach(card=>{
   canvas.addEventListener("mouseup",()=>isDown=false);
   canvas.addEventListener("mousemove",scratch);
 
-  canvas.addEventListener("touchstart",()=>isDown=true);
+  canvas.addEventListener("touchstart",e=>{isDown=true;e.preventDefault()});
   canvas.addEventListener("touchend",()=>isDown=false);
-  canvas.addEventListener("touchmove",scratch);
+  canvas.addEventListener("touchmove",scratch,{passive:false});
 });
 
 </script>
