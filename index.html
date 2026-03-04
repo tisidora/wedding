@@ -9,6 +9,7 @@
 
 <style>
 
+/* ================= VARIABLES ================= */
 :root{
   --gold:#c8a97a;
   --dark-gold:#b8935f;
@@ -18,7 +19,6 @@
 }
 
 *{margin:0;padding:0;box-sizing:border-box}
-
 body{
   font-family:'Jost',sans-serif;
   background:var(--bg);
@@ -26,14 +26,13 @@ body{
 }
 
 /* ================= CURTAIN ================= */
-
 #curtain-wrapper{
   position:fixed;
   inset:0;
   display:flex;
   z-index:9999;
   cursor:pointer;
-  background:black;
+  overflow:hidden;
 }
 
 .curtain{
@@ -46,32 +45,33 @@ body{
       #7a141a 40px,
       #5b0f14 80px
     );
-  box-shadow:inset -40px 0 80px rgba(0,0,0,.8);
-  transition:transform 2s cubic-bezier(.77,0,.18,1);
-}
-
-.curtain.right{
-  box-shadow:inset 40px 0 80px rgba(0,0,0,.8);
+  box-shadow:inset 0 0 120px rgba(0,0,0,.6);
+  transition:transform 2.4s cubic-bezier(.77,0,.18,1);
 }
 
 #curtain-wrapper.open .left{
-  transform:translateX(-100%);
+  transform:translateX(-110%) rotate(-8deg);
 }
 #curtain-wrapper.open .right{
-  transform:translateX(100%);
+  transform:translateX(110%) rotate(8deg);
 }
 
-/* ================= PARTICLES ================= */
-
-#particles{
+/* splash light */
+#splash{
   position:fixed;
   inset:0;
+  background:radial-gradient(circle at center, rgba(255,230,180,.9) 0%, rgba(255,230,180,.4) 30%, transparent 60%);
+  opacity:0;
   pointer-events:none;
-  z-index:5000;
+  z-index:9998;
+  transition:opacity 1.2s ease;
+}
+
+#splash.active{
+  opacity:1;
 }
 
 /* ================= HERO ================= */
-
 .hero{
   height:100vh;
   display:flex;
@@ -81,21 +81,27 @@ body{
   background:url("images/hero.jpg") center/cover no-repeat;
   position:relative;
   color:white;
+  transform:scale(1.1);
+  transition:transform 2s ease;
 }
 
 .hero::after{
   content:"";
   position:absolute;
   inset:0;
-  background:rgba(0,0,0,.55);
+  background:rgba(0,0,0,.65);
+}
+
+.hero.reveal{
+  transform:scale(1);
 }
 
 .hero-content{
   position:relative;
   z-index:2;
   opacity:0;
-  transform:translateY(40px);
-  transition:all 1.5s ease;
+  transform:translateY(50px);
+  transition:all 1.8s ease;
 }
 
 .hero-content.reveal{
@@ -108,11 +114,35 @@ body{
   font-size:110px;
   font-style:italic;
   letter-spacing:20px;
-  color:#f5d9a4;
+  color:var(--gold);
+  text-shadow:0 0 40px rgba(0,0,0,.6);
+}
+
+.hero h1{
+  font-size:42px;
+  color:#fff;
+  text-shadow:0 3px 25px rgba(0,0,0,.8);
+  margin-bottom:10px;
+}
+
+/* ================= GOLD PARTICLES ================= */
+.particle{
+  position:absolute;
+  width:6px;
+  height:6px;
+  background:var(--gold);
+  border-radius:50%;
+  opacity:.8;
+  animation:float 6s linear infinite;
+}
+
+@keyframes float{
+  from{transform:translateY(100vh) scale(.5);opacity:0}
+  30%{opacity:.8}
+  to{transform:translateY(-10vh) scale(1);opacity:0}
 }
 
 /* ================= SECTIONS ================= */
-
 section{
   padding:120px 20px;
   text-align:center;
@@ -122,304 +152,139 @@ h2{
   font-family:'Cormorant Garamond',serif;
   font-size:48px;
   font-style:italic;
-  margin-bottom:40px;
+  margin-bottom:60px;
 }
 
-/* ================= SCRATCH ================= */
-
-.scratch-grid{
-  display:flex;
-  flex-wrap:wrap;
-  gap:60px;
-  justify-content:center;
-}
-
-.scratch-card{
-  width:220px;
-  height:220px;
-  border-radius:50%;
-  position:relative;
-  overflow:hidden;
-  background:linear-gradient(145deg,#d4b07a,#b8935f);
-  box-shadow:0 20px 40px rgba(0,0,0,.15);
-}
-
-.scratch-content{
-  position:absolute;
-  inset:0;
+/* ================= RSVP FORM ================= */
+.rsvp-form{
+  max-width:500px;
+  margin:0 auto;
   display:flex;
   flex-direction:column;
-  align-items:center;
-  justify-content:center;
+  gap:15px;
+}
+
+.rsvp-form input,
+.rsvp-form select{
+  padding:12px;
+  border:1px solid #ddd;
+  border-radius:8px;
+  font-size:15px;
+}
+
+.rsvp-form button{
+  padding:14px;
+  background:var(--gold);
   color:white;
-  padding:20px;
-  z-index:1;
+  border:none;
+  border-radius:30px;
+  cursor:pointer;
+  transition:.3s;
 }
 
-.scratch-content img{
-  width:40px;
-  margin-bottom:10px;
+.rsvp-form button:hover{
+  background:var(--dark-gold);
 }
 
-.scratch-time{
-  font-family:'Cormorant Garamond',serif;
-  font-size:28px;
-  margin-bottom:8px;
-}
-
-.scratch-card canvas{
-  position:absolute;
-  inset:0;
-  border-radius:50%;
-  z-index:2;
-}
-
-/* ================= GALLERY ================= */
-
-.gallery{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-  gap:20px;
-  max-width:1100px;
-  margin:0 auto;
-}
-
-.gallery img{
-  width:100%;
-  height:320px;
-  object-fit:cover;
-  border-radius:12px;
-  transition:.4s;
-}
-
-.gallery img:hover{
-  transform:scale(1.05);
-}
-
-/* ================= MAP ================= */
-
-.map{
-  max-width:1000px;
-  margin:0 auto;
-}
-
-iframe{
-  width:100%;
-  border:0;
-  border-radius:12px;
-}
-
-/* ================= RSVP EMBED ================= */
-
-.rsvp-embed{
-  max-width:800px;
-  margin:0 auto;
-}
-
-.rsvp-embed iframe{
-  width:100%;
-  height:900px;
-  border-radius:12px;
-  border:0;
+.success-msg{
+  display:none;
+  margin-top:15px;
+  color:green;
 }
 
 </style>
 </head>
 <body>
 
-<!-- Splash particles -->
-<canvas id="particles"></canvas>
-
-<!-- Curtains -->
 <div id="curtain-wrapper">
   <div class="curtain left"></div>
   <div class="curtain right"></div>
 </div>
 
-<!-- HERO -->
+<div id="splash"></div>
+
 <div class="hero">
   <div class="hero-content">
     <div class="monogram">И & Ђ</div>
     <h1>Исидора & Ђорђе</h1>
     <div>19. септембар 2026 · Крагујевац</div>
+    <br>
+    <a href="https://www.google.com/maps/place/Woodland+Resort/" target="_blank" style="color:var(--gold);text-decoration:none;font-weight:500;">
+      📍 Погледај локацију
+    </a>
   </div>
 </div>
 
-<!-- SCRATCH -->
-<section>
-<h2>Детаљи и сатница</h2>
-<div>Огреби кружић за више детаља</div>
-<div class="scratch-grid">
-
-<div class="scratch-card">
-<div class="scratch-content">
-<img src="icons/house1.png">
-<div class="scratch-time">10:00</div>
-Скуп сватова у дому породице Мирковић
-</div><canvas></canvas></div>
-
-<div class="scratch-card">
-<div class="scratch-content">
-<img src="icons/house2.png">
-<div class="scratch-time">11:00</div>
-Скуп сватова у дому породице Топаловић
-</div><canvas></canvas></div>
-
-<div class="scratch-card">
-<div class="scratch-content">
-<img src="icons/church.png">
-<div class="scratch-time">13:30</div>
-Црквено венчање<br>Храм Свете Тројице
-</div><canvas></canvas></div>
-
-<div class="scratch-card">
-<div class="scratch-content">
-<img src="icons/wedding-cake.png">
-<div class="scratch-time">16:00</div>
-Свечани ручак<br>Woodland Resort
-</div><canvas></canvas></div>
-
-<div class="scratch-card">
-<div class="scratch-content">
-<img src="icons/wedding-ring.png">
-<div class="scratch-time">17:30</div>
-Грађанско венчање<br>Woodland Resort
-</div><canvas></canvas></div>
-
-</div>
-</section>
-
-<!-- GALLERY -->
-<section>
-<h2>Галерија</h2>
-<div class="gallery">
-<img src="images/image1.jpg">
-<img src="images/image2.jpg">
-<img src="images/image3.jpg">
-<img src="images/image4.jpg">
-</div>
-</section>
-
-<!-- LOCATION -->
-<section>
-<h2>Локација</h2>
-<div class="map">
-<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2726.5296944884544!2d20.87165847602345!3d44.0325787710867!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47572155400bb7b9%3A0x720f0e82bab8e50d!2sWoodland%20Resort!5e1!3m2!1ssr!2srs!4v1772571853354!5m2!1ssr!2srs" height="450"></iframe>
-</div>
-</section>
-
-<!-- RSVP EMBED -->
 <section>
 <h2>RSVP</h2>
-<div class="rsvp-embed">
-<iframe src="https://docs.google.com/forms/d/e/1FAIpQLSeXXXXXXXXXXXXXXX/viewform?embedded=true">
-Loading…
-</iframe>
+
+<form class="rsvp-form" id="rsvpForm">
+  <input type="text" placeholder="Име и презиме" required>
+  <select required>
+    <option value="">Да ли долазите?</option>
+    <option>Долазим</option>
+    <option>Нажалост не долазим</option>
+  </select>
+  <input type="number" placeholder="Број особа">
+  <button type="submit">Пошаљи</button>
+</form>
+
+<div class="success-msg" id="successMsg">
+  Хвала Вам! Ваш одговор је забележен.
 </div>
+
 </section>
 
 <script>
 
-/* ================= SPLASH + CURTAIN ================= */
-
+/* Curtain cinematic open */
 const curtain=document.getElementById("curtain-wrapper");
+const hero=document.querySelector(".hero");
 const heroContent=document.querySelector(".hero-content");
-const particlesCanvas=document.getElementById("particles");
-const pctx=particlesCanvas.getContext("2d");
-
-particlesCanvas.width=window.innerWidth;
-particlesCanvas.height=window.innerHeight;
+const splash=document.getElementById("splash");
 
 curtain.addEventListener("click",()=>{
-  launchParticles();
+  curtain.classList.add("open");
+  splash.classList.add("active");
 
   setTimeout(()=>{
-    curtain.classList.add("open");
+    hero.classList.add("reveal");
     heroContent.classList.add("reveal");
-  },600);
+  },800);
+
+  setTimeout(()=>{
+    splash.style.opacity="0";
+  },1600);
 
   setTimeout(()=>{
     curtain.style.display="none";
-  },2600);
+  },2500);
+
+  createParticles();
 });
 
-/* PARTICLES */
-function launchParticles(){
-  let particles=[];
-  for(let i=0;i<150;i++){
-    particles.push({
-      x:particlesCanvas.width/2,
-      y:particlesCanvas.height/2,
-      dx:(Math.random()-0.5)*10,
-      dy:(Math.random()-0.5)*10,
-      size:Math.random()*4+2,
-      life:100
-    });
+/* gold particles */
+function createParticles(){
+  for(let i=0;i<25;i++){
+    const p=document.createElement("div");
+    p.classList.add("particle");
+    p.style.left=Math.random()*100+"%";
+    p.style.animationDuration=(4+Math.random()*4)+"s";
+    document.body.appendChild(p);
+    setTimeout(()=>p.remove(),8000);
   }
-
-  function animate(){
-    pctx.clearRect(0,0,particlesCanvas.width,particlesCanvas.height);
-    particles.forEach(p=>{
-      p.x+=p.dx;
-      p.y+=p.dy;
-      p.life--;
-      pctx.fillStyle="rgba(212,175,122,"+(p.life/100)+")";
-      pctx.beginPath();
-      pctx.arc(p.x,p.y,p.size,0,Math.PI*2);
-      pctx.fill();
-    });
-    particles=particles.filter(p=>p.life>0);
-    if(particles.length>0)requestAnimationFrame(animate);
-  }
-  animate();
 }
 
-/* SCRATCH + SCROLL LOCK */
-
-document.querySelectorAll(".scratch-card").forEach(card=>{
-  const canvas=card.querySelector("canvas");
-  const ctx=canvas.getContext("2d");
-
-  canvas.width=card.offsetWidth;
-  canvas.height=card.offsetHeight;
-
-  ctx.fillStyle="#c8a97a";
-  ctx.fillRect(0,0,canvas.width,canvas.height);
-  ctx.globalCompositeOperation="destination-out";
-
-  let isDown=false;
-
-  function scratch(e){
-    if(!isDown)return;
-    e.preventDefault();
-    const rect=canvas.getBoundingClientRect();
-    const x=(e.touches?e.touches[0].clientX:e.clientX)-rect.left;
-    const y=(e.touches?e.touches[0].clientY:e.clientY)-rect.top;
-    ctx.beginPath();
-    ctx.arc(x,y,18,0,Math.PI*2);
-    ctx.fill();
-  }
-
-  canvas.addEventListener("mousedown",()=>isDown=true);
-  canvas.addEventListener("mouseup",()=>isDown=false);
-  canvas.addEventListener("mousemove",scratch);
-
-  canvas.addEventListener("touchstart",e=>{
-    isDown=true;
-    document.body.style.overflow="hidden";
-    e.preventDefault();
-  });
-
-  canvas.addEventListener("touchend",()=>{
-    isDown=false;
-    document.body.style.overflow="auto";
-  });
-
-  canvas.addEventListener("touchmove",scratch,{passive:false});
+/* RSVP fake submit */
+document.getElementById("rsvpForm").addEventListener("submit",function(e){
+  e.preventDefault();
+  document.getElementById("successMsg").style.display="block";
+  this.reset();
 });
 
 </script>
 
 </body>
 </html>
+
 
