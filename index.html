@@ -9,7 +9,6 @@
 
 <style>
 
-/* ================= VARIABLES ================= */
 :root{
   --gold:#c8a97a;
   --dark-gold:#b8935f;
@@ -19,6 +18,7 @@
 }
 
 *{margin:0;padding:0;box-sizing:border-box}
+
 body{
   font-family:'Jost',sans-serif;
   background:var(--bg);
@@ -26,12 +26,14 @@ body{
 }
 
 /* ================= CURTAIN ================= */
+
 #curtain-wrapper{
   position:fixed;
   inset:0;
   display:flex;
   z-index:9999;
   cursor:pointer;
+  background:black;
 }
 
 .curtain{
@@ -44,18 +46,32 @@ body{
       #7a141a 40px,
       #5b0f14 80px
     );
-  transition:transform 1.8s cubic-bezier(.77,0,.18,1);
-  position:relative;
+  box-shadow:inset -40px 0 80px rgba(0,0,0,.8);
+  transition:transform 2s cubic-bezier(.77,0,.18,1);
+}
+
+.curtain.right{
+  box-shadow:inset 40px 0 80px rgba(0,0,0,.8);
 }
 
 #curtain-wrapper.open .left{
-  transform:translateX(-100%) rotate(-6deg);
+  transform:translateX(-100%);
 }
 #curtain-wrapper.open .right{
-  transform:translateX(100%) rotate(6deg);
+  transform:translateX(100%);
+}
+
+/* ================= PARTICLES ================= */
+
+#particles{
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  z-index:5000;
 }
 
 /* ================= HERO ================= */
+
 .hero{
   height:100vh;
   display:flex;
@@ -96,6 +112,7 @@ body{
 }
 
 /* ================= SECTIONS ================= */
+
 section{
   padding:120px 20px;
   text-align:center;
@@ -105,10 +122,11 @@ h2{
   font-family:'Cormorant Garamond',serif;
   font-size:48px;
   font-style:italic;
-  margin-bottom:60px;
+  margin-bottom:40px;
 }
 
 /* ================= SCRATCH ================= */
+
 .scratch-grid{
   display:flex;
   flex-wrap:wrap;
@@ -157,6 +175,7 @@ h2{
 }
 
 /* ================= GALLERY ================= */
+
 .gallery{
   display:grid;
   grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
@@ -177,7 +196,8 @@ h2{
   transform:scale(1.05);
 }
 
-/* ================= LOCATION ================= */
+/* ================= MAP ================= */
+
 .map{
   max-width:1000px;
   margin:0 auto;
@@ -185,36 +205,38 @@ h2{
 
 iframe{
   width:100%;
-  height:400px;
   border:0;
   border-radius:12px;
 }
 
-/* ================= RSVP ================= */
-.rsvp-btn{
-  display:inline-block;
-  padding:15px 40px;
-  background:var(--gold);
-  color:white;
-  text-decoration:none;
-  border-radius:40px;
-  font-size:16px;
-  transition:.3s;
+/* ================= RSVP EMBED ================= */
+
+.rsvp-embed{
+  max-width:800px;
+  margin:0 auto;
 }
 
-.rsvp-btn:hover{
-  background:var(--dark-gold);
+.rsvp-embed iframe{
+  width:100%;
+  height:900px;
+  border-radius:12px;
+  border:0;
 }
 
 </style>
 </head>
 <body>
 
+<!-- Splash particles -->
+<canvas id="particles"></canvas>
+
+<!-- Curtains -->
 <div id="curtain-wrapper">
   <div class="curtain left"></div>
   <div class="curtain right"></div>
 </div>
 
+<!-- HERO -->
 <div class="hero">
   <div class="hero-content">
     <div class="monogram">И & Ђ</div>
@@ -223,9 +245,10 @@ iframe{
   </div>
 </div>
 
+<!-- SCRATCH -->
 <section>
 <h2>Детаљи и сатница</h2>
-<div> Огреби кружић за више детаља</div>
+<div>Огреби кружић за више детаља</div>
 <div class="scratch-grid">
 
 <div class="scratch-card">
@@ -233,49 +256,40 @@ iframe{
 <img src="icons/house1.png">
 <div class="scratch-time">10:00</div>
 Скуп сватова у дому породице Мирковић
-</div>
-<canvas></canvas>
-</div>
+</div><canvas></canvas></div>
 
 <div class="scratch-card">
 <div class="scratch-content">
 <img src="icons/house2.png">
 <div class="scratch-time">11:00</div>
 Скуп сватова у дому породице Топаловић
-</div>
-<canvas></canvas>
-</div>
+</div><canvas></canvas></div>
 
 <div class="scratch-card">
 <div class="scratch-content">
 <img src="icons/church.png">
 <div class="scratch-time">13:30</div>
-Црквено венчање<br>Храм Свете Тројице - Стара Црква
-</div>
-<canvas></canvas>
-</div>
+Црквено венчање<br>Храм Свете Тројице
+</div><canvas></canvas></div>
 
 <div class="scratch-card">
 <div class="scratch-content">
 <img src="icons/wedding-cake.png">
 <div class="scratch-time">16:00</div>
 Свечани ручак<br>Woodland Resort
-</div>
-<canvas></canvas>
-</div>
+</div><canvas></canvas></div>
 
 <div class="scratch-card">
 <div class="scratch-content">
 <img src="icons/wedding-ring.png">
 <div class="scratch-time">17:30</div>
 Грађанско венчање<br>Woodland Resort
-</div>
-<canvas></canvas>
-</div>
+</div><canvas></canvas></div>
 
 </div>
 </section>
 
+<!-- GALLERY -->
 <section>
 <h2>Галерија</h2>
 <div class="gallery">
@@ -286,33 +300,82 @@ iframe{
 </div>
 </section>
 
+<!-- LOCATION -->
 <section>
 <h2>Локација</h2>
 <div class="map">
-<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2726.5296944884544!2d20.87165847602345!3d44.0325787710867!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47572155400bb7b9%3A0x720f0e82bab8e50d!2sWoodland%20Resort!5e1!3m2!1ssr!2srs!4v1772571853354!5m2!1ssr!2srs" width="400" height="300" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2726.5296944884544!2d20.87165847602345!3d44.0325787710867!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47572155400bb7b9%3A0x720f0e82bab8e50d!2sWoodland%20Resort!5e1!3m2!1ssr!2srs!4v1772571853354!5m2!1ssr!2srs" height="450"></iframe>
 </div>
 </section>
 
+<!-- RSVP EMBED -->
 <section>
 <h2>RSVP</h2>
-<a href="https://forms.gle/SSfdibRpUms3zxQ3A" target="_blank" class="rsvp-btn">
-Потврдите долазак
-</a>
+<div class="rsvp-embed">
+<iframe src="https://docs.google.com/forms/d/e/1FAIpQLSeXXXXXXXXXXXXXXX/viewform?embedded=true">
+Loading…
+</iframe>
+</div>
 </section>
 
 <script>
 
-/* Curtain */
+/* ================= SPLASH + CURTAIN ================= */
+
 const curtain=document.getElementById("curtain-wrapper");
 const heroContent=document.querySelector(".hero-content");
+const particlesCanvas=document.getElementById("particles");
+const pctx=particlesCanvas.getContext("2d");
+
+particlesCanvas.width=window.innerWidth;
+particlesCanvas.height=window.innerHeight;
 
 curtain.addEventListener("click",()=>{
-  curtain.classList.add("open");
-  heroContent.classList.add("reveal");
-  setTimeout(()=>curtain.style.display="none",2000);
+  launchParticles();
+
+  setTimeout(()=>{
+    curtain.classList.add("open");
+    heroContent.classList.add("reveal");
+  },600);
+
+  setTimeout(()=>{
+    curtain.style.display="none";
+  },2600);
 });
 
-/* Scratch with scroll lock */
+/* PARTICLES */
+function launchParticles(){
+  let particles=[];
+  for(let i=0;i<150;i++){
+    particles.push({
+      x:particlesCanvas.width/2,
+      y:particlesCanvas.height/2,
+      dx:(Math.random()-0.5)*10,
+      dy:(Math.random()-0.5)*10,
+      size:Math.random()*4+2,
+      life:100
+    });
+  }
+
+  function animate(){
+    pctx.clearRect(0,0,particlesCanvas.width,particlesCanvas.height);
+    particles.forEach(p=>{
+      p.x+=p.dx;
+      p.y+=p.dy;
+      p.life--;
+      pctx.fillStyle="rgba(212,175,122,"+(p.life/100)+")";
+      pctx.beginPath();
+      pctx.arc(p.x,p.y,p.size,0,Math.PI*2);
+      pctx.fill();
+    });
+    particles=particles.filter(p=>p.life>0);
+    if(particles.length>0)requestAnimationFrame(animate);
+  }
+  animate();
+}
+
+/* SCRATCH + SCROLL LOCK */
+
 document.querySelectorAll(".scratch-card").forEach(card=>{
   const canvas=card.querySelector("canvas");
   const ctx=canvas.getContext("2d");
@@ -341,8 +404,17 @@ document.querySelectorAll(".scratch-card").forEach(card=>{
   canvas.addEventListener("mouseup",()=>isDown=false);
   canvas.addEventListener("mousemove",scratch);
 
-  canvas.addEventListener("touchstart",e=>{isDown=true;e.preventDefault()});
-  canvas.addEventListener("touchend",()=>isDown=false);
+  canvas.addEventListener("touchstart",e=>{
+    isDown=true;
+    document.body.style.overflow="hidden";
+    e.preventDefault();
+  });
+
+  canvas.addEventListener("touchend",()=>{
+    isDown=false;
+    document.body.style.overflow="auto";
+  });
+
   canvas.addEventListener("touchmove",scratch,{passive:false});
 });
 
@@ -350,3 +422,4 @@ document.querySelectorAll(".scratch-card").forEach(card=>{
 
 </body>
 </html>
+
