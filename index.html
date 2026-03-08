@@ -923,7 +923,7 @@ footer::before{
       <div class="scratch-inner">
         <img src="icons/church.png" alt="">
         <div class="scratch-time">13:30</div>
-        <div class="scratch-desc">Црквено венчање<br>Храм Свете Тројице (Стара црква)</div>
+        <div class="scratch-desc">Црквено венчање<br>Храм Свете Тројице(Стара црква)</div>
       </div>
       <canvas></canvas>
     </div>
@@ -1249,35 +1249,109 @@ function sfxHero(){
 let _lastScratch = 0;
 function sfxScratch(){
   const now = performance.now();
-  if(now - _lastScratch < 120) return;
+  if(now - _lastScratch < 90) return;
   _lastScratch = now;
-  const a = ac(), o = out(0.06);
-  const buf = a.createBuffer(1, a.sampleRate * 0.04, a.sampleRate);
+  const a = ac(), o = out(0.09);
+
+  // Soft sand-paper rasp: shaped noise through a gentle bandpass
+  // sounds like gold foil being rubbed, not harsh vinyl
+  const dur = 0.055;
+  const buf = a.createBuffer(1, Math.floor(a.sampleRate * dur), a.sampleRate);
   const d = buf.getChannelData(0);
-  for(let i = 0; i < d.length; i++) d[i] = (Math.random()*2-1);
-  const src = a.createBufferSource(); src.buffer = buf;
-  const hp = a.createBiquadFilter(); hp.type="highpass"; hp.frequency.value = 3500;
+  for(let i = 0; i < d.length; i++){
+    // smoother noise — average two random samples to reduce harshness
+    d[i] = ((Math.random() + Math.random()) - 1) * Math.pow(1 - i/d.length, 0.4);
+  }
+  const src = a.createBufferSource();
+  src.buffer = buf;
+  // slightly different pitch each stroke so it feels natural
+  src.playbackRate.value = 0.85 + Math.random() * 0.3;
+
+  // warm bandpass: 600–1800 Hz — papery, not scratchy-harsh
+  const bp = a.createBiquadFilter();
+  bp.type = "bandpass";
+  bp.frequency.value = 900 + Math.random() * 400;
+  bp.Q.value = 1.2;
+
+  // gentle low-shelf to remove any thin high-end bite
+  const shelf = a.createBiquadFilter();
+  shelf.type = "highshelf";
+  shelf.frequency.value = 3200;
+  shelf.gain.value = -9;
+
   const g = a.createGain();
-  g.gain.setValueAtTime(1, a.currentTime);
-  g.gain.exponentialRampToValueAtTime(0.001, a.currentTime + 0.04);
-  src.connect(hp); hp.connect(g); g.connect(o);
+  g.gain.setValueAtTime(0, a.currentTime);
+  g.gain.linearRampToValueAtTime(1, a.currentTime + 0.008);
+  g.gain.exponentialRampToValueAtTime(0.001, a.currentTime + dur);
+
+  src.connect(bp); bp.connect(shelf); shelf.connect(g); g.connect(o);
   src.start();
 }
 
-/* 4. Card reveal — two soft sine tones, gentle sparkle */
+/* 4. Card reveal — magical shimmer: rising sparkle arpeggio + fairy dust noise burst */
 function sfxReveal(){
-  const a = ac(), o = out(0.13);
-  [880, 1320].forEach((freq, i) => {
-    const osc = a.createOscillator();
-    osc.type = "sine"; osc.frequency.value = freq;
+  const a = ac(), o = out(0.16);
+
+  // ── fairy dust: pitched noise that sweeps upward ──
+  const noiseDur = 1.6;
+  const nbuf = a.createBuffer(1, Math.floor(a.sampleRate * noiseDur), a.sampleRate);
+  const nd = nbuf.getChannelData(0);
+  for(let i = 0; i < nd.length; i++) nd[i] = (Math.random()*2-1) * Math.pow(1-i/nd.length, 1.8);
+  const nsrc = a.createBufferSource(); nsrc.buffer = nbuf;
+  const nbp = a.createBiquadFilter(); nbp.type="bandpass";
+  nbp.frequency.setValueAtTime(800, a.currentTime);
+  nbp.frequency.exponentialRampToValueAtTime(4200, a.currentTime + 1.4);
+  nbp.Q.value = 3;
+  const ng = a.createGain();
+  ng.gain.setValueAtTime(0, a.currentTime);
+  ng.gain.linearRampToValueAtTime(0.55, a.currentTime + 0.06);
+  ng.gain.exponentialRampToValueAtTime(0.001, a.currentTime + 1.5);
+  nsrc.connect(nbp); nbp.connect(ng); ng.connect(o);
+  nsrc.start();
+
+  // ── rising magical arpeggio — pentatonic, wide spacing ──
+  // notes: D5  F#5  A5  D6  F#6  A6
+  const freqs = [587.33, 739.99, 880.00, 1174.66, 1479.98, 1760.00];
+  freqs.forEach((freq, i) => {
+    const osc  = a.createOscillator();
+    const osc2 = a.createOscillator(); // octave up for shimmer
+    osc.type  = "sine"; osc.frequency.value  = freq;
+    osc2.type = "sine"; osc2.frequency.value = freq * 2;
+
+    const t = a.currentTime + i * 0.075; // quick stagger upward
+
     const g = a.createGain();
-    const t = a.currentTime + i * 0.1;
     g.gain.setValueAtTime(0, t);
-    g.gain.linearRampToValueAtTime(0.4, t + 0.02);
-    g.gain.exponentialRampToValueAtTime(0.001, t + 0.7);
-    osc.connect(g); g.connect(o);
-    osc.start(t); osc.stop(t + 0.75);
+    g.gain.linearRampToValueAtTime(0.28 - i*0.03, t + 0.018);
+    g.gain.exponentialRampToValueAtTime(0.001, t + 1.1 - i*0.06);
+
+    const g2 = a.createGain(); g2.gain.value = 0.18; // octave quieter
+
+    // slight vibrato via LFO on higher notes
+    if(i >= 3){
+      const lfo = a.createOscillator(); lfo.frequency.value = 5.5 + i;
+      const lfoG = a.createGain(); lfoG.gain.value = 6;
+      lfo.connect(lfoG); lfoG.connect(osc.frequency);
+      lfo.start(t); lfo.stop(t + 1.2);
+    }
+
+    osc.connect(g); osc2.connect(g2); g2.connect(g); g.connect(o);
+    osc.start(t);  osc.stop(t + 1.2);
+    osc2.start(t); osc2.stop(t + 1.2);
   });
+
+  // ── final high sparkle ping ──
+  setTimeout(()=>{
+    const a2 = ac(), o2 = out(0.08);
+    const ping = a2.createOscillator();
+    ping.type = "sine"; ping.frequency.setValueAtTime(2637, a2.currentTime);
+    ping.frequency.exponentialRampToValueAtTime(1800, a2.currentTime + 0.5);
+    const pg = a2.createGain();
+    pg.gain.setValueAtTime(0.5, a2.currentTime);
+    pg.gain.exponentialRampToValueAtTime(0.001, a2.currentTime + 0.5);
+    ping.connect(pg); pg.connect(o2);
+    ping.start(); ping.stop(a2.currentTime + 0.55);
+  }, 460);
 }
 
 /* 5. Gallery hover — single barely-audible high tick */
