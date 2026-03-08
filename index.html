@@ -911,23 +911,6 @@ footer::before{
 </head>
 <body>
 
-<!-- MUSIC PLAYER -->
-<div id="music-player" class="paused">
-  <button id="music-toggle" aria-label="Toggle music">
-    <!-- play icon shown when paused -->
-    <svg id="icon-play"  viewBox="0 0 24 24" fill="var(--gold-lt)" stroke="none"><polygon points="5,3 19,12 5,21"/></svg>
-    <!-- pause icon hidden initially -->
-    <svg id="icon-pause" viewBox="0 0 24 24" fill="var(--gold-lt)" stroke="none" style="display:none"><rect x="5" y="3" width="4" height="18" rx="1"/><rect x="15" y="3" width="4" height="18" rx="1"/></svg>
-  </button>
-  <div class="music-info">
-    <div class="music-title">Canon in D</div>
-    <div class="music-artist">Johann Pachelbel</div>
-  </div>
-  <div class="music-eq">
-    <span></span><span></span><span></span><span></span><span></span>
-  </div>
-</div>
-
 <!-- AMBIENT LIGHTS -->
 <div id="stage-lights"></div>
 
@@ -959,7 +942,7 @@ footer::before{
   <!-- centre invite text -->
   <div id="curtain-center">
     <div class="mono">И &amp; Ђ</div>
-    <div class="sub">1. Септембар 2026 · Крагујевац</div>
+    <div class="sub">19. Септембар 2026 · Крагујевац</div>
     <div id="open-btn">Отвори позорницу</div>
   </div>
 </div>
@@ -970,7 +953,7 @@ footer::before{
   <div class="hero-vignette"></div>
   <div class="spotlight"></div>
   <div class="hero-content" id="hero-content">
-    <p class="hero-program">1. Септембар 2026 &nbsp;·&nbsp; Крагујевац</p>
+    <p class="hero-program">19. Септембар 2026 &nbsp;·&nbsp; Крагујевац</p>
     <div class="monogram">И &amp; Ђ</div>
     <h1>Исидора &amp; Ђорђе</h1>
     <div class="hero-rule">
@@ -996,9 +979,9 @@ footer::before{
 <section class="programme-section">
   <div class="reveal">
     <p class="act-label">Чин I</p>
-    <h2>Сатница дана</h2>
+    <h2>Детаљи и сатница</h2>
     <div class="sep"><div class="sep-line"></div><div class="sep-diamond"></div><div class="sep-line"></div></div>
-    <p class="scratch-hint">— Огреби кружић и открити тајну —</p>
+    <p class="scratch-hint">— Огреби кружић и откриј тајну —</p>
   </div>
 
   <div class="scratch-grid reveal">
@@ -1007,7 +990,7 @@ footer::before{
       <div class="scratch-inner">
         <img src="icons/house1.png" alt="">
         <div class="scratch-time">10:00</div>
-        <div class="scratch-desc">Скуп сватова<br>пор. Мирковић</div>
+        <div class="scratch-desc">Скуп сватова у дому породице Мирковић</div>
       </div>
       <canvas></canvas>
     </div>
@@ -1016,7 +999,7 @@ footer::before{
       <div class="scratch-inner">
         <img src="icons/house2.png" alt="">
         <div class="scratch-time">11:00</div>
-        <div class="scratch-desc">Скуп сватова<br>пор. Топаловић</div>
+        <div class="scratch-desc">Скуп сватова у дому породице Топаловић</div>
       </div>
       <canvas></canvas>
     </div>
@@ -1025,7 +1008,7 @@ footer::before{
       <div class="scratch-inner">
         <img src="icons/church.png" alt="">
         <div class="scratch-time">13:30</div>
-        <div class="scratch-desc">Црквено венчање<br>Храм Свете Тројице</div>
+        <div class="scratch-desc">Црквено венчање<br>Храм Свете Тројице (Стара црква)</div>
       </div>
       <canvas></canvas>
     </div>
@@ -1063,7 +1046,6 @@ footer::before{
     <div class="g-item"><img src="images/image2.jpg" alt=""></div>
     <div class="g-item"><img src="images/image3.jpg" alt=""></div>
     <div class="g-item"><img src="images/image4.jpg" alt=""></div>
-    <div class="g-item"><img src="images/image1.jpg" alt=""></div>
   </div>
 </section>
 
@@ -1087,7 +1069,7 @@ footer::before{
       <p class="act-label">Финале</p>
       <h2>Потврда доласка</h2>
       <div class="sep"><div class="sep-line"></div><div class="sep-diamond"></div><div class="sep-line"></div></div>
-      <p>Молимо вас да потврдите долазак<br>најкасније до 1. септембра 2026.<br>Радујемо се да прославимо овај дан заједно са вама.</p>
+      <p>Молимо вас да потврдите долазак<br>најкасније до 19. августа 2026.<br>Радујемо се да прославимо овај дан заједно са вама.</p>
     </div>
     <div class="rsvp-frame reveal">
       <iframe src="https://forms.gle/QubKBh8eGvpLyuba7"></iframe>
@@ -1185,9 +1167,6 @@ const openBtn     = document.getElementById("open-btn");
 openBtn.addEventListener("click", function(e){
   const rect = openBtn.getBoundingClientRect();
   launchParticles(rect.left + rect.width/2, rect.top + rect.height/2);
-
-  // start music on user interaction (browser policy requires this)
-  startMusic();
 
   // brief pause, then sweep curtains open
   setTimeout(()=>{
@@ -1295,86 +1274,6 @@ const io = new IntersectionObserver((entries)=>{
   });
 }, {threshold:.12});
 revealEls.forEach(el => io.observe(el));
-
-/* ── MUSIC ── */
-// Pachelbel Canon in D — public domain MIDI rendered to MP3, served via IMSLP proxy
-// We use multiple free CDN sources for reliability
-const TRACKS = [
-  "https://upload.wikimedia.org/wikipedia/commons/7/77/Johann_Pachelbel_-_Canon_in_D_Major.ogg",
-  "https://upload.wikimedia.org/wikipedia/commons/4/4e/Pachelbel_Canon_D_major.ogg"
-];
-
-const audio       = new Audio();
-audio.loop        = true;
-audio.volume      = 0;
-let   musicReady  = false;
-let   playing     = false;
-let   fadeTimer   = null;
-
-// Load first track
-audio.src = TRACKS[0];
-audio.onerror = () => { audio.src = TRACKS[1]; };
-
-const player     = document.getElementById("music-player");
-const toggleBtn  = document.getElementById("music-toggle");
-const iconPlay   = document.getElementById("icon-play");
-const iconPause  = document.getElementById("icon-pause");
-
-function fadeTo(target, duration, cb){
-  clearInterval(fadeTimer);
-  const steps = 60;
-  const stepTime = duration / steps;
-  const delta = (target - audio.volume) / steps;
-  fadeTimer = setInterval(()=>{
-    audio.volume = Math.min(1, Math.max(0, audio.volume + delta));
-    if((delta > 0 && audio.volume >= target) || (delta < 0 && audio.volume <= target)){
-      audio.volume = target;
-      clearInterval(fadeTimer);
-      if(cb) cb();
-    }
-  }, stepTime);
-}
-
-function startMusic(){
-  if(playing) return;
-  playing = true;
-  audio.play().then(()=>{
-    fadeTo(0.28, 3000); // gentle fade-in over 3s to a soft 28% volume
-    setPlayingUI(true);
-  }).catch(()=>{
-    // autoplay blocked — show player so user can click manually
-    player.classList.add("visible");
-  });
-  player.classList.add("visible");
-}
-
-function setPlayingUI(isPlaying){
-  if(isPlaying){
-    iconPlay.style.display  = "none";
-    iconPause.style.display = "block";
-    player.classList.remove("paused");
-  } else {
-    iconPlay.style.display  = "block";
-    iconPause.style.display = "none";
-    player.classList.add("paused");
-  }
-}
-
-toggleBtn.addEventListener("click", ()=>{
-  if(audio.paused){
-    audio.play();
-    fadeTo(0.28, 1200);
-    setPlayingUI(true);
-    playing = true;
-  } else {
-    fadeTo(0, 800, ()=> audio.pause());
-    setPlayingUI(false);
-    playing = false;
-  }
-});
-
-// Show player after curtain opens even if autoplay was blocked
-setTimeout(()=> player.classList.add("visible"), 4000);
 
 </script>
 </body>
