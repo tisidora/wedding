@@ -911,6 +911,23 @@ footer::before{
 </head>
 <body>
 
+<!-- MUSIC PLAYER -->
+<div id="music-player" class="paused">
+  <button id="music-toggle" aria-label="Toggle music">
+    <!-- play icon shown when paused -->
+    <svg id="icon-play"  viewBox="0 0 24 24" fill="var(--gold-lt)" stroke="none"><polygon points="5,3 19,12 5,21"/></svg>
+    <!-- pause icon hidden initially -->
+    <svg id="icon-pause" viewBox="0 0 24 24" fill="var(--gold-lt)" stroke="none" style="display:none"><rect x="5" y="3" width="4" height="18" rx="1"/><rect x="15" y="3" width="4" height="18" rx="1"/></svg>
+  </button>
+  <div class="music-info">
+    <div class="music-title">Canon in D</div>
+    <div class="music-artist">Johann Pachelbel</div>
+  </div>
+  <div class="music-eq">
+    <span></span><span></span><span></span><span></span><span></span>
+  </div>
+</div>
+
 <!-- AMBIENT LIGHTS -->
 <div id="stage-lights"></div>
 
@@ -942,7 +959,7 @@ footer::before{
   <!-- centre invite text -->
   <div id="curtain-center">
     <div class="mono">И &amp; Ђ</div>
-    <div class="sub">19. Септембар 2026 · Крагујевац</div>
+    <div class="sub">1. Септембар 2026 · Крагујевац</div>
     <div id="open-btn">Отвори позорницу</div>
   </div>
 </div>
@@ -953,7 +970,7 @@ footer::before{
   <div class="hero-vignette"></div>
   <div class="spotlight"></div>
   <div class="hero-content" id="hero-content">
-    <p class="hero-program">19. Септембар 2026 &nbsp;·&nbsp; Крагујевац</p>
+    <p class="hero-program">1. Септембар 2026 &nbsp;·&nbsp; Крагујевац</p>
     <div class="monogram">И &amp; Ђ</div>
     <h1>Исидора &amp; Ђорђе</h1>
     <div class="hero-rule">
@@ -979,9 +996,9 @@ footer::before{
 <section class="programme-section">
   <div class="reveal">
     <p class="act-label">Чин I</p>
-    <h2>Детаљи и сатница</h2>
+    <h2>Сатница дана</h2>
     <div class="sep"><div class="sep-line"></div><div class="sep-diamond"></div><div class="sep-line"></div></div>
-    <p class="scratch-hint">— Огреби кружић и откриј тајну —</p>
+    <p class="scratch-hint">— Огреби кружић и открити тајну —</p>
   </div>
 
   <div class="scratch-grid reveal">
@@ -990,7 +1007,7 @@ footer::before{
       <div class="scratch-inner">
         <img src="icons/house1.png" alt="">
         <div class="scratch-time">10:00</div>
-        <div class="scratch-desc">Скуп сватова у дому породице Мирковић</div>
+        <div class="scratch-desc">Скуп сватова<br>пор. Мирковић</div>
       </div>
       <canvas></canvas>
     </div>
@@ -999,7 +1016,7 @@ footer::before{
       <div class="scratch-inner">
         <img src="icons/house2.png" alt="">
         <div class="scratch-time">11:00</div>
-        <div class="scratch-desc">Скуп сватова у дому породице Топаловић</div>
+        <div class="scratch-desc">Скуп сватова<br>пор. Топаловић</div>
       </div>
       <canvas></canvas>
     </div>
@@ -1008,7 +1025,7 @@ footer::before{
       <div class="scratch-inner">
         <img src="icons/church.png" alt="">
         <div class="scratch-time">13:30</div>
-        <div class="scratch-desc">Црквено венчање<br>Храм Свете Тројице (Стара црква)</div>
+        <div class="scratch-desc">Црквено венчање<br>Храм Свете Тројице</div>
       </div>
       <canvas></canvas>
     </div>
@@ -1046,6 +1063,7 @@ footer::before{
     <div class="g-item"><img src="images/image2.jpg" alt=""></div>
     <div class="g-item"><img src="images/image3.jpg" alt=""></div>
     <div class="g-item"><img src="images/image4.jpg" alt=""></div>
+    <div class="g-item"><img src="images/image1.jpg" alt=""></div>
   </div>
 </section>
 
@@ -1069,7 +1087,7 @@ footer::before{
       <p class="act-label">Финале</p>
       <h2>Потврда доласка</h2>
       <div class="sep"><div class="sep-line"></div><div class="sep-diamond"></div><div class="sep-line"></div></div>
-      <p>Молимо вас да потврдите долазак<br>најкасније до 19. августа 2026.<br>Радујемо се да прославимо овај дан заједно са вама.</p>
+      <p>Молимо вас да потврдите долазак<br>најкасније до 1. септембра 2026.<br>Радујемо се да прославимо овај дан заједно са вама.</p>
     </div>
     <div class="rsvp-frame reveal">
       <iframe src="https://forms.gle/QubKBh8eGvpLyuba7"></iframe>
@@ -1167,6 +1185,9 @@ const openBtn     = document.getElementById("open-btn");
 openBtn.addEventListener("click", function(e){
   const rect = openBtn.getBoundingClientRect();
   launchParticles(rect.left + rect.width/2, rect.top + rect.height/2);
+
+  // start music on user interaction (browser policy requires this)
+  startMusic();
 
   // brief pause, then sweep curtains open
   setTimeout(()=>{
@@ -1274,6 +1295,423 @@ const io = new IntersectionObserver((entries)=>{
   });
 }, {threshold:.12});
 revealEls.forEach(el => io.observe(el));
+
+/* ── MUSIC ── */
+// Pachelbel Canon in D — public domain MIDI rendered to MP3, served via IMSLP proxy
+// We use multiple free CDN sources for reliability
+const TRACKS = [
+  "https://upload.wikimedia.org/wikipedia/commons/7/77/Johann_Pachelbel_-_Canon_in_D_Major.ogg",
+  "https://upload.wikimedia.org/wikipedia/commons/4/4e/Pachelbel_Canon_D_major.ogg"
+];
+
+const audio       = new Audio();
+audio.loop        = true;
+audio.volume      = 0;
+let   musicReady  = false;
+let   playing     = false;
+let   fadeTimer   = null;
+
+// Load first track
+audio.src = TRACKS[0];
+audio.onerror = () => { audio.src = TRACKS[1]; };
+
+const player     = document.getElementById("music-player");
+const toggleBtn  = document.getElementById("music-toggle");
+const iconPlay   = document.getElementById("icon-play");
+const iconPause  = document.getElementById("icon-pause");
+
+function fadeTo(target, duration, cb){
+  clearInterval(fadeTimer);
+  const steps = 60;
+  const stepTime = duration / steps;
+  const delta = (target - audio.volume) / steps;
+  fadeTimer = setInterval(()=>{
+    audio.volume = Math.min(1, Math.max(0, audio.volume + delta));
+    if((delta > 0 && audio.volume >= target) || (delta < 0 && audio.volume <= target)){
+      audio.volume = target;
+      clearInterval(fadeTimer);
+      if(cb) cb();
+    }
+  }, stepTime);
+}
+
+function startMusic(){
+  if(playing) return;
+  playing = true;
+  audio.play().then(()=>{
+    fadeTo(0.28, 3000); // gentle fade-in over 3s to a soft 28% volume
+    setPlayingUI(true);
+  }).catch(()=>{
+    // autoplay blocked — show player so user can click manually
+    player.classList.add("visible");
+  });
+  player.classList.add("visible");
+}
+
+function setPlayingUI(isPlaying){
+  if(isPlaying){
+    iconPlay.style.display  = "none";
+    iconPause.style.display = "block";
+    player.classList.remove("paused");
+  } else {
+    iconPlay.style.display  = "block";
+    iconPause.style.display = "none";
+    player.classList.add("paused");
+  }
+}
+
+toggleBtn.addEventListener("click", ()=>{
+  if(audio.paused){
+    audio.play();
+    fadeTo(0.28, 1200);
+    setPlayingUI(true);
+    playing = true;
+  } else {
+    fadeTo(0, 800, ()=> audio.pause());
+    setPlayingUI(false);
+    playing = false;
+  }
+});
+
+// Show player after curtain opens even if autoplay was blocked
+setTimeout(()=> player.classList.add("visible"), 4000);
+
+
+/* ════════════════════════════════════════════
+   WEB AUDIO SOUND ENGINE
+   All sounds synthesised — no external files
+════════════════════════════════════════════ */
+let AC = null; // AudioContext, created on first user gesture
+
+function getAC(){
+  if(!AC) AC = new (window.AudioContext || window.webkitAudioContext)();
+  if(AC.state === "suspended") AC.resume();
+  return AC;
+}
+
+/* ── master gain (so sfx don't overpower music) ── */
+function masterGain(val = 0.55){
+  const g = getAC().createGain();
+  g.gain.value = val;
+  g.connect(getAC().destination);
+  return g;
+}
+
+/* ─────────────────────────────────────────────
+   1. CURTAIN SWISH
+   Deep fabric whoosh — two filtered noise bursts
+   panning left → right as curtains part
+───────────────────────────────────────────── */
+function sfxCurtainOpen(){
+  const ac = getAC();
+  const out = masterGain(0.45);
+
+  [0, 0.18].forEach((delay, side) => {
+    const buf = ac.createBuffer(1, ac.sampleRate * 2.8, ac.sampleRate);
+    const data = buf.getChannelData(0);
+    for(let i = 0; i < data.length; i++){
+      data[i] = (Math.random()*2-1) * Math.pow(1 - i/data.length, 0.6);
+    }
+    const src = ac.createBufferSource();
+    src.buffer = buf;
+
+    // band-pass: fabric swish sits ~120–800 Hz
+    const bp = ac.createBiquadFilter();
+    bp.type = "bandpass";
+    bp.frequency.setValueAtTime(300, ac.currentTime);
+    bp.frequency.exponentialRampToValueAtTime(80, ac.currentTime + 2.8);
+    bp.Q.value = 0.8;
+
+    const gain = ac.createGain();
+    gain.gain.setValueAtTime(0, ac.currentTime + delay);
+    gain.gain.linearRampToValueAtTime(0.9, ac.currentTime + delay + 0.12);
+    gain.gain.exponentialRampToValueAtTime(0.001, ac.currentTime + delay + 2.6);
+
+    // pan: left curtain pans left, right curtain pans right
+    const pan = ac.createStereoPanner();
+    pan.pan.setValueAtTime(side === 0 ? -0.7 : 0.7, ac.currentTime + delay);
+    pan.pan.linearRampToValueAtTime(side === 0 ? -1 : 1, ac.currentTime + delay + 2.6);
+
+    src.connect(bp);
+    bp.connect(gain);
+    gain.connect(pan);
+    pan.connect(out);
+    src.start(ac.currentTime + delay);
+  });
+
+  // add a low rumble at the start (stage floor vibration)
+  const osc = ac.createOscillator();
+  osc.type = "sawtooth";
+  osc.frequency.setValueAtTime(55, ac.currentTime);
+  osc.frequency.exponentialRampToValueAtTime(28, ac.currentTime + 1.8);
+  const rumbleGain = ac.createGain();
+  rumbleGain.gain.setValueAtTime(0.18, ac.currentTime);
+  rumbleGain.gain.exponentialRampToValueAtTime(0.001, ac.currentTime + 1.8);
+  const rumbleBp = ac.createBiquadFilter();
+  rumbleBp.type = "lowpass";
+  rumbleBp.frequency.value = 120;
+  osc.connect(rumbleBp);
+  rumbleBp.connect(rumbleGain);
+  rumbleGain.connect(out);
+  osc.start(ac.currentTime);
+  osc.stop(ac.currentTime + 1.9);
+}
+
+/* ─────────────────────────────────────────────
+   2. HERO REVEAL FANFARE
+   Short triumphant brass-like chord swell
+   using detuned oscillators + reverb
+───────────────────────────────────────────── */
+function sfxHeroReveal(){
+  const ac = getAC();
+  const out = masterGain(0.38);
+
+  // simple convolver reverb from impulse
+  const convolver = ac.createConvolver();
+  (function buildImpulse(){
+    const len = ac.sampleRate * 2.4;
+    const imp = ac.createBuffer(2, len, ac.sampleRate);
+    for(let ch = 0; ch < 2; ch++){
+      const d = imp.getChannelData(ch);
+      for(let i = 0; i < len; i++)
+        d[i] = (Math.random()*2-1) * Math.pow(1-i/len, 2.2);
+    }
+    convolver.buffer = imp;
+  })();
+  convolver.connect(out);
+
+  // D major chord: D4 F#4 A4 D5
+  const freqs  = [293.66, 369.99, 440.00, 587.33];
+  const detune = [-6, 0, 6, -3];
+
+  freqs.forEach((freq, i) => {
+    const osc = ac.createOscillator();
+    osc.type = "sawtooth";
+    osc.frequency.value = freq;
+    osc.detune.value    = detune[i];
+
+    const g = ac.createGain();
+    g.gain.setValueAtTime(0, ac.currentTime);
+    g.gain.linearRampToValueAtTime(0.22, ac.currentTime + 0.05 + i*0.06);
+    g.gain.setValueAtTime(0.22, ac.currentTime + 0.9);
+    g.gain.exponentialRampToValueAtTime(0.001, ac.currentTime + 2.4);
+
+    const lp = ac.createBiquadFilter();
+    lp.type = "lowpass";
+    lp.frequency.value = 2800;
+
+    osc.connect(lp);
+    lp.connect(g);
+    g.connect(convolver);
+    osc.start(ac.currentTime);
+    osc.stop(ac.currentTime + 2.5);
+  });
+}
+
+/* ─────────────────────────────────────────────
+   3. SCRATCH SOUND
+   Vinyl scratch-like: pitched noise burst
+   throttled so it fires max ~12 times/sec
+───────────────────────────────────────────── */
+let lastScratchSfx = 0;
+function sfxScratch(){
+  const now = performance.now();
+  if(now - lastScratchSfx < 80) return;  // throttle
+  lastScratchSfx = now;
+
+  const ac = getAC();
+  const out = masterGain(0.28);
+
+  const dur = 0.065;
+  const buf = ac.createBuffer(1, ac.sampleRate * dur, ac.sampleRate);
+  const data = buf.getChannelData(0);
+  for(let i = 0; i < data.length; i++)
+    data[i] = (Math.random()*2-1) * (1 - i/data.length);
+
+  const src = ac.createBufferSource();
+  src.buffer = buf;
+  src.playbackRate.value = 0.7 + Math.random() * 0.8;
+
+  const bp = ac.createBiquadFilter();
+  bp.type = "bandpass";
+  bp.frequency.value = 1800 + Math.random() * 1200;
+  bp.Q.value = 2;
+
+  const g = ac.createGain();
+  g.gain.setValueAtTime(1, ac.currentTime);
+  g.gain.exponentialRampToValueAtTime(0.001, ac.currentTime + dur);
+
+  src.connect(bp);
+  bp.connect(g);
+  g.connect(out);
+  src.start();
+}
+
+/* ─────────────────────────────────────────────
+   4. CARD REVEAL CHIME
+   Bright harp-like arpeggio when card is fully scratched
+───────────────────────────────────────────── */
+function sfxCardReveal(){
+  const ac = getAC();
+  const out = masterGain(0.5);
+
+  // pentatonic sparkle: C5 E5 G5 B5 D6
+  const notes  = [523.25, 659.25, 783.99, 987.77, 1174.66];
+  notes.forEach((freq, i) => {
+    const osc = ac.createOscillator();
+    osc.type = "sine";
+    osc.frequency.value = freq;
+
+    // 2nd harmonic to sound like a harp
+    const osc2 = ac.createOscillator();
+    osc2.type = "sine";
+    osc2.frequency.value = freq * 2;
+
+    const g = ac.createGain();
+    const t = ac.currentTime + i * 0.07;
+    g.gain.setValueAtTime(0, t);
+    g.gain.linearRampToValueAtTime(0.3 - i*0.04, t + 0.015);
+    g.gain.exponentialRampToValueAtTime(0.001, t + 0.9);
+
+    const g2 = ac.createGain();
+    g2.gain.value = 0.3;
+
+    osc.connect(g);
+    osc2.connect(g2);
+    g2.connect(g);
+    g.connect(out);
+
+    osc.start(t);  osc.stop(t + 0.95);
+    osc2.start(t); osc2.stop(t + 0.95);
+  });
+}
+
+/* ─────────────────────────────────────────────
+   5. GALLERY IMAGE HOVER  — subtle shimmer
+   Very short high chime tick, barely audible
+───────────────────────────────────────────── */
+let lastHoverSfx = 0;
+function sfxGalleryHover(){
+  const now = performance.now();
+  if(now - lastHoverSfx < 400) return;
+  lastHoverSfx = now;
+
+  const ac = getAC();
+  const out = masterGain(0.18);
+
+  const osc = ac.createOscillator();
+  osc.type = "sine";
+  osc.frequency.setValueAtTime(2100, ac.currentTime);
+  osc.frequency.exponentialRampToValueAtTime(1400, ac.currentTime + 0.14);
+
+  const g = ac.createGain();
+  g.gain.setValueAtTime(0.6, ac.currentTime);
+  g.gain.exponentialRampToValueAtTime(0.001, ac.currentTime + 0.18);
+
+  osc.connect(g);
+  g.connect(out);
+  osc.start(ac.currentTime);
+  osc.stop(ac.currentTime + 0.2);
+}
+
+/* ─────────────────────────────────────────────
+   6. MUSIC PLAYER TOGGLE — soft click
+───────────────────────────────────────────── */
+function sfxToggleClick(){
+  const ac = getAC();
+  const out = masterGain(0.35);
+
+  const osc = ac.createOscillator();
+  osc.type = "sine";
+  osc.frequency.setValueAtTime(880, ac.currentTime);
+  osc.frequency.exponentialRampToValueAtTime(440, ac.currentTime + 0.08);
+
+  const g = ac.createGain();
+  g.gain.setValueAtTime(0.5, ac.currentTime);
+  g.gain.exponentialRampToValueAtTime(0.001, ac.currentTime + 0.1);
+
+  osc.connect(g);
+  g.connect(out);
+  osc.start(ac.currentTime);
+  osc.stop(ac.currentTime + 0.12);
+}
+
+/* ─────────────────────────────────────────────
+   WIRE UP SOUNDS TO INTERACTIONS
+───────────────────────────────────────────── */
+
+// 1. Curtain open btn click — play before curtain moves
+const _origOpenListener = openBtn.onclick;
+openBtn.addEventListener("click", function(){
+  sfxCurtainOpen();
+  setTimeout(sfxHeroReveal, 1400); // fanfare as hero appears
+}, true); // capture phase so it runs before other listeners
+
+// 2. Scratch — during mousemove / touchmove on scratch canvas
+document.querySelectorAll(".scratch-card canvas").forEach(cvs => {
+  cvs.addEventListener("mousemove",  () => { if(cvs._scratchDown) sfxScratch(); });
+  cvs.addEventListener("mousedown",  () => { cvs._scratchDown = true; });
+  cvs.addEventListener("mouseup",    () => { cvs._scratchDown = false; });
+  cvs.addEventListener("touchmove",  () => sfxScratch(), {passive:true});
+});
+
+// 3. Card reveal chime — hook into existing reveal logic by observing opacity changes
+// We do this by patching launchParticles to also trigger the chime
+const _origLaunch = launchParticles;
+// We can't re-declare launchParticles, so we patch via the card reveal path
+// Instead, wrap the scratch revealed block directly — handled below via MutationObserver
+const scratchRevealObserver = new MutationObserver(mutations => {
+  mutations.forEach(m => {
+    if(m.target.tagName === "CANVAS" &&
+       m.attributeName === "style" &&
+       m.target.style.opacity === "0"){
+      sfxCardReveal();
+    }
+  });
+});
+document.querySelectorAll(".scratch-card canvas").forEach(cvs => {
+  scratchRevealObserver.observe(cvs, { attributes: true, attributeFilter: ["style"] });
+});
+
+// 4. Gallery hover shimmer
+document.querySelectorAll(".g-item img").forEach(img => {
+  img.closest(".g-item").addEventListener("mouseenter", sfxGalleryHover);
+});
+
+// 5. Music toggle click
+document.getElementById("music-toggle").addEventListener("click", sfxToggleClick, true);
+
+// 6. Scroll section reveal — soft "page turn" whoosh
+const _origIoCallback = io; // the IntersectionObserver is already set up above
+// We add a second observer for the sound
+const revealSoundObserver = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if(e.isIntersecting){
+      playPageTurn();
+      revealSoundObserver.unobserve(e.target);
+    }
+  });
+}, {threshold: 0.15});
+document.querySelectorAll("section").forEach(s => revealSoundObserver.observe(s));
+
+function playPageTurn(){
+  const ac = getAC();
+  const out = masterGain(0.12);
+  const buf = ac.createBuffer(1, ac.sampleRate * 0.22, ac.sampleRate);
+  const d = buf.getChannelData(0);
+  for(let i = 0; i < d.length; i++)
+    d[i] = (Math.random()*2-1) * Math.pow(1 - i/d.length, 1.5);
+  const src = ac.createBufferSource();
+  src.buffer = buf;
+  const bp = ac.createBiquadFilter();
+  bp.type = "highpass";
+  bp.frequency.value = 2000;
+  const g = ac.createGain();
+  g.gain.setValueAtTime(0.8, ac.currentTime);
+  g.gain.exponentialRampToValueAtTime(0.001, ac.currentTime + 0.22);
+  src.connect(bp); bp.connect(g); g.connect(out);
+  src.start();
+}
 
 </script>
 </body>
