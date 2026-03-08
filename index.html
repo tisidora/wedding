@@ -72,6 +72,11 @@ body{
   z-index:9999;
   display:flex;
   flex-direction:column;
+  transition: opacity 1s ease 2.6s, visibility 1s ease 2.6s;
+}
+#curtain-wrap.open{
+  opacity:0;
+  visibility:hidden;
 }
 /* velvet curtains */
 .curtain{
@@ -80,7 +85,7 @@ body{
   width:51%;
   height:100%;
   overflow:hidden;
-  transition: transform 2.2s cubic-bezier(.77,0,.18,1);
+  transition: transform 3s cubic-bezier(.6,0,.1,1);
   will-change:transform;
 }
 .curtain.left { left:0; transform-origin:left center; }
@@ -357,12 +362,24 @@ h2{
   position:relative;
   z-index:2;
   opacity:0;
-  transform:translateY(30px);
-  transition: opacity 1.4s ease, transform 1.4s ease;
+  transform:translateY(40px) scale(.98);
+  transition: opacity 2s cubic-bezier(.22,.8,.36,1), transform 2s cubic-bezier(.22,.8,.36,1);
 }
 .hero-content.visible{
   opacity:1;
-  transform:translateY(0);
+  transform:translateY(0) scale(1);
+}
+/* stagger child elements */
+.hero-content.visible .hero-program    { animation: staggerIn .8s .1s both ease; }
+.hero-content.visible .monogram        { animation: staggerIn 1s .25s both ease; }
+.hero-content.visible .hero h1,
+.hero-content.visible h1               { animation: staggerIn .9s .45s both ease; }
+.hero-content.visible .hero-rule       { animation: staggerIn .8s .6s both ease; }
+.hero-content.visible .hero-sub        { animation: staggerIn .8s .72s both ease; }
+.hero-content.visible .countdown-wrap  { animation: staggerIn .9s .88s both ease; }
+@keyframes staggerIn{
+  from{ opacity:0; transform:translateY(18px); }
+  to  { opacity:1; transform:translateY(0); }
 }
 
 /* Spotlight circle behind monogram */
@@ -802,9 +819,114 @@ footer::before{
     width:100%;
   }
 }
+
+/* ── MUSIC PLAYER ── */
+#music-player{
+  position:fixed;
+  bottom:28px;
+  right:28px;
+  z-index:9000;
+  display:flex;
+  align-items:center;
+  gap:12px;
+  background:rgba(26,8,5,.82);
+  border:1px solid rgba(201,165,90,.3);
+  border-radius:40px;
+  padding:10px 20px 10px 12px;
+  backdrop-filter:blur(12px);
+  box-shadow:0 8px 32px rgba(0,0,0,.5);
+  opacity:0;
+  transform:translateY(16px);
+  transition:opacity .8s ease, transform .8s ease;
+}
+#music-player.visible{
+  opacity:1;
+  transform:translateY(0);
+}
+#music-toggle{
+  width:38px; height:38px;
+  border-radius:50%;
+  border:1px solid var(--gold);
+  background:rgba(201,165,90,.12);
+  color:var(--gold-lt);
+  cursor:pointer;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  transition:background .25s, transform .25s;
+  flex-shrink:0;
+}
+#music-toggle:hover{
+  background:rgba(201,165,90,.28);
+  transform:scale(1.08);
+}
+#music-toggle svg{ width:16px; height:16px; }
+.music-info{
+  display:flex;
+  flex-direction:column;
+  gap:2px;
+}
+.music-title{
+  font-family:'Cinzel',serif;
+  font-size:9px;
+  letter-spacing:2px;
+  color:var(--gold-lt);
+  text-transform:uppercase;
+  white-space:nowrap;
+}
+.music-artist{
+  font-family:'Jost',sans-serif;
+  font-weight:200;
+  font-size:10px;
+  color:rgba(245,228,176,.45);
+  white-space:nowrap;
+}
+/* equalizer bars when playing */
+.music-eq{
+  display:flex;
+  align-items:flex-end;
+  gap:2px;
+  height:16px;
+  margin-left:4px;
+}
+.music-eq span{
+  width:3px;
+  background:var(--gold);
+  border-radius:2px;
+  opacity:.7;
+  transform-origin:bottom;
+}
+.music-eq span:nth-child(1){ height:6px;  animation:eq 1.1s .0s ease-in-out infinite alternate; }
+.music-eq span:nth-child(2){ height:12px; animation:eq 1.1s .2s ease-in-out infinite alternate; }
+.music-eq span:nth-child(3){ height:9px;  animation:eq 1.1s .35s ease-in-out infinite alternate; }
+.music-eq span:nth-child(4){ height:14px; animation:eq 1.1s .1s ease-in-out infinite alternate; }
+.music-eq span:nth-child(5){ height:7px;  animation:eq 1.1s .45s ease-in-out infinite alternate; }
+@keyframes eq{
+  from{ transform:scaleY(.3); }
+  to  { transform:scaleY(1.2); }
+}
+#music-player.paused .music-eq span{ animation-play-state:paused; opacity:.3; }
+
 </style>
 </head>
 <body>
+
+<!-- MUSIC PLAYER -->
+<div id="music-player" class="paused">
+  <button id="music-toggle" aria-label="Toggle music">
+    <!-- play icon shown when paused -->
+    <svg id="icon-play"  viewBox="0 0 24 24" fill="var(--gold-lt)" stroke="none"><polygon points="5,3 19,12 5,21"/></svg>
+    <!-- pause icon hidden initially -->
+    <svg id="icon-pause" viewBox="0 0 24 24" fill="var(--gold-lt)" stroke="none" style="display:none"><rect x="5" y="3" width="4" height="18" rx="1"/><rect x="15" y="3" width="4" height="18" rx="1"/></svg>
+  </button>
+  <div class="music-info">
+    <div class="music-title">Canon in D</div>
+    <div class="music-artist">Johann Pachelbel</div>
+  </div>
+  <div class="music-eq">
+    <span></span><span></span><span></span><span></span><span></span>
+  </div>
+</div>
 
 <!-- AMBIENT LIGHTS -->
 <div id="stage-lights"></div>
@@ -837,7 +959,7 @@ footer::before{
   <!-- centre invite text -->
   <div id="curtain-center">
     <div class="mono">И &amp; Ђ</div>
-    <div class="sub">19. септембар 2026 · Крагујевац</div>
+    <div class="sub">1. Септембар 2026 · Крагујевац</div>
     <div id="open-btn">Отвори позорницу</div>
   </div>
 </div>
@@ -848,7 +970,7 @@ footer::before{
   <div class="hero-vignette"></div>
   <div class="spotlight"></div>
   <div class="hero-content" id="hero-content">
-    <p class="hero-program">19. септембар 2026 &nbsp;·&nbsp; Крагујевац</p>
+    <p class="hero-program">1. Септембар 2026 &nbsp;·&nbsp; Крагујевац</p>
     <div class="monogram">И &amp; Ђ</div>
     <h1>Исидора &amp; Ђорђе</h1>
     <div class="hero-rule">
@@ -874,9 +996,9 @@ footer::before{
 <section class="programme-section">
   <div class="reveal">
     <p class="act-label">Чин I</p>
-    <h2>Детаљи и сатница</h2>
+    <h2>Сатница дана</h2>
     <div class="sep"><div class="sep-line"></div><div class="sep-diamond"></div><div class="sep-line"></div></div>
-    <p class="scratch-hint">— Огреби кружић и откриј тајну —</p>
+    <p class="scratch-hint">— Огреби кружић и открити тајну —</p>
   </div>
 
   <div class="scratch-grid reveal">
@@ -885,7 +1007,7 @@ footer::before{
       <div class="scratch-inner">
         <img src="icons/house1.png" alt="">
         <div class="scratch-time">10:00</div>
-        <div class="scratch-desc">Скуп сватова у дому породице Мирковић</div>
+        <div class="scratch-desc">Скуп сватова<br>пор. Мирковић</div>
       </div>
       <canvas></canvas>
     </div>
@@ -894,7 +1016,7 @@ footer::before{
       <div class="scratch-inner">
         <img src="icons/house2.png" alt="">
         <div class="scratch-time">11:00</div>
-        <div class="scratch-desc">Скуп сватова у дому породице Топаловић</div>
+        <div class="scratch-desc">Скуп сватова<br>пор. Топаловић</div>
       </div>
       <canvas></canvas>
     </div>
@@ -903,7 +1025,7 @@ footer::before{
       <div class="scratch-inner">
         <img src="icons/church.png" alt="">
         <div class="scratch-time">13:30</div>
-        <div class="scratch-desc">Црквено венчање<br>Храм Свете Тројице - Стара црква</div>
+        <div class="scratch-desc">Црквено венчање<br>Храм Свете Тројице</div>
       </div>
       <canvas></canvas>
     </div>
@@ -941,6 +1063,7 @@ footer::before{
     <div class="g-item"><img src="images/image2.jpg" alt=""></div>
     <div class="g-item"><img src="images/image3.jpg" alt=""></div>
     <div class="g-item"><img src="images/image4.jpg" alt=""></div>
+    <div class="g-item"><img src="images/image1.jpg" alt=""></div>
   </div>
 </section>
 
@@ -964,7 +1087,7 @@ footer::before{
       <p class="act-label">Финале</p>
       <h2>Потврда доласка</h2>
       <div class="sep"><div class="sep-line"></div><div class="sep-diamond"></div><div class="sep-line"></div></div>
-      <p>Молимо вас да потврдите долазак<br>најкасније до 19.08.2026.<br>Радујемо се да прославимо овај дан заједно са вама.</p>
+      <p>Молимо вас да потврдите долазак<br>најкасније до 1. септембра 2026.<br>Радујемо се да прославимо овај дан заједно са вама.</p>
     </div>
     <div class="rsvp-frame reveal">
       <iframe src="https://forms.gle/QubKBh8eGvpLyuba7"></iframe>
@@ -1063,15 +1186,21 @@ openBtn.addEventListener("click", function(e){
   const rect = openBtn.getBoundingClientRect();
   launchParticles(rect.left + rect.width/2, rect.top + rect.height/2);
 
+  // start music on user interaction (browser policy requires this)
+  startMusic();
+
+  // brief pause, then sweep curtains open
   setTimeout(()=>{
     curtainWrap.classList.add("open");
+    // hero content stagger begins as curtains are midway
     setTimeout(()=>{
       heroContent.classList.add("visible");
-    }, 800);
+    }, 1100);
+    // after CSS fade-out completes (transition delay 2.6s + 1s = 3.6s)
     setTimeout(()=>{
-      curtainWrap.style.display = "none";
-    }, 2400);
-  }, 400);
+      curtainWrap.style.pointerEvents = "none";
+    }, 3800);
+  }, 350);
 });
 
 /* ── SCRATCH CARDS ── */
@@ -1166,7 +1295,87 @@ const io = new IntersectionObserver((entries)=>{
   });
 }, {threshold:.12});
 revealEls.forEach(el => io.observe(el));
+
+/* ── MUSIC ── */
+// Pachelbel Canon in D — public domain MIDI rendered to MP3, served via IMSLP proxy
+// We use multiple free CDN sources for reliability
+const TRACKS = [
+  "https://upload.wikimedia.org/wikipedia/commons/7/77/Johann_Pachelbel_-_Canon_in_D_Major.ogg",
+  "https://upload.wikimedia.org/wikipedia/commons/4/4e/Pachelbel_Canon_D_major.ogg"
+];
+
+const audio       = new Audio();
+audio.loop        = true;
+audio.volume      = 0;
+let   musicReady  = false;
+let   playing     = false;
+let   fadeTimer   = null;
+
+// Load first track
+audio.src = TRACKS[0];
+audio.onerror = () => { audio.src = TRACKS[1]; };
+
+const player     = document.getElementById("music-player");
+const toggleBtn  = document.getElementById("music-toggle");
+const iconPlay   = document.getElementById("icon-play");
+const iconPause  = document.getElementById("icon-pause");
+
+function fadeTo(target, duration, cb){
+  clearInterval(fadeTimer);
+  const steps = 60;
+  const stepTime = duration / steps;
+  const delta = (target - audio.volume) / steps;
+  fadeTimer = setInterval(()=>{
+    audio.volume = Math.min(1, Math.max(0, audio.volume + delta));
+    if((delta > 0 && audio.volume >= target) || (delta < 0 && audio.volume <= target)){
+      audio.volume = target;
+      clearInterval(fadeTimer);
+      if(cb) cb();
+    }
+  }, stepTime);
+}
+
+function startMusic(){
+  if(playing) return;
+  playing = true;
+  audio.play().then(()=>{
+    fadeTo(0.28, 3000); // gentle fade-in over 3s to a soft 28% volume
+    setPlayingUI(true);
+  }).catch(()=>{
+    // autoplay blocked — show player so user can click manually
+    player.classList.add("visible");
+  });
+  player.classList.add("visible");
+}
+
+function setPlayingUI(isPlaying){
+  if(isPlaying){
+    iconPlay.style.display  = "none";
+    iconPause.style.display = "block";
+    player.classList.remove("paused");
+  } else {
+    iconPlay.style.display  = "block";
+    iconPause.style.display = "none";
+    player.classList.add("paused");
+  }
+}
+
+toggleBtn.addEventListener("click", ()=>{
+  if(audio.paused){
+    audio.play();
+    fadeTo(0.28, 1200);
+    setPlayingUI(true);
+    playing = true;
+  } else {
+    fadeTo(0, 800, ()=> audio.pause());
+    setPlayingUI(false);
+    playing = false;
+  }
+});
+
+// Show player after curtain opens even if autoplay was blocked
+setTimeout(()=> player.classList.add("visible"), 4000);
+
 </script>
 </body>
 </html>
-
