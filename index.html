@@ -1069,9 +1069,45 @@ footer::before{
       <p class="act-label">Финале</p>
       <h2>Потврда доласка</h2>
       <div class="sep"><div class="sep-line"></div><div class="sep-diamond"></div><div class="sep-line"></div></div>
-      <p>Молимо вас да потврдите долазак<br>најкасније до 19. августа 2026.<br>Радујемо се да прославимо овај дан заједно са вама.</p>
+      <p>Молимо вас да потврдите долазак најкасније до 19. августа 2026.<br>Радујемо се да прославимо овај дан заједно са вама.</p>
     </div>
-    
+
+    <div class="rsvp-card reveal">
+
+      <!-- Ime i prezime -->
+      <div class="rsvp-field">
+        <label for="rsvp-name">Име и презиме</label>
+        <input type="text" id="rsvp-name" placeholder="Нпр. Милица Петровић" autocomplete="name">
+      </div>
+
+      <!-- Dolazak -->
+      <div class="rsvp-field">
+        <label>Долазак</label>
+        <div class="radio-group">
+          <div class="radio-pill">
+            <input type="radio" name="dolazak" id="rsvp-da" value="Да">
+            <label for="rsvp-da">Да, долазим ✦</label>
+          </div>
+          <div class="radio-pill">
+            <input type="radio" name="dolazak" id="rsvp-ne" value="Не">
+            <label for="rsvp-ne">Нажалост, не могу</label>
+          </div>
+        </div>
+      </div>
+
+      <!-- Broj gostiju — visible only when Da is selected -->
+      <div class="rsvp-field" id="guests-field" style="display:none;">
+        <label for="rsvp-guests">Број гостију <span style="opacity:.5;font-size:8px;">(укључујући вас)</span></label>
+        <input type="number" id="rsvp-guests" min="1" max="20" placeholder="1">
+      </div>
+
+      <button id="rsvp-submit" onclick="submitRSVP()">
+        <span>Пошаљи потврду</span>
+      </button>
+      <div id="rsvp-status"></div>
+
+    </div>
+
   </div>
 </section>
 
