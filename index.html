@@ -822,6 +822,91 @@ footer::before{
 
 
 
+
+/* ═══════════════════════════════════════════
+   RSVP CUSTOM FORM
+═══════════════════════════════════════════ */
+.rsvp-card{
+  background:rgba(255,255,255,.04);
+  border:1px solid rgba(201,165,90,.2);
+  border-radius:8px;
+  padding:48px 44px 52px;
+  box-shadow:0 0 0 3px rgba(107,13,18,.4),0 24px 70px rgba(0,0,0,.45);
+  text-align:left;
+  margin-top:8px;
+}
+.rsvp-field{ margin-bottom:32px; }
+.rsvp-field label{
+  display:block;
+  font-family:'Cinzel',serif;
+  font-size:9px; letter-spacing:4px; text-transform:uppercase;
+  color:var(--gold); opacity:.8; margin-bottom:10px;
+}
+.rsvp-field input[type="text"],
+.rsvp-field input[type="number"]{
+  width:100%;
+  background:rgba(255,255,255,.05);
+  border:none;
+  border-bottom:1px solid rgba(201,165,90,.35);
+  color:var(--cream);
+  font-family:'Jost',sans-serif; font-weight:300; font-size:15px;
+  padding:10px 4px; outline:none;
+  transition:border-color .3s;
+  border-radius:0; -webkit-appearance:none;
+}
+.rsvp-field input[type="text"]:focus,
+.rsvp-field input[type="number"]:focus{ border-bottom-color:var(--gold-lt); }
+.rsvp-field input[type="text"]::placeholder,
+.rsvp-field input[type="number"]::placeholder{ color:rgba(245,228,176,.25); }
+.rsvp-field input[type="number"]{ -moz-appearance:textfield; }
+.rsvp-field input[type="number"]::-webkit-inner-spin-button,
+.rsvp-field input[type="number"]::-webkit-outer-spin-button{ -webkit-appearance:none; }
+.radio-group{ display:flex; gap:12px; flex-wrap:wrap; }
+.radio-pill{ position:relative; }
+.radio-pill input{ position:absolute; opacity:0; width:0; height:0; }
+.radio-pill label{
+  display:inline-block;
+  font-family:'Cinzel',serif; font-size:9px; letter-spacing:3px; text-transform:uppercase;
+  color:rgba(245,228,176,.6);
+  border:1px solid rgba(201,165,90,.3);
+  padding:9px 20px; cursor:pointer;
+  transition:all .25s ease; margin-bottom:0; opacity:1;
+}
+.radio-pill input:checked + label{
+  background:var(--gold); border-color:var(--gold);
+  color:var(--ink); box-shadow:0 0 18px rgba(201,165,90,.35);
+}
+.radio-pill label:hover{ border-color:var(--gold-lt); color:var(--gold-lt); }
+#rsvp-submit{
+  width:100%; margin-top:10px;
+  background:transparent; border:1px solid var(--gold);
+  color:var(--gold-lt);
+  font-family:'Cinzel',serif; font-size:11px; letter-spacing:5px; text-transform:uppercase;
+  padding:16px 32px; cursor:pointer;
+  position:relative; overflow:hidden; transition:color .3s;
+}
+#rsvp-submit::before{
+  content:''; position:absolute; inset:0;
+  background:var(--gold); transform:scaleX(0);
+  transform-origin:left; transition:transform .4s ease; z-index:0;
+}
+#rsvp-submit:hover::before{ transform:scaleX(1); }
+#rsvp-submit:hover{ color:var(--ink); }
+#rsvp-submit span{ position:relative; z-index:1; }
+#rsvp-submit:disabled{ opacity:.5; cursor:not-allowed; }
+#rsvp-submit:disabled::before{ transform:scaleX(0) !important; }
+#rsvp-status{
+  margin-top:28px; font-family:'Jost',sans-serif;
+  font-size:13px; font-weight:300; font-style:italic;
+  text-align:center; min-height:20px; transition:opacity .4s;
+}
+#rsvp-status.success{ color:var(--gold-lt); }
+#rsvp-status.error  { color:#e88a8a; }
+@media(max-width:768px){
+  .rsvp-card{ padding:28px 20px 32px; }
+  .radio-group{ flex-direction:column; gap:10px; }
+}
+
 </style>
 </head>
 <body>
@@ -923,7 +1008,7 @@ footer::before{
       <div class="scratch-inner">
         <img src="icons/church.png" alt="">
         <div class="scratch-time">13:30</div>
-        <div class="scratch-desc">Црквено венчање<br>Храм Свете Тројице(Стара црква)</div>
+        <div class="scratch-desc">Црквено венчање<br>Храм Свете Тројице (Стара црква)</div>
       </div>
       <canvas></canvas>
     </div>
@@ -986,9 +1071,7 @@ footer::before{
       <div class="sep"><div class="sep-line"></div><div class="sep-diamond"></div><div class="sep-line"></div></div>
       <p>Молимо вас да потврдите долазак<br>најкасније до 19. августа 2026.<br>Радујемо се да прославимо овај дан заједно са вама.</p>
     </div>
-    <div class="rsvp-frame reveal">
-      <iframe src="https://forms.gle/QubKBh8eGvpLyuba7"></iframe>
-    </div>
+    
   </div>
 </section>
 
@@ -1399,6 +1482,84 @@ document.querySelectorAll(".scratch-card canvas").forEach(cvs =>
 document.querySelectorAll(".g-item").forEach(el =>
   el.addEventListener("mouseenter", sfxHover)
 );
+
+
+/* ── RSVP show/hide guests ── */
+document.querySelectorAll('input[name="dolazak"]').forEach(radio => {
+  radio.addEventListener("change", () => {
+    const gf = document.getElementById("guests-field");
+    if(radio.value === "Да"){
+      gf.style.display = "block";
+      gf.style.animation = "staggerIn .4s ease both";
+    } else {
+      gf.style.display = "none";
+    }
+  });
+});
+
+/* ── RSVP submit → Google Sheets via Apps Script ── */
+const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycby7f4BBy_4gcT2H-mDgUt-n69liZo7xco-uqTMJ4X5_JsXdqKG882NFgjCiXubE8Uc2bg/exec";
+
+function submitRSVP(){
+  const name    = document.getElementById("rsvp-name").value.trim();
+  const checked = document.querySelector('input[name="dolazak"]:checked');
+  const btn     = document.getElementById("rsvp-submit");
+  const status  = document.getElementById("rsvp-status");
+
+  if(!name){   showStatus("Молимо унесите своје име и презиме.", "error"); return; }
+  if(!checked){ showStatus("Молимо одаберите да ли долазите.", "error"); return; }
+
+  const dolazak = checked.value;
+  const guests  = dolazak === "Да"
+    ? (parseInt(document.getElementById("rsvp-guests").value) || 1)
+    : 0;
+
+  const today = new Date();
+  const datum = today.toLocaleDateString("sr-RS", {day:"2-digit", month:"2-digit", year:"numeric"});
+
+  const payload = new URLSearchParams({
+    "Име и презиме": name,
+    "Долазак":       dolazak,
+    "Број гостију":  guests,
+    "Датум":         datum
+  });
+
+  btn.disabled = true;
+  showStatus("Слање...", "");
+
+  fetch(APPS_SCRIPT_URL, {
+    method:  "POST",
+    mode:    "no-cors",
+    headers: { "Content-Type": "application/x-www-form-urlencoded" },
+    body:    payload.toString()
+  })
+  .then(() => {
+    showStatus("✦  Хвала! Ваш одговор је забележен.  ✦", "success");
+    btn.disabled = false;
+    const r = btn.getBoundingClientRect();
+    launchParticles(r.left + r.width/2, r.top);
+    setTimeout(resetRSVP, 5000);
+  })
+  .catch(() => {
+    showStatus("Дошло је до грешке. Покушајте поново.", "error");
+    btn.disabled = false;
+  });
+}
+
+function showStatus(msg, type){
+  const el = document.getElementById("rsvp-status");
+  el.textContent = msg;
+  el.className   = type;
+}
+
+function resetRSVP(){
+  document.getElementById("rsvp-name").value = "";
+  document.querySelectorAll('input[name="dolazak"]').forEach(r => r.checked = false);
+  document.getElementById("rsvp-guests").value = "";
+  document.getElementById("guests-field").style.display = "none";
+  document.getElementById("rsvp-status").textContent = "";
+  document.getElementById("rsvp-status").className = "";
+}
 
 </script>
 </body>
