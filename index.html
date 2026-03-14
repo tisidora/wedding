@@ -1535,40 +1535,39 @@ document.querySelectorAll('input[name="dolazak"]').forEach(radio => {
 });
 
 /* ── RSVP submit → Google Sheets via Apps Script ── */
-const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycby7f4BBy_4gcT2H-mDgUt-n69liZo7xco-uqTMJ4X5_JsXdqKG882NFgjCiXubE8Uc2bg/exec";
+const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxAfrGOx6boZvTfHXN8zcWLOCnzz-eeylrzTHX40ZEsdZ8gLoGPjv-Fb_jX6mrdBxPhEg/exec";
 
 function submitRSVP(){
   const name    = document.getElementById("rsvp-name").value.trim();
   const checked = document.querySelector('input[name="dolazak"]:checked');
   const btn     = document.getElementById("rsvp-submit");
-  const status  = document.getElementById("rsvp-status");
 
-  if(!name){   showStatus("Молимо унесите своје ime и презиме.", "error"); return; }
-  if(!checked){ showStatus("Молимо одаберите да ли долазите.", "error"); return; }
+  if(!name){    showStatus("Молимо унесите своје име и презиме.", "error"); return; }
+  if(!checked){ showStatus("Молимо одаберите да ли долазите.",   "error"); return; }
 
   const dolazak = checked.value;
   const guests  = dolazak === "Да"
     ? (parseInt(document.getElementById("rsvp-guests").value) || 1)
     : 0;
 
-  const today = new Date();
-  const datum = today.toLocaleDateString("sr-RS", {day:"2-digit", month:"2-digit", year:"numeric"});
-
-  const payload = new URLSearchParams({
-    "Ime i prezime": name,
-    "Dolazak":       dolazak,
-    "Broj gostiju":  guests,
-    "Datum":         datum
+  // Build JSON with exact Cyrillic keys your doPost expects
+  const payload = JSON.stringify({
+    "Име и презиме": name,
+    "Долазак":       dolazak,
+    "Број гостију":  guests
+    // "Датум" is set by the Sheet via new Date() in the Script — no need to send it
   });
 
   btn.disabled = true;
   showStatus("Слање...", "");
 
+  // Apps Script requires no-cors — we cannot read the response body,
+  // but the data arrives in the Sheet as long as the request reaches the server.
   fetch(APPS_SCRIPT_URL, {
     method:  "POST",
     mode:    "no-cors",
-    headers: { "Content-Type": "application/x-www-form-urlencoded" },
-    body:    payload.toString()
+    headers: { "Content-Type": "text/plain" }, // text/plain bypasses CORS preflight
+    body:    payload
   })
   .then(() => {
     showStatus("✦  Хвала! Ваш одговор је забележен.  ✦", "success");
