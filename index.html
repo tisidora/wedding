@@ -195,6 +195,12 @@ body{
   text-align:center;
   z-index:4;
   pointer-events:none;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+#curtain-center.dismiss{
+  opacity:0;
+  transform:translate(-50%,-58%) scale(0.85);
+  pointer-events:none;
 }
 #curtain-center .mono{
   font-family:'Cinzel Decorative',serif;
@@ -1202,18 +1208,21 @@ openBtn.addEventListener("click", function(e){
   const rect = openBtn.getBoundingClientRect();
   launchParticles(rect.left + rect.width/2, rect.top + rect.height/2);
 
-  // brief pause, then sweep curtains open
+  // immediately fade + shrink the curtain-center text
+  document.getElementById("curtain-center").classList.add("dismiss");
+
+  // after centre fades (0.3s), sweep curtains open
   setTimeout(()=>{
     curtainWrap.classList.add("open");
     // hero content stagger begins as curtains are midway
     setTimeout(()=>{
       heroContent.classList.add("visible");
     }, 1100);
-    // after CSS fade-out completes (transition delay 2.6s + 1s = 3.6s)
+    // after CSS fade-out completes
     setTimeout(()=>{
       curtainWrap.style.pointerEvents = "none";
     }, 3800);
-  }, 350);
+  }, 320);
 });
 
 /* ── SCRATCH CARDS ── */
