@@ -1,80 +1,27 @@
 <!DOCTYPE html>
 <html lang="sr">
 <head>
-
-<script>
-/* ╔══════════════════════════════════════════════════════════╗
-   ║           ✦  KONFIGURACIONI BLOK  ✦                     ║
-   ║  Sve što treba da menjaš nalazi se OVDE.                 ║
-   ║  Ostatak koda NE DIRAJ.                                  ║
-   ╚══════════════════════════════════════════════════════════╝ */
-
-const CONFIG = {
-
-  /* ── Mladenci ──────────────────────────────────────────── */
-  ime1:      "Исидора",           // ime prve osobe
-  ime2:      "Ђорђе",             // ime druge osobe
-  monogram1: "И",                 // inicijal prve osobe
-  monogram2: "Ђ",                 // inicijal druge osobe
-
-  /* ── Datum i lokacija ──────────────────────────────────── */
-  datumPrikaz:   "19. септембар 2026.",   // prikazuje se na sajtu
-  datumBrojac:   "Sep 19, 2026 10:00:00", // za odbrojavanje (engleski, ne menjati format)
-  grad:          "Крагујевац",
-  drzava:        "Србија",
-
-  /* ── Curtain (početni ekran) ───────────────────────────── */
-  curtainSub:    "19. Септембар 2026 · Крагујевац",
-  curtainBtn:    "Отвори позорницу",
-
-  /* ── RSVP ──────────────────────────────────────────────── */
-  rsvpRok:        "19. августа 2026.",    // rok za potvrdu
-  appsScriptUrl:  "https://script.google.com/macros/s/AKfycbxAfrGOx6boZvTfHXN8zcWLOCnzz-eeylrzTHX40ZEsdZ8gLoGPjv-Fb_jX6mrdBxPhEg/exec",
-
-  /* ── Google Maps embed URL ─────────────────────────────── */
-  // Idi na maps.google.com → Share → Embed a map → kopiraj src= URL
-  mapsUrl: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2726.5296944884544!2d20.87165847602345!3d44.0325787710867!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47572155400bb7b9%3A0x720f0e82bab8e50d!2sWoodland%20Resort!5e1!3m2!1ssr!2srs!4v1772655142283!5m2!1ssr!2srs",
-  mapsNaziv: "Woodland Resort",
-
-  /* ── OG slika (link preview za WhatsApp/Viber/iMessage) ── */
-  // Nakon hostovanja sajta, zameni relativnu putanju apsolutnom:
-  // npr. "https://tvojsajt.com/images/hero.jpg"
-  ogSlika: "images/hero.jpg",
-
-  /* ── Satnica — 5 kartica (vreme + opis) ───────────────── */
-  // icon: "house1" | "house2" | "church" | "wedding-cake" | "wedding-ring"
-  satnica: [
-    { vreme: "10:00", opis: "Скуп сватова у дому породице Мирковић",          icon: "house1"       },
-    { vreme: "11:00", opis: "Скуп сватова у дому породице Топаловић",         icon: "house2"       },
-    { vreme: "13:30", opis: "Црквено венчање<br>Храм Свете Тројице (Стара црква)",  icon: "church"       },
-    { vreme: "16:00", opis: "Свечани ручак<br>Woodland Resort, мала сала",        icon: "wedding-cake" },
-    { vreme: "17:30", opis: "Грађанско венчање<br>Woodland Resort",    icon: "wedding-ring" },
-  ],
-
-};
-</script>
-
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title id="page-title">Исидора & Ђорђе · 2026</title>
+<title>Исидора & Ђорђе · 19. септембар 2026.</title>
 
 <!-- ── Open Graph (WhatsApp, Viber, iMessage, Facebook, Telegram) ── -->
 <meta property="og:type"        content="website">
-<meta property="og:title"       content="" id="og-title">
-<meta property="og:description" content="" id="og-desc">
-<meta property="og:image"       content="images/hero.jpg">
+<meta property="og:title"       content="Исидора &amp; Ђорђе · 19. септембар 2026.">
+<meta property="og:description" content="Позивамо вас да прославите овај посебан дан са нама у Крагујевцу.">
+<meta property="og:image"       content="images/image1.jpg">
 <meta property="og:image:width" content="1200">
-<meta property="og:image:alt"   content="" id="og-imagealt">
+<meta property="og:image:alt"   content="Исидора и Ђорђе — венчање 19. септембра 2026.">
 <meta property="og:locale"      content="sr_RS">
 
 <!-- ── Twitter / iMessage fallback ── -->
 <meta name="twitter:card"        content="summary_large_image">
-<meta name="twitter:title"       content="" id="og-title">
-<meta name="twitter:description" content="" id="og-desc">
-<meta name="twitter:image" content="" id="tw-image">
+<meta name="twitter:title"       content="Исидора &amp; Ђорђе · 19. септембар 2026.">
+<meta name="twitter:description" content="Позивамо вас да прославите овај посебан дан са нама у Крагујевцу.">
+<meta name="twitter:image"       content="images/hero.jpg">
 
 <!-- ── General description (SMS link preview on iOS/Android) ── -->
-<meta name="description" content="" id="meta-desc">
+<meta name="description" content="Позивамо вас да прославите овај посебан дан са нама у Крагујевцу. 19. септембар 2026.">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Cinzel+Decorative:wght@400;700&family=Cinzel:wght@400;600&family=Jost:wght@200;300;400&display=swap" rel="stylesheet">
 <style>
 /* ═══════════════════════════════════════════
@@ -984,173 +931,6 @@ footer::before{
   .radio-group{ flex-direction:column; gap:10px; }
 }
 
-
-/* ═══════════════════════════════════════════
-   EDITOR PANEL
-═══════════════════════════════════════════ */
-#ed-toggle{
-  position:fixed;
-  bottom:28px; right:28px;
-  z-index:10000;
-  width:52px; height:52px;
-  border-radius:50%;
-  background:var(--gold);
-  border:none;
-  cursor:pointer;
-  display:flex; align-items:center; justify-content:center;
-  box-shadow:0 4px 20px rgba(0,0,0,.5);
-  transition:transform .25s, box-shadow .25s;
-}
-#ed-toggle:hover{ transform:scale(1.1); box-shadow:0 6px 28px rgba(0,0,0,.6); }
-#ed-toggle svg{ width:22px; height:22px; stroke:var(--ink); fill:none; stroke-width:2; }
-
-#ed-panel{
-  position:fixed;
-  top:0; right:0;
-  width:min(460px, 100vw);
-  height:100dvh;
-  background:#1a0e06;
-  border-left:1px solid rgba(201,165,90,.25);
-  z-index:9998;
-  display:flex; flex-direction:column;
-  transform:translateX(100%);
-  transition:transform .4s cubic-bezier(.4,0,.2,1);
-  box-shadow:-12px 0 60px rgba(0,0,0,.7);
-}
-#ed-panel.open{ transform:translateX(0); }
-
-#ed-header{
-  padding:22px 24px 18px;
-  border-bottom:1px solid rgba(201,165,90,.18);
-  display:flex; align-items:center; justify-content:space-between;
-  flex-shrink:0;
-}
-#ed-header h3{
-  font-family:'Cinzel',serif;
-  font-size:11px; letter-spacing:4px; text-transform:uppercase;
-  color:var(--gold); margin:0;
-}
-#ed-close{
-  background:none; border:none; cursor:pointer;
-  color:rgba(245,228,176,.5); font-size:22px; line-height:1;
-  transition:color .2s;
-}
-#ed-close:hover{ color:var(--gold-lt); }
-
-#ed-body{
-  flex:1; overflow-y:auto; padding:0 24px 24px;
-  scrollbar-width:thin; scrollbar-color:rgba(201,165,90,.3) transparent;
-}
-#ed-body::-webkit-scrollbar{ width:4px; }
-#ed-body::-webkit-scrollbar-thumb{ background:rgba(201,165,90,.3); border-radius:2px; }
-
-/* section blocks */
-.ed-section{
-  margin-top:28px;
-  padding-bottom:24px;
-  border-bottom:1px solid rgba(201,165,90,.1);
-}
-.ed-section:last-child{ border-bottom:none; }
-.ed-section-title{
-  font-family:'Cinzel',serif;
-  font-size:8px; letter-spacing:5px; text-transform:uppercase;
-  color:var(--gold); opacity:.7; margin-bottom:16px;
-}
-.ed-row{ margin-bottom:14px; }
-.ed-row label{
-  display:block;
-  font-family:'Jost',sans-serif; font-weight:300;
-  font-size:11px; letter-spacing:1px;
-  color:rgba(245,228,176,.55); margin-bottom:5px;
-}
-.ed-row input,.ed-row textarea{
-  width:100%;
-  background:rgba(255,255,255,.05);
-  border:none; border-bottom:1px solid rgba(201,165,90,.28);
-  color:var(--cream);
-  font-family:'Jost',sans-serif; font-weight:300; font-size:13px;
-  padding:7px 4px; outline:none;
-  transition:border-color .25s;
-  border-radius:0; -webkit-appearance:none;
-  resize:none;
-}
-.ed-row input:focus,.ed-row textarea:focus{ border-bottom-color:var(--gold-lt); }
-.ed-row input::placeholder,.ed-row textarea::placeholder{ color:rgba(245,228,176,.2); }
-
-/* satnica cards inside editor */
-.ed-satnica-card{
-  background:rgba(255,255,255,.04);
-  border:1px solid rgba(201,165,90,.15);
-  border-radius:6px;
-  padding:12px 14px;
-  margin-bottom:10px;
-}
-.ed-satnica-row{
-  display:grid; grid-template-columns:80px 1fr;
-  gap:10px; align-items:start;
-}
-
-/* icon selector */
-.ed-icon-select{
-  display:flex; gap:6px; flex-wrap:wrap; margin-top:6px;
-}
-.ed-icon-opt{
-  width:36px; height:36px;
-  border-radius:50%;
-  border:1px solid rgba(201,165,90,.25);
-  cursor:pointer;
-  background:rgba(255,255,255,.04);
-  display:flex; align-items:center; justify-content:center;
-  transition:border-color .2s, background .2s;
-  position:relative;
-}
-.ed-icon-opt img{ width:18px; height:18px; object-fit:contain; filter:brightness(0) invert(1); opacity:.6; }
-.ed-icon-opt.selected{
-  border-color:var(--gold);
-  background:rgba(201,165,90,.18);
-}
-.ed-icon-opt.selected img{ opacity:1; }
-
-/* footer buttons */
-#ed-footer{
-  padding:16px 24px 20px;
-  border-top:1px solid rgba(201,165,90,.18);
-  display:flex; gap:10px;
-  flex-shrink:0;
-}
-#ed-apply{
-  flex:1;
-  background:var(--gold); border:none;
-  color:var(--ink);
-  font-family:'Cinzel',serif; font-size:10px; letter-spacing:4px; text-transform:uppercase;
-  padding:13px;
-  cursor:pointer;
-  transition:background .25s;
-  border-radius:2px;
-}
-#ed-apply:hover{ background:var(--gold-lt); }
-#ed-reset{
-  background:none;
-  border:1px solid rgba(201,165,90,.3);
-  color:rgba(245,228,176,.5);
-  font-family:'Cinzel',serif; font-size:10px; letter-spacing:3px; text-transform:uppercase;
-  padding:13px 18px;
-  cursor:pointer;
-  transition:border-color .2s, color .2s;
-  border-radius:2px;
-}
-#ed-reset:hover{ border-color:var(--gold); color:var(--gold-lt); }
-
-#ed-saved{
-  text-align:center;
-  font-family:'Jost',sans-serif; font-size:11px; font-style:italic;
-  color:var(--gold-lt); opacity:0;
-  transition:opacity .4s;
-  padding:6px 0 0;
-  flex-basis:100%;
-}
-#ed-saved.show{ opacity:1; }
-
 </style>
 </head>
 <body>
@@ -1185,9 +965,9 @@ footer::before{
   <div class="curtain right"><div class="curtain-body"></div></div>
   <!-- centre invite text -->
   <div id="curtain-center">
-    <div class="mono" id="curtain-mono"></div>
-    <div class="sub" id="curtain-sub"></div>
-    <div id="open-btn"></div>
+    <div class="mono">И &amp; Ђ</div>
+    <div class="sub">19. Септембар 2026 · Крагујевац</div>
+    <div id="open-btn">Отвори позорницу</div>
   </div>
 </div>
 
@@ -1197,9 +977,9 @@ footer::before{
   <div class="hero-vignette"></div>
   <div class="spotlight"></div>
   <div class="hero-content" id="hero-content">
-    <p class="hero-program" id="hero-program"></p>
-    <div class="monogram" id="hero-monogram"></div>
-    <h1 id="hero-h1"></h1>
+    <p class="hero-program">19. Септембар 2026 &nbsp;·&nbsp; Крагујевац</p>
+    <div class="monogram">И &amp; Ђ</div>
+    <h1>Исидора &amp; Ђорђе</h1>
     <div class="hero-rule">
       <div class="hero-rule-line"></div>
       <div class="hero-rule-gem"></div>
@@ -1207,7 +987,7 @@ footer::before{
       <div class="hero-rule-gem"></div>
       <div class="hero-rule-line"></div>
     </div>
-    <p class="hero-sub" id="hero-sub"></p>
+    <p class="hero-sub">Крагујевац &nbsp;·&nbsp; Србија</p>
     <div class="countdown-wrap">
       <div class="cd-num" id="cd-days">—</div>
       <div class="cd-label">Дана до венчања</div>
@@ -1223,12 +1003,59 @@ footer::before{
 <section class="programme-section">
   <div class="reveal">
     <p class="act-label">Чин I</p>
-    <h2>Сатница дана</h2>
+    <h2>Детаљи и сатница</h2>
     <div class="sep"><div class="sep-line"></div><div class="sep-diamond"></div><div class="sep-line"></div></div>
-    <p class="scratch-hint">— Огреби кружић и открити тајну —</p>
+    <p class="scratch-hint">— Огреби кружић и откриј тајну —</p>
   </div>
 
-  <div class="scratch-grid reveal" id="scratch-grid"></div>
+  <div class="scratch-grid reveal">
+
+    <div class="scratch-card">
+      <div class="scratch-inner">
+        <img src="icons/house1.png" alt="">
+        <div class="scratch-time">10:00</div>
+        <div class="scratch-desc">Скуп сватова у дому породице Мирковић</div>
+      </div>
+      <canvas></canvas>
+    </div>
+
+    <div class="scratch-card">
+      <div class="scratch-inner">
+        <img src="icons/house2.png" alt="">
+        <div class="scratch-time">11:00</div>
+        <div class="scratch-desc">Скуп сватова у дому породице Топаловић</div>
+      </div>
+      <canvas></canvas>
+    </div>
+
+    <div class="scratch-card">
+      <div class="scratch-inner">
+        <img src="icons/church.png" alt="">
+        <div class="scratch-time">13:30</div>
+        <div class="scratch-desc">Црквено венчање<br>Храм Свете Тројице (Стара црква)</div>
+      </div>
+      <canvas></canvas>
+    </div>
+
+    <div class="scratch-card">
+      <div class="scratch-inner">
+        <img src="icons/wedding-cake.png" alt="">
+        <div class="scratch-time">16:00</div>
+        <div class="scratch-desc">Свечани ручак<br>Woodland Resort (мала сала)</div>
+      </div>
+      <canvas></canvas>
+    </div>
+
+    <div class="scratch-card">
+      <div class="scratch-inner">
+        <img src="icons/wedding-ring.png" alt="">
+        <div class="scratch-time">17:30</div>
+        <div class="scratch-desc">Грађанско венчање<br>Woodland Resort (мала сала)</div>
+      </div>
+      <canvas></canvas>
+    </div>
+
+  </div>
 </section>
 
 <!-- ══════════ GALLERY ══════════ -->
@@ -1254,9 +1081,9 @@ footer::before{
     <div class="sep"><div class="sep-line"></div><div class="sep-diamond"></div><div class="sep-line"></div></div>
   </div>
   <div class="map-frame reveal">
-    <iframe id="map-iframe" allowfullscreen="" loading="lazy"></iframe>
+    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2726.5296944884544!2d20.87165847602345!3d44.0325787710867!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47572155400bb7b9%3A0x720f0e82bab8e50d!2sWoodland%20Resort!5e1!3m2!1ssr!2srs!4v1772655142283!5m2!1ssr!2srs" allowfullscreen="" loading="lazy"></iframe>
   </div>
-  <p class="map-caption reveal" id="map-caption"></p>
+  <p class="map-caption reveal">Woodland Resort &nbsp;·&nbsp; Крагујевац</p>
 </section>
 
 <!-- ══════════ RSVP ══════════ -->
@@ -1266,7 +1093,7 @@ footer::before{
       <p class="act-label">Финале</p>
       <h2>Потврда доласка</h2>
       <div class="sep"><div class="sep-line"></div><div class="sep-diamond"></div><div class="sep-line"></div></div>
-      <p id="rsvp-intro"></p>
+      <p>Молимо вас да потврдите долазак најкасније до 19. августа 2026.<br>Радујемо се да прославимо овај дан заједно са вама.</p>
     </div>
 
     <div class="rsvp-card reveal">
@@ -1310,77 +1137,14 @@ footer::before{
 
 <!-- ══════════ FOOTER ══════════ -->
 <footer>
-  <div class="footer-mono" id="footer-mono"></div>
-  <p class="footer-date" id="footer-date"></p>
+  <div class="footer-mono">И &amp; Ђ</div>
+  <p class="footer-date">19 · Септембар · 2026 &nbsp;·&nbsp; Крагујевац</p>
 </footer>
 
 <script>
-
-/* ── RENDER CONFIG ─────────────────────────────────────────
-   Čita CONFIG objekat i upisuje sve vrednosti u DOM.
-   Ne diraj ovo osim ako ne znaš šta radiš.
-───────────────────────────────────────────────────────────── */
-(function renderConfig(){
-  const C = CONFIG;
-  const mono  = C.monogram1 + " & " + C.monogram2;
-  const names = C.ime1 + " & " + C.ime2;
-
-  // <title> i meta tagovi
-  document.getElementById("page-title").textContent = names + " · " + C.datumPrikaz;
-  const setMeta = (id, val) => { const el = document.getElementById(id); if(el) el.setAttribute("content", val); };
-  const ogDesc = "Позивамо вас да прославите овај посебан дан са нама у " + C.grad + ".";
-  setMeta("og-title",    names + " · " + C.datumPrikaz);
-  setMeta("og-desc",     ogDesc);
-  setMeta("og-image",    C.ogSlika);
-  setMeta("og-imagealt", names + " — венчање " + C.datumPrikaz);
-  setMeta("tw-title",    names + " · " + C.datumPrikaz);
-  setMeta("tw-desc",     ogDesc);
-  setMeta("tw-image",    C.ogSlika);
-  setMeta("meta-desc",   ogDesc + " " + C.datumPrikaz);
-
-  // Curtain
-  document.getElementById("curtain-mono").innerHTML = C.monogram1 + " &amp; " + C.monogram2;
-  document.getElementById("curtain-sub").textContent = C.curtainSub;
-  document.getElementById("open-btn").textContent    = C.curtainBtn;
-
-  // Hero
-  document.getElementById("hero-program").innerHTML  = C.datumPrikaz + " &nbsp;·&nbsp; " + C.grad;
-  document.getElementById("hero-monogram").innerHTML = C.monogram1 + " &amp; " + C.monogram2;
-  document.getElementById("hero-h1").innerHTML       = C.ime1 + " &amp; " + C.ime2;
-  document.getElementById("hero-sub").innerHTML      = C.grad + " &nbsp;·&nbsp; " + C.drzava;
-
-  // Mapa
-  document.getElementById("map-iframe").src         = C.mapsUrl;
-  document.getElementById("map-caption").innerHTML  = C.mapsNaziv + " &nbsp;·&nbsp; " + C.grad;
-
-  // RSVP
-  document.getElementById("rsvp-intro").innerHTML =
-    "Молимо вас да потврдите долазак најкасније до " + C.rsvpRok +
-    "<br>Радујемо се да прославимо овај дан заједно са вама.";
-
-  // Footer
-  document.getElementById("footer-mono").innerHTML = C.monogram1 + " &amp; " + C.monogram2;
-  document.getElementById("footer-date").innerHTML =
-    "19 · Септембар · 2026 &nbsp;·&nbsp; " + C.grad;
-
-  // Scratch kartice — generisanje iz satnica niza
-  const grid = document.getElementById("scratch-grid");
-  C.satnica.forEach(item => {
-    grid.innerHTML += \`
-      <div class="scratch-card">
-        <div class="scratch-inner">
-          <img src="icons/\${item.icon}.png" alt="">
-          <div class="scratch-time">\${item.vreme}</div>
-          <div class="scratch-desc">\${item.opis}</div>
-        </div>
-        <canvas></canvas>
-      </div>\`;
-  });
-})();
-
 /* ── COUNTDOWN ── */
 (function(){
-  const target = new Date(CONFIG.datumBrojac).getTime();
+  const target = new Date("Sep 19, 2026 10:00:00").getTime();
   function tick(){
     const dist = target - Date.now();
     document.getElementById("cd-days").textContent =
@@ -1480,7 +1244,6 @@ openBtn.addEventListener("click", function(e){
 });
 
 /* ── SCRATCH CARDS ── */
-function initScratchCards(){
 document.querySelectorAll(".scratch-card").forEach(card => {
   const canvas = card.querySelector("canvas");
   const ctx    = canvas.getContext("2d");
@@ -1560,8 +1323,6 @@ document.querySelectorAll(".scratch-card").forEach(card => {
     doScratch(t.clientX - r.left, t.clientY - r.top);
   }, {passive:false});
 });
-} // end initScratchCards
-initScratchCards();
 
 /* ── SCROLL REVEAL ── */
 const revealEls = document.querySelectorAll(".reveal");
@@ -1800,7 +1561,7 @@ document.querySelectorAll('input[name="dolazak"]').forEach(radio => {
 });
 
 /* ── RSVP submit → Google Sheets via Apps Script ── */
-const APPS_SCRIPT_URL = CONFIG.appsScriptUrl;
+const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycby3Snt-GEbz63TXArvvn-iJqL1_W7YB3FImxUnfi4q_34aAFg3TrLjaMlsO7bZ67keiww/exec";
 
 function submitRSVP(){
   const name    = document.getElementById("rsvp-name").value.trim();
@@ -1863,290 +1624,5 @@ function resetRSVP(){
 }
 
 </script>
-
-<!-- ══ EDITOR TOGGLE BUTTON ══ -->
-<button id="ed-toggle" title="Uredi sadržaj sajta" aria-label="Otvori editor">
-  <svg viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
-</button>
-
-<!-- ══ EDITOR PANEL ══ -->
-<div id="ed-panel" role="dialog" aria-label="Editor sadržaja">
-
-  <div id="ed-header">
-    <h3>✦ &nbsp; Uredi sadržaj</h3>
-    <button id="ed-close" aria-label="Zatvori">✕</button>
-  </div>
-
-  <div id="ed-body">
-
-    <!-- MLADENCI -->
-    <div class="ed-section">
-      <div class="ed-section-title">Mladenci</div>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
-        <div class="ed-row"><label>Ime 1</label><input id="ed-ime1" type="text"></div>
-        <div class="ed-row"><label>Ime 2</label><input id="ed-ime2" type="text"></div>
-        <div class="ed-row"><label>Inicijal 1</label><input id="ed-mon1" type="text" maxlength="3"></div>
-        <div class="ed-row"><label>Inicijal 2</label><input id="ed-mon2" type="text" maxlength="3"></div>
-      </div>
-    </div>
-
-    <!-- DATUM I LOKACIJA -->
-    <div class="ed-section">
-      <div class="ed-section-title">Datum i lokacija</div>
-      <div class="ed-row"><label>Datum (prikaz na sajtu)</label><input id="ed-datumP" type="text" placeholder="19. септембар 2026."></div>
-      <div class="ed-row"><label>Datum za odbrojavanje <span style="opacity:.5;font-size:10px;">(engleski, format: Mon DD, YYYY HH:MM:SS)</span></label><input id="ed-datumB" type="text" placeholder="Sep 19, 2026 10:00:00"></div>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
-        <div class="ed-row"><label>Grad</label><input id="ed-grad" type="text"></div>
-        <div class="ed-row"><label>Država</label><input id="ed-drzava" type="text"></div>
-      </div>
-      <div class="ed-row"><label>Tekst na zavesi</label><input id="ed-csub" type="text"></div>
-    </div>
-
-    <!-- SATNICA -->
-    <div class="ed-section">
-      <div class="ed-section-title">Satnica (5 kartica)</div>
-      <div id="ed-satnica">
-    <div class="ed-satnica-card" data-idx="0">
-      <div class="ed-satnica-row">
-        <div>
-          <label>Vreme</label>
-          <input class="sc-vreme" type="text" placeholder="10:00">
-        </div>
-        <div>
-          <label>Opis</label>
-          <textarea class="sc-opis" rows="2" placeholder="Opis događaja"></textarea>
-        </div>
-      </div>
-      <div style="margin-top:10px;">
-        <label>Ikonica</label>
-        <div class="ed-icon-select"><div class="ed-icon-opt" data-icon="house1" title="house1"><img src="icons/house1.png"></div><div class="ed-icon-opt" data-icon="house2" title="house2"><img src="icons/house2.png"></div><div class="ed-icon-opt" data-icon="church" title="church"><img src="icons/church.png"></div><div class="ed-icon-opt" data-icon="wedding-cake" title="wedding-cake"><img src="icons/wedding-cake.png"></div><div class="ed-icon-opt" data-icon="wedding-ring" title="wedding-ring"><img src="icons/wedding-ring.png"></div></div>
-      </div>
-    </div>
-    <div class="ed-satnica-card" data-idx="1">
-      <div class="ed-satnica-row">
-        <div>
-          <label>Vreme</label>
-          <input class="sc-vreme" type="text" placeholder="10:00">
-        </div>
-        <div>
-          <label>Opis</label>
-          <textarea class="sc-opis" rows="2" placeholder="Opis događaja"></textarea>
-        </div>
-      </div>
-      <div style="margin-top:10px;">
-        <label>Ikonica</label>
-        <div class="ed-icon-select"><div class="ed-icon-opt" data-icon="house1" title="house1"><img src="icons/house1.png"></div><div class="ed-icon-opt" data-icon="house2" title="house2"><img src="icons/house2.png"></div><div class="ed-icon-opt" data-icon="church" title="church"><img src="icons/church.png"></div><div class="ed-icon-opt" data-icon="wedding-cake" title="wedding-cake"><img src="icons/wedding-cake.png"></div><div class="ed-icon-opt" data-icon="wedding-ring" title="wedding-ring"><img src="icons/wedding-ring.png"></div></div>
-      </div>
-    </div>
-    <div class="ed-satnica-card" data-idx="2">
-      <div class="ed-satnica-row">
-        <div>
-          <label>Vreme</label>
-          <input class="sc-vreme" type="text" placeholder="10:00">
-        </div>
-        <div>
-          <label>Opis</label>
-          <textarea class="sc-opis" rows="2" placeholder="Opis događaja"></textarea>
-        </div>
-      </div>
-      <div style="margin-top:10px;">
-        <label>Ikonica</label>
-        <div class="ed-icon-select"><div class="ed-icon-opt" data-icon="house1" title="house1"><img src="icons/house1.png"></div><div class="ed-icon-opt" data-icon="house2" title="house2"><img src="icons/house2.png"></div><div class="ed-icon-opt" data-icon="church" title="church"><img src="icons/church.png"></div><div class="ed-icon-opt" data-icon="wedding-cake" title="wedding-cake"><img src="icons/wedding-cake.png"></div><div class="ed-icon-opt" data-icon="wedding-ring" title="wedding-ring"><img src="icons/wedding-ring.png"></div></div>
-      </div>
-    </div>
-    <div class="ed-satnica-card" data-idx="3">
-      <div class="ed-satnica-row">
-        <div>
-          <label>Vreme</label>
-          <input class="sc-vreme" type="text" placeholder="10:00">
-        </div>
-        <div>
-          <label>Opis</label>
-          <textarea class="sc-opis" rows="2" placeholder="Opis događaja"></textarea>
-        </div>
-      </div>
-      <div style="margin-top:10px;">
-        <label>Ikonica</label>
-        <div class="ed-icon-select"><div class="ed-icon-opt" data-icon="house1" title="house1"><img src="icons/house1.png"></div><div class="ed-icon-opt" data-icon="house2" title="house2"><img src="icons/house2.png"></div><div class="ed-icon-opt" data-icon="church" title="church"><img src="icons/church.png"></div><div class="ed-icon-opt" data-icon="wedding-cake" title="wedding-cake"><img src="icons/wedding-cake.png"></div><div class="ed-icon-opt" data-icon="wedding-ring" title="wedding-ring"><img src="icons/wedding-ring.png"></div></div>
-      </div>
-    </div>
-    <div class="ed-satnica-card" data-idx="4">
-      <div class="ed-satnica-row">
-        <div>
-          <label>Vreme</label>
-          <input class="sc-vreme" type="text" placeholder="10:00">
-        </div>
-        <div>
-          <label>Opis</label>
-          <textarea class="sc-opis" rows="2" placeholder="Opis događaja"></textarea>
-        </div>
-      </div>
-      <div style="margin-top:10px;">
-        <label>Ikonica</label>
-        <div class="ed-icon-select"><div class="ed-icon-opt" data-icon="house1" title="house1"><img src="icons/house1.png"></div><div class="ed-icon-opt" data-icon="house2" title="house2"><img src="icons/house2.png"></div><div class="ed-icon-opt" data-icon="church" title="church"><img src="icons/church.png"></div><div class="ed-icon-opt" data-icon="wedding-cake" title="wedding-cake"><img src="icons/wedding-cake.png"></div><div class="ed-icon-opt" data-icon="wedding-ring" title="wedding-ring"><img src="icons/wedding-ring.png"></div></div>
-      </div>
-    </div></div>
-    </div>
-
-    <!-- LOKACIJA -->
-    <div class="ed-section">
-      <div class="ed-section-title">Lokacija</div>
-      <div class="ed-row"><label>Naziv mesta</label><input id="ed-mapsNaziv" type="text"></div>
-      <div class="ed-row"><label>Google Maps embed URL <span style="opacity:.5;font-size:10px;">(maps.google.com → Podeli → Ugradi)</span></label><textarea id="ed-mapsUrl" rows="3"></textarea></div>
-    </div>
-
-    <!-- RSVP -->
-    <div class="ed-section">
-      <div class="ed-section-title">RSVP</div>
-      <div class="ed-row"><label>Rok za potvrdu</label><input id="ed-rsvpRok" type="text" placeholder="19. августа 2026."></div>
-      <div class="ed-row"><label>Apps Script URL</label><textarea id="ed-appsUrl" rows="2"></textarea></div>
-    </div>
-
-    <!-- OG SLIKA -->
-    <div class="ed-section">
-      <div class="ed-section-title">Link preview slika</div>
-      <div class="ed-row"><label>URL slike <span style="opacity:.5;font-size:10px;">(mora biti apsolutna adresa kada je sajt online)</span></label><input id="ed-ogSlika" type="text"></div>
-    </div>
-
-  </div><!-- /ed-body -->
-
-  <div id="ed-footer" style="flex-wrap:wrap;">
-    <button id="ed-apply">Primeni promene</button>
-    <button id="ed-reset">Resetuj</button>
-    <div id="ed-saved">✦ Promene primenjene!</div>
-  </div>
-
-</div><!-- /ed-panel -->
-
-
-<script>
-/* ══════════════════════════════════════════
-   EDITOR PANEL
-══════════════════════════════════════════ */
-(function(){
-  const toggle = document.getElementById("ed-toggle");
-  const panel  = document.getElementById("ed-panel");
-  const close  = document.getElementById("ed-close");
-  const applyBtn = document.getElementById("ed-apply");
-  const resetBtn = document.getElementById("ed-reset");
-  const saved  = document.getElementById("ed-saved");
-
-  toggle.addEventListener("click", () => {
-    panel.classList.toggle("open");
-    if(panel.classList.contains("open")) populateEditor();
-  });
-  close.addEventListener("click",  () => panel.classList.remove("open"));
-  document.addEventListener("keydown", e => { if(e.key==="Escape") panel.classList.remove("open"); });
-
-  function val(id){ const el=document.getElementById(id); return el?el.value.trim():""; }
-  function setValue(id,v){ const el=document.getElementById(id); if(el) el.value=v||""; }
-
-  function populateEditor(){
-    const C = CONFIG;
-    setValue("ed-ime1",     C.ime1);
-    setValue("ed-ime2",     C.ime2);
-    setValue("ed-mon1",     C.monogram1);
-    setValue("ed-mon2",     C.monogram2);
-    setValue("ed-datumP",   C.datumPrikaz);
-    setValue("ed-datumB",   C.datumBrojac);
-    setValue("ed-grad",     C.grad);
-    setValue("ed-drzava",   C.drzava);
-    setValue("ed-csub",     C.curtainSub);
-    setValue("ed-mapsNaziv",C.mapsNaziv);
-    setValue("ed-mapsUrl",  C.mapsUrl);
-    setValue("ed-rsvpRok",  C.rsvpRok);
-    setValue("ed-appsUrl",  C.appsScriptUrl);
-    setValue("ed-ogSlika",  C.ogSlika);
-
-    document.querySelectorAll("#ed-satnica .ed-satnica-card").forEach((card,i) => {
-      const item = C.satnica[i]||{};
-      card.querySelector(".sc-vreme").value = item.vreme||"";
-      card.querySelector(".sc-opis").value  = (item.opis||"").replace(/<br>/g,"\n");
-      card.querySelectorAll(".ed-icon-opt").forEach(btn => {
-        btn.classList.toggle("selected", btn.dataset.icon===item.icon);
-      });
-    });
-  }
-
-  // icon click
-  document.querySelectorAll(".ed-icon-opt").forEach(btn => {
-    btn.addEventListener("click", () => {
-      btn.closest(".ed-icon-select").querySelectorAll(".ed-icon-opt").forEach(b=>b.classList.remove("selected"));
-      btn.classList.add("selected");
-    });
-  });
-
-  applyBtn.addEventListener("click", () => {
-    CONFIG.ime1          = val("ed-ime1");
-    CONFIG.ime2          = val("ed-ime2");
-    CONFIG.monogram1     = val("ed-mon1");
-    CONFIG.monogram2     = val("ed-mon2");
-    CONFIG.datumPrikaz   = val("ed-datumP");
-    CONFIG.datumBrojac   = val("ed-datumB");
-    CONFIG.grad          = val("ed-grad");
-    CONFIG.drzava        = val("ed-drzava");
-    CONFIG.curtainSub    = val("ed-csub");
-    CONFIG.mapsNaziv     = val("ed-mapsNaziv");
-    CONFIG.mapsUrl       = val("ed-mapsUrl");
-    CONFIG.rsvpRok       = val("ed-rsvpRok");
-    CONFIG.appsScriptUrl = val("ed-appsUrl");
-    CONFIG.ogSlika       = val("ed-ogSlika");
-
-    document.querySelectorAll("#ed-satnica .ed-satnica-card").forEach((card,i) => {
-      const selIcon = card.querySelector(".ed-icon-opt.selected");
-      CONFIG.satnica[i] = {
-        vreme: card.querySelector(".sc-vreme").value.trim(),
-        opis:  card.querySelector(".sc-opis").value.trim().replace(/\n/g,"<br>"),
-        icon:  selIcon ? selIcon.dataset.icon : (CONFIG.satnica[i]||{}).icon,
-      };
-    });
-
-    reRender();
-    saved.classList.add("show");
-    setTimeout(()=>saved.classList.remove("show"), 2500);
-  });
-
-  resetBtn.addEventListener("click", populateEditor);
-
-  function reRender(){
-    const C = CONFIG;
-    const names = C.ime1 + " & " + C.ime2;
-
-    document.getElementById("page-title").textContent = names+" · "+C.datumPrikaz;
-    document.getElementById("curtain-mono").innerHTML  = C.monogram1+" &amp; "+C.monogram2;
-    document.getElementById("curtain-sub").textContent = C.curtainSub;
-    document.getElementById("open-btn").textContent    = C.curtainBtn;
-    document.getElementById("hero-program").innerHTML  = C.datumPrikaz+" &nbsp;·&nbsp; "+C.grad;
-    document.getElementById("hero-monogram").innerHTML = C.monogram1+" &amp; "+C.monogram2;
-    document.getElementById("hero-h1").innerHTML       = C.ime1+" &amp; "+C.ime2;
-    document.getElementById("hero-sub").innerHTML      = C.grad+" &nbsp;·&nbsp; "+C.drzava;
-    document.getElementById("map-iframe").src          = C.mapsUrl;
-    document.getElementById("map-caption").innerHTML   = C.mapsNaziv+" &nbsp;·&nbsp; "+C.grad;
-    document.getElementById("rsvp-intro").innerHTML    =
-      "Молимо вас да потврдите долазак најкасније до "+C.rsvpRok+
-      "<br>Радујемо се да прославимо овај дан заједно са вама.";
-    document.getElementById("footer-mono").innerHTML = C.monogram1+" &amp; "+C.monogram2;
-    document.getElementById("footer-date").innerHTML = C.datumPrikaz+" &nbsp;·&nbsp; "+C.grad;
-
-    // rebuild scratch grid
-    const grid = document.getElementById("scratch-grid");
-    grid.innerHTML = "";
-    C.satnica.forEach(item => {
-      const card = document.createElement("div");
-      card.className = "scratch-card in-view";
-      card.innerHTML =
-        `<div class="scratch-inner">` +
-          `<img src="icons/${item.icon}.png" alt="">` +
-          `<div class="scratch-time">${item.vreme}</div>` +
-          `<div class="scratch-desc">${item.opis}</div>` +
-        `</div><canvas></canvas>`;
-      grid.appendChild(card);
-    });
-    initScratchCards();
-  }
-
-})();
-</script>
-
 </body>
 </html>
